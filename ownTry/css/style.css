@@ -1,0 +1,37 @@
+
+body
+{
+text-align: center;
+}
+#menu li
+{
+	text-decoration: none;
+	list-style: none;
+	display: inline;
+	padding-right:6%;
+}
+#menu a
+{
+	text-decoration: none;
+	color: white;
+	font-size: 12pt;
+	font-family: sans-serif;
+	background-color: black;
+	border: 1px;
+	padding:70px;
+	border-radius:50%;
+	transition: .3s all;
+	box-shadow: 0px 0px 10px white;
+}
+#menu a:hover
+{
+	transition:.3s all;
+	font-size: 20pt;
+	padding: 110px;
+	/*border-radius: 0%;*/
+	background-color: white;
+	color:#666;
+	box-shadow: 0px 0px 50px yellow,
+				0px 0px 75px orange,
+				0px 0px 100px red;
+}
