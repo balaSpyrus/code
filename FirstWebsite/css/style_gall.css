@@ -25,56 +25,40 @@ footer, header, hgroup, menu, nav, section {
 	letter-spacing: 2px;
 
 }
-.float_img
+.hero
 {
 	min-height:50%;
 	min-width: 50%;
 	height:100%;
 	width: 100%;
-	transition:.3s all ease-in-out;
+	filter: brightness(10%);
+	transition:.5s all;
 }
-.float_img:hover
+.hero:hover
 {
-	transform: scale(2);
-	z-index:10000;
-transition:.3s all ease-in-out;
-height:90%;
-	width: 90%;
-	
-	box-shadow: 0px 0px 25px #3399ff,
-				0px 0px 50px white,
-				0px 0px 75px black;
-}
-.hero
-{
-	
-	filter: brightness(50%);
-	transition:.3s all;
+	transition:1s all;
+	filter: brightness(90%);
 }
 .section2 h1
 {
-	margin-top: 120%;
 	margin-bottom: 6%;
 }
 .section3
 {
-	margin-top: 30%;
+	margin-top: 4%;
 }
 
 .section3 img
 {
- width:100%;
- height: 100%;
+ width:50%;
+ height:50%;
+ display: inline;
 }
 .wrapper h3,h1
 {
 text-align: center;
 }
-.hero:hover
-{
-	transition:.3s all;
-	filter: brightness(90%);
-}
+
 .wrapper
 {
 	background: #e6e6e6;
@@ -189,3 +173,23 @@ text-align: center;
 	text-align: left;
 }
 
+
+.float_img_gall
+{
+	min-height:50%;
+	min-width: 50%;
+	height:100%;
+	width: 100%;
+	transition:.3s all ease-in-out;
+}
+.float_img_gall:hover
+{
+	transform: scale(.75);
+	z-index:10000;
+transition:.3s all ease-in-out;
+height:90%;
+	width: 90%;
+	
+	box-shadow: 0px 0px 50px black,
+				0px 0px 100px white;
+}
