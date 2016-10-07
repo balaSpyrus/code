@@ -1,16 +1,20 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+/* google font including*/
 html 
 { 
   background: url(../img/main.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
+  -o-background-size: cover;			/* setting background*/	
   background-size: cover;
 }
-
+body,h1,p{
+   font-family: 'Open Sans',serif;			/*setting the font*/
+}
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section 
 {
-    display: block;
+    display: block;						/* allocating entire section*/
 }
 .head
 {
@@ -21,7 +25,7 @@ footer, header, hgroup, menu, nav, section
 	width: 100%;
 	z-index:100000;
 }
-.head img
+.head img 								/* header css styling*/
 {
 	max-width: 3%;
   	max-height: 3%;
@@ -40,7 +44,7 @@ footer, header, hgroup, menu, nav, section
 {
 	float: right;	
 	position: relative;
-	font-size: 12pt;	
+	font-size: 12pt;									/* navigation bar styling*/
 }
 .navigate a
 {
@@ -78,7 +82,7 @@ footer, header, hgroup, menu, nav, section
 {
 	background: #e6e6e6;
 	color:#8c8c8c;
-	position: relative;
+	position: relative;										/* main section styling*/
 	top:9px;
 }
 .wrapper h3,h1
@@ -93,7 +97,7 @@ text-align: center;
 {
 	
 	filter: brightness(50%);
-	transition:.3s all;
+	transition:.3s all;									/* hero section*/
 }
 .hero:hover
 {
@@ -128,7 +132,7 @@ text-align: center;
 }
 
 .section3 img
-{
+{														/*other section styling*/
  	width:100%;
  	height: 100%;
 }
@@ -154,7 +158,7 @@ text-align: center;
 	text-shadow: none;
 	margin: 0;
 }
-.foot a
+.foot a 															/*footer section styling*/
 {
 	clear: both;
 	margin-left: 20%;

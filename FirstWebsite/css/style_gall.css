@@ -1,21 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+/* google font including*/
 html { 
   background: url(../img/main.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
-  -moz-background-size: cover;
+  -moz-background-size: cover;			/*setting background image*/
   -o-background-size: cover;
   background-size: cover;
 }
-
+body,h1,p{
+   font-family: 'Open Sans',serif;		/*setting google font*/
+}
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-    display: block;
+    display: block;							/* allocationg entire section*/
 }
 .head
 {
 	background:#3399ff;
 	color: white;
 	padding: .2%;
-	position: fixed;
+	position: fixed;					/*header css styling*/
 	width: 100%;
 	z-index:100000;
 }
@@ -47,7 +51,7 @@ footer, header, hgroup, menu, nav, section {
 	padding: 20px;
 	transition: .5s all;
 }
-
+												/* navigation bar styling*/
 .navigate a:hover
 {
 	color: #3399ff;
@@ -78,7 +82,7 @@ footer, header, hgroup, menu, nav, section {
 	background: #e6e6e6;
 	color:#8c8c8c;
 	position: relative;
-	top:9px;	
+	top:9px;									/* main section styling*/
 
 }
 .wrapper h3,h1
@@ -95,7 +99,7 @@ footer, header, hgroup, menu, nav, section {
 	min-height:50%;
 	min-width: 50%;
 	position: relative;
-	height:100%;
+	height:100%;								/*main gallery photo section styling*/
 	width: 100%;
 	filter: brightness(50%);
 	transition:.5s all;
@@ -134,7 +138,7 @@ footer, header, hgroup, menu, nav, section {
 {
 	margin-top: 4%;
 }
-
+												/* other sections styling*/
 .section3 img
 {
  width:90%;
@@ -146,7 +150,7 @@ footer, header, hgroup, menu, nav, section {
 
 .foot 
 {
-	background: black;
+	background: black;									/*footer section styling*/
 	color: white;
 	text-shadow: none;
 	margin: 0;
