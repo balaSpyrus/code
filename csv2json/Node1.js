@@ -3,8 +3,8 @@ var path = require('path');
 
 
 var filePath = path.join(__dirname, '1.csv');
-var filePath1 = path.join(__dirname, '2.csv');
-var filePath2 = path.join(__dirname, '3.csv');
+//var filePath1 = path.join(__dirname, '2.csv');
+//var filePath2 = path.join(__dirname, '3.csv');
 // Read CSV
 var f = fs.readFileSync(filePath, {encoding: 'utf-8'}, 
     function(err){console.log(err);});
