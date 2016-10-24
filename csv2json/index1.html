@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+  .bar {
+    fill: steelblue;
+  }
+
+  .bar:hover {
+    fill: brown;
+  }
+
+  .axis--x path {
+    display: none;
+  }
+
+</style>
+<svg width="1500" height="1000"></svg>
+<script src="d3.min.js"></script>
+<script>
+
+  var svg = d3.select("svg"),
+  margin = {top: 50, right: 50, bottom: 400, left: 100},
+  width = +svg.attr("width") - margin.left - margin.right,
+  height = +svg.attr("height") - margin.top - margin.bottom;
+
+  var x = d3.scaleBand().rangeRound([0, width]).padding(0.2),
+  y = d3.scaleLinear().rangeRound([height, 0]);
+
+  var g = svg.append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  d3.json("C_data.json", function(error, data) {
+    if (error) throw error;
+
+    x.domain(data.map(function(d) { return d.catogories; }));
+    y.domain([0, d3.max(data, function(d) { return d.population; })]);
+
+    g.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "rotate(-65)")
+    .attr("text-anchor","end")
+    .style("font-size","14pt");
+
+
+    g.append("g")
+    .attr("class", "y axis")
+    .call(d3.axisLeft(y).ticks(5))
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "0.71em")
+    .attr("text-anchor", "middle")
+    .text("population")
+    .style("font-size","14pt");
+
+    g.selectAll(".bar")
+    .data(data)
+    .enter().append("rect")
+    .attr("class", "bar")
+    .attr("x", function(d) { return x(d.catogories); })
+    .attr("y", function(d) { return y(d.population); })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.population); });
+  });
+
+</script>

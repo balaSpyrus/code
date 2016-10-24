@@ -94,7 +94,7 @@ read.on("close",function()
 			for(let i=0;i<json[0].length;i++)
 			{
 				var tmp={};
-				tmp["catogories"]=headers[x].substring(20,headers[x].length);
+				tmp["catogories"]=headers[x].substring(20,headers[x].length-10);
 				tmp["population"]=json[0][i];
 				jsonConvert.push(tmp);
 				x+=3;
