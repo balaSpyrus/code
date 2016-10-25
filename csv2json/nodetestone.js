@@ -143,12 +143,13 @@ read.on("close",function()
 });
 		read3.on("close",function()
 		{
+			console.log(json.shift());
 			var jsonConvert=[];
 			for(let i=0;i<json.length;i++)
 			{
 				var tmp={};
 				tmp[headers[5]]=json[i][0];
-				tmp[headers[12]]=json[i][1];
+				tmp[headers[12].substring(0,headers[12].length-10)]=json[i][1];
 				jsonConvert.push(tmp);
 			}
 //console.log(jsonConvert);

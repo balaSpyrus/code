@@ -162,9 +162,9 @@ read.on("close",function()
 			for(let i=0;i<json.length;i++)
 			{
 				var tmp={};
-				tmp[headers[3]]=json[i][0];
-				tmp[headers[40]]=json[i][1];
-				tmp[headers[41]]=json[i][2];
+				tmp["Area"]=json[i][0];
+				tmp["Males"]=json[i][1];
+				tmp["Females"]=json[i][2];
 				jsonConvert.push(tmp);
 			}
 //console.log(jsonConvert);

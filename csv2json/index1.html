@@ -2,69 +2,89 @@
 <meta charset="utf-8">
 <style>
 
-  .bar {
-    fill: steelblue;
-  }
 
-  .bar:hover {
-    fill: brown;
+  .legend text {
+    font: 18px sans-serif;
+    transition: .3s all;
   }
+  .legend text:hover
+  {
+    fill:black;
+    font: 30px sans-serif;
+    transition: .3s all;
+  }
+  .arc path {
+    stroke: #fff;
+  }
+  .arc{
 
-  .axis--x path {
-    display: none;
+    transition: .6s all;
+  }
+  .arc:hover{
+    transform:scale(1.25);
+    transition: .3s all;
   }
 
 </style>
-<svg width="1500" height="1000"></svg>
-<script src="d3.min.js"></script>
-<script>
+<body>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script>
 
-  var svg = d3.select("svg"),
-  margin = {top: 50, right: 50, bottom: 400, left: 100},
-  width = +svg.attr("width") - margin.left - margin.right,
-  height = +svg.attr("height") - margin.top - margin.bottom;
+    var width = 1300,
+    height = 550,
+    radius = Math.min(width, height)/2+80;
 
-  var x = d3.scaleBand().rangeRound([0, width]).padding(0.2),
-  y = d3.scaleLinear().rangeRound([height, 0]);
+    var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00","red", "blue", "green", "yellow", "cyan", "orange", "magenta","grey", "darkkhaki", "indigo", "pink", "antiquewhite", "  #6495ED", "#7FFF00","darkblue", "skyblue", "darkgreen", "coral", "violet", "olivegreen", "darkgrey"]);
 
-  var g = svg.append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var arc = d3.svg.arc()
+    .outerRadius(radius - 60)
+    .innerRadius(100);
 
-  d3.json("C_data.json", function(error, data) {
-    if (error) throw error;
+    
 
-    x.domain(data.map(function(d) { return d.catogories; }));
-    y.domain([0, d3.max(data, function(d) { return d.population; })]);
+    var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.Literate; });
 
-    g.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-    .selectAll("text")
-    .attr("transform", "rotate(-65)")
-    .attr("text-anchor","end")
-    .style("font-size","14pt");
+    var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height+200)
+    .append("g")
+    .attr("transform", "translate(" + ((width/2)+120 )+ "," + ((height / 2 )+120)+ ")");
 
+    var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "9999")
+    .style("visibility", "visible")
+    .style("font-size","25pt")
+    .style("color","white");
 
-    g.append("g")
-    .attr("class", "y axis")
-    .call(d3.axisLeft(y).ticks(5))
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", "0.71em")
-    .attr("text-anchor", "middle")
-    .text("population")
-    .style("font-size","14pt");
+    d3.json("A_data.json",function(error, data) {
+      if (error) throw error;
+      var g = svg.selectAll(".arc")
+      .data(pie(data))
+      .enter().append("g")
+      .attr("class", "arc");
+      g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data["Literate"]); })
+      .on("mouseover", function(d){return tooltip.style("visibility", "visible"),tooltip.text(d.data["Age-group"]);})
+      .on("mousemove", function(){return tooltip.style("top",
+        (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
-    g.selectAll(".bar")
-    .data(data)
-    .enter().append("rect")
-    .attr("class", "bar")
-    .attr("x", function(d) { return x(d.catogories); })
-    .attr("y", function(d) { return y(d.population); })
-    .attr("width", x.bandwidth())
-    .attr("height", function(d) { return height - y(d.population); });
-  });
+      d3.select("svg").append('g')
+      .attr('class','legend')
+      .selectAll('text')
+      .data(pie(data))
+      .enter()
+      .append('text')
+      .text(function(d){return d.data["Age-group"]+" ("+d.data.Literate+")";})
+      .attr('fill',function(d){return color(d.data.Literate);})
+      .attr('x',100)
+      .attr('y',function(d,i){return 25*(i+1);});
+    });
 
-</script>
+  </script>
