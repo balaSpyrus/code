@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+
+  .legend text {
+    font: 18px sans-serif;
+    transition: .3s all;
+  }
+  .legend text:hover
+  {
+    fill:black;
+    font: 30px sans-serif;
+    transition: .3s all;
+  }
+  .arc path {
+    stroke: #fff;
+  }
+  .arc{
+
+    transition: .6s all;
+  }
+  .arc:hover{
+    transform:scale(1.25);
+    transition: .3s all;
+  }
+  h1{
+    font: 30px sans-serif;
+    text-align: center;
+    color: grey;
+  }
+  a{
+    text-decoration: none;
+    color: grey;
+    font-size: 20pt;
+    background-color: lightblue;
+    border-radius: 4px;
+    padding: 4px;
+  }
+</style>
+<body>
+  <h1>Age wise - Literate Population</h1>
+
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script>
+
+    var width = 1300,
+    height = 500,
+    radius = Math.min(width, height)/2+80;
+
+    var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00","red", "blue", "green", "yellow", "cyan", "orange", "magenta","grey", "darkkhaki", "indigo", "pink", "antiquewhite", "  #6495ED", "#7FFF00","darkblue", "skyblue", "darkgreen", "coral", "violet", "olive", "darkgrey"]);
+
+    var arc = d3.svg.arc()
+    .outerRadius(radius - 60)
+    .innerRadius(100);
+
+    
+
+    var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.Literate; });
+
+    var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height+200)
+    .append("g")
+    .attr("transform", "translate(" + ((width/2)+120 )+ "," + ((height / 2 )+120)+ ")");
+
+    var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "9999")
+    .style("visibility", "visible")
+    .style("font-size","25pt")
+    .style("color","white");
+
+    d3.json("json/agewise_literates.json",function(error, data) {
+      if (error) throw error;
+      var g = svg.selectAll(".arc")
+      .data(pie(data))
+      .enter().append("g")
+      .attr("class", "arc");
+      g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data["Literate"]); })
+      .on("mouseover", function(d){return tooltip.style("visibility", "visible"),tooltip.text(d.data["Age-group"]);})
+      .on("mousemove", function(){return tooltip.style("top",
+        (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+
+      d3.select("svg").append('g')
+      .attr('class','legend')
+      .selectAll('text')
+      .data(pie(data))
+      .enter()
+      .append('text')
+      .text(function(d){return d.data["Age-group"]+" ("+d.data.Literate+")";})
+      .attr('fill',function(d){return color(d.data.Literate);})
+      .attr('x',100)
+      .attr('y',function(d,i){return 25*(i+1);});
+    });
+
+  </script>
+  <a href="">back</a>
+  <a href="state_gender_wise_graduates.html">next</a>
