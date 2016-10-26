@@ -23,7 +23,7 @@
 
 	d3.json("C_data.json", function(error, data) {
 		if (error) throw error;
-
+		data.sort(function(a, b) { return b.population - a.population; });
 		x.domain(data.map(function(d) { return d.catogories; }));
 		y.domain([0, d3.max(data, function(d) { return d.population; })]);
 
@@ -31,6 +31,7 @@
 		.data(data)
 		.enter()
 		.append('text')
+		.attr("class","tip")
 		.text(function (d) {return d.population})
 		.attr('x',function(d){return x(d.catogories)+50})
 		.attr('y',function(d){return y(d.population)})
@@ -52,27 +53,30 @@
 		.call(d3.axisLeft(y).ticks(10))
 		.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("text-anchor", "middle")
-		.attr("y", 6)
-		.attr("dy", "0.71em");
+		.attr("text-anchor", "end")
+		.attr("y", -160)
+		.attr("x",-160)
+		.attr("dy", "0.71em")
+		.text("Population");
 		
 
 		g.selectAll(".bar")
 		.data(data)
-		.enter().append("rect")
+		.enter()
+		.append("rect")
+		.attr("class","bar")
 		.attr("height",0)
 		.attr("y",height)
-		.transition().duration(500)
-		.delay(function(d,i){return i*50})
+		.transition().duration(1000)
+		.delay(function(d,i){return i*200})
 		.attr("class", "bar")		
 		.attr("x", function(d) { return x(d.catogories); })
 		.attr("y", function(d) { return y(d.population); })
 		.attr("width", x.bandwidth())
 		.attr("height", function(d) { return height - y(d.population); })
-		.style("fill",function(d,i){return 'rgb(255, 187, '+((i*10)+50)+')'})
-		.transition().duration(1000)
-		.delay(function(d,i){return i*200});
+		.style("fill",function(d,i){return 'rgb(255, 187, '+((i*30)+50)+')'});
 
 	});
+
 
 </script>
