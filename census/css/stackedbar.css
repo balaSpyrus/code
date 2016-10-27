@@ -1,0 +1,36 @@
+ .axis path,
+ .axis line {
+   fill: none;
+   stroke: #000;
+   shape-rendering: crispEdges;
+ }
+
+ .bar {
+  fill: skyblue;
+}
+
+.x_axis path,.y_axis path {
+  stroke:#565656;
+  fill:none;
+}
+.x_axis text,.y_axis text{
+  fill:#565656;
+  font-size: 14pt;
+  stroke: none;
+}
+h1{
+  font: 30px sans-serif;
+  text-align: center;
+  color: grey;
+}
+a{
+  text-decoration: none;
+  color: grey;
+  font-size: 20pt;
+  background-color: lightblue;
+  border-radius: 4px;
+  padding: 4px;
+}
+div{
+  float: right;
+}

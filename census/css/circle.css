@@ -1,0 +1,37 @@
+
+
+
+.legend text {
+  font: 18px sans-serif;
+  transition: .3s all;
+}
+.legend text:hover
+{
+  fill:black;
+  font: 30px sans-serif;
+  transition: .3s all;
+}
+.arc path {
+  stroke: #fff;
+}
+.arc{
+
+  transition: .6s all;
+}
+.arc:hover{
+  transform:scale(1.25);
+  transition: .3s all;
+}
+h1{
+  font: 30px sans-serif;
+  text-align: center;
+  color: grey;
+}
+a{
+  text-decoration: none;
+  color: grey;
+  font-size: 20pt;
+  background-color: lightblue;
+  border-radius: 4px;
+  padding: 4px;
+}
