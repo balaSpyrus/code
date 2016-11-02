@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>YTS-Movies</title>		
+	<!-- Mobile viewport optimized -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">		
+	<!-- Bootstrap CSS -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="includes/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<!--W3 CSS-->			
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<!---google fonts-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<!--add icons from font-awsome.min.css-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="includes/css/styles.css">		
+</head>
+<body>
+	<div class="container" id="navig">
+		<div class="navbar navbar-fixed-top">	
+			<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+			<button class="navbar-toggle" data-target=".navbar-responsive-collapse" data-toggle="collapse" type="button">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<a class="navbar-brand" href="/"><img src="media/images/sitename.jpg" alt="Your Logo"></a>
+
+			<div class="nav-collapse collapse navbar-responsive-collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active">
+						<a href="#">Home</a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">MyAccount<strong class="caret"></strong></span></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#"><span class="glyphicon glyphicon-wrench"> Update</span></a>
+							</li>
+							<li>
+								<a href="#"><span class="glyphicon glyphicon-refresh"> View</span></a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="#"><span class="glyphicon glyphicon-off">  Signout</span></a></li>
+							</li>
+						</ul>
+					</li>
+				</ul><!-- end nav pull-right -->
+			</div><!-- end nav-collapse -->				
+		</div><!-- end navbar -->
+	</div><!-- end container -->
+	<!-- First Parallax Image with Logo Text -->
+	<div id="fluid" class="bgimg-1 container-fluid">
+		<div class="w3-display-middle" id="find">
+			<span class="w3-center w3-xlarge w3-padding-xlarge w3-wide w3-animate-opacity">	
+				<form class="navbar-form"><span style="color: black">Find</span>
+					<input type="text" class="form-control" placeholder="Search Movies" id="searchInput">
+					<a href="#movies">
+						<button type="button" class="btn btn-default" onclick="getMovie();"><span class="glyphicon glyphicon-search"></span></button>
+					</a>
+				</form>	
+			</span>
+		</div>
+	</div>
+
+
+	<div class="container" id="movies">
+		<div class="row" id="data">
+			<div id="head"></div>
+			<ul class="pagination">
+				<li  id="previous"><a href="#movies"> << previous </a></li>
+				<li  id="next"><a href="#movies"> next >> </a></li>
+			</ul>
+			<div class="container" id="listheading"> </div>
+		</div><!-- end row -->
+		<ul class="pagination">
+			<li  id="previous"><a href="#movies"> << previous </a></li>
+			<li  id="next"><a href="#movies"> next >> </a></li>
+		</ul>
+	</div>
+
+
+	<div class="container" id="now">
+		<h3>NOW SHOWING</h3><br><br>
+		<div class="row">
+			<div class="col-sm-4">
+				<img src="media/images/1.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>KODI</h5>	
+			</div>	
+			<div class="col-sm-4">
+				<img src="media/images/2.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>KATHI SANDAI</h5>
+			</div> 
+			<div class="col-sm-4">
+				<img src="media/images/3.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>REMO</h5>
+			</div> 				
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<img src="media/images/4.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>DEVI</h5>
+			</div> 
+			<div class="col-sm-4">
+				<img src="media/images/1a.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>ANDAVAN KATALAI</h5>	
+			</div>
+			<div class="col-sm-4">
+				<img src="media/images/2a.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>M S DHONI</h5>	
+			</div>
+		</div>
+	</div>
+
+	<div class="container" id="up">
+		<h3>UPCOMINGS</h3><br><br>
+		<div class="row">
+			<div class="col-sm-2">
+				<img src="media/images/11.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>Rekka</h5>	
+			</div>	
+			<div class="col-sm-2">
+				<img src="media/images/12.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>Ae-Dil Hai Mushukil</h5>
+			</div>   	
+			<div class="col-sm-2">
+				<img src="media/images/13.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>Bahuballi</h5>	
+			</div>
+			<div class="col-sm-2">
+				<img src="media/images/14.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>Kabhil</h5>	
+			</div>
+
+			<div class="col-sm-2">
+				<img src="media/images/15.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>Dear Zindagi</h5>	
+			</div>	
+			<div class="col-sm-2">
+				<img src="media/images/16.jpg" class="img-responsive img-rectangle" alt="Image">
+				<h5>Kahaani 2</h5>
+			</div>   	
+		</div>			
+	</div>
+	<!-- About section -->
+	<div class="w3-dark-grey w3-center w3-text-light-grey w3-padding-32 w3-padding">	
+		<div class="container" id="subs">
+			<p font-color:"black">Lets get in touch...</p>				
+			<p><input class="w3-input w3-border w3-padding-16" type="text" placeholder="Email"></p><br>
+			<p><button class="w3-btn w3-light-grey w3-padding-large w3-hover-grey">
+				<i class="fa fa-paper-plane"></i> SUBSCRIBE
+			</button></p>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<h6>Copyright &copy; 2016 Spyrus</h6>
+				</div><!-- end col-sm-3 -->
+
+				<div class="col-sm-3">
+					<h6>Navigation</h6>
+					<ul class="unstyled">
+						<li><a href="#">Home</a></li>							
+					</ul>
+				</div><!-- end col-sm-3 -->
+				<div class="col-sm-3 w3-xlarge w3-padding-10">
+					<h6>find us on:</h6>
+					<a href="#" class="w3-hover-text-indigo"><i class="fa fa-facebook-official"></i></a>
+					<a href="#" class="w3-hover-text-light-blue"><i class="fa fa-twitter"></i></a>
+					<a href="#" class="w3-hover-text-indigo"><i class="fa fa-linkedin"></i></a>
+				</div><!-- end col-sm-3 -->
+				<div class="col-sm-3">
+					<h6>About us:</h6>						
+					<h6 class="w3-content w3-justify">
+						we are emerging online movies company.
+					</h6>			
+				</div><!-- end col-sm-3 -->			
+			</div><!-- end row -->
+		</div><!-- end container -->
+	</footer>
+	<!-- All Javascript at the bottom of the page for faster page loading -->		
+	<!-- First try for the online version of jQuery-->
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<!-- If no online access, fallback to our hardcoded version of jQuery -->
+	<script>window.jQuery || document.write('<script src="includes/js/jquery-3.1.1.min.js"><\/script>')</script>
+	<!-- Bootstrap JS -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<!--Custum js-->
+	<script src="includes/js/script.js"></script>
+</body>
+</html>
+
