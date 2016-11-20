@@ -1,0 +1,41 @@
+{
+  "name": "dev-env",
+  "version": "1.0.0",
+  "description": "my environment",
+  "main": "index.js",
+  "scripts": {
+    "build": "node node_modules/webpack/bin/webpack.js",
+    "server": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base client --inline --hot --host 0.0.0.0",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "balasubramanian",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.25.0",
+    "flexboxgrid": "^6.3.1",
+    "formsy-material-ui": "^0.5.2",
+    "formsy-react": "^0.18.1",
+    "material-ui": "^0.16.1",
+    "mongodb": "^2.2.11",
+    "muicss": "^0.9.4",
+    "npm": "^3.10.9",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-flexbox-grid": "^0.10.2",
+    "react-tap-event-plugin": "^1.0.0",
+    "react-validation": "^2.10.9",
+    "style-loader": "^0.13.1",
+    "superagent": "^2.3.0",
+    "validator": "^6.1.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
