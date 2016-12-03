@@ -1,0 +1,90 @@
+[29 11 2016 14:32:19.664] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:34:19.638] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:72:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:34:37.314] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 14:34:43.781] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:36:43.772] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:87:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:37:11.644] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:87:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:37:11.645] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:87:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:39:11.649] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:87:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:39:11.650] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:87:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:39:11.652] [ERROR] - Error in Mongoose connection:  { Error: Trying to open unclosed connection.
+    at NativeConnection.Connection.open (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/connection.js:237:15)
+    at Mongoose.connect (/Users/basavarajk/stackroute/code/express-app/node_modules/mongoose/lib/index.js:242:47)
+    at setupMongooseConnections (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:32:12)
+    at Server.module.exports (/Users/basavarajk/stackroute/code/express-app/webserver/app.js:87:3)
+    at emitTwo (events.js:106:13)
+    at Server.emit (events.js:191:7)
+    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:543:12)
+    at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23) state: 1 }
+[29 11 2016 14:41:11.126] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 14:42:45.714] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:43:10.973] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 14:43:13.688] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:45:18.730] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 14:45:21.552] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:45:24.030] [INFO] - Setting static path:  /Users/basavarajk/stackroute/code/express-app/webapp
+[29 11 2016 14:47:24.557] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:47:38.049] [INFO] - Setting static path:  /Users/basavarajk/stackroute/code/express-app/webapp
+[29 11 2016 14:48:41.314] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 14:48:43.939] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:48:44.154] [INFO] - Setting static path:  /Users/basavarajk/stackroute/code/express-app/webapp
+[29 11 2016 14:48:55.574] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:48:57.707] [INFO] - Setting static path:  /Users/basavarajk/stackroute/code/express-app/webapp
+[29 11 2016 14:50:57.784] [INFO] - Setting static path:  /Users/basavarajk/stackroute/code/express-app/webapp
+[29 11 2016 14:53:48.844] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 14:53:51.426] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 14:53:59.577] [ERROR] - Requested Entity not found, query:  { name: 'basav' }
+[29 11 2016 14:53:59.595] [ERROR] - Error in fetching entity  Entity not available or not found..!
+[29 11 2016 14:54:00.660] [ERROR] - Requested Entity not found, query:  { name: 'basav' }
+[29 11 2016 14:54:00.661] [ERROR] - Error in fetching entity  Entity not available or not found..!
+[29 11 2016 14:54:22.645] [DEBUG] - Mongoose is now disconnected..!
+[29 11 2016 15:02:28.359] [DEBUG] - Mongoose is now connected to  mongodb://127.0.0.1:27017/AppDB
+[29 11 2016 15:05:41.267] [DEBUG] - Mongoose is now disconnected..!
