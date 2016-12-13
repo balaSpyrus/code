@@ -1,19 +1,19 @@
 'use strict';
 const logger = require('./../../applogger');
 const Router = require('express').Router();
-const controller = require('./searchController');
+const controller = require('./docCrawlerEngineController');
 
-Router.get('/:jobID', function(req, res) {
+Router.get('/:urlID', function(req, res) {
   try {
-    let sendData=controller.storeURL(req.params.jobID, (err, result) => {
+    let sendData=controller.getData(req.params.urlID, (err, result) => {
       if (err) {
-
         logger.error('Error in fetching entity ', err);
         return res.status(500).json({
           error: 'Something went wrong, please try later..!'
         });
       }
-      console.log("from the storeURL server side :")
+
+      console.log("from the refineData server side :")
       console.log(result)
       //  SUCCESS
       return res.json(result);
@@ -25,8 +25,12 @@ Router.get('/:jobID', function(req, res) {
       error: 'Something went wrong while pathing, please try later..!'
     });
   }
-  
+});
+Router.get('/', function(req, res) {
+
+    return res.status(200).json({
+      data: 'im workinggg'
+    });
 
 });
-
 module.exports = Router;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
+import Formsy from 'formsy-react';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -41,8 +42,8 @@ export default class AddJobDialog extends React.Component {
     canSubmit:false,
     open: false,
     query:"",
-    engineID:"eng1",
-    extraTerms:"",
+    engineID:"009216953448521283757:ibz3hdutpom AIzaSyAZlmGbpm66fk3sHXENieM61djlueEds9Y",
+    exactTerms:"",
     results:0,
     siteSearch:""}
   }
@@ -51,7 +52,7 @@ export default class AddJobDialog extends React.Component {
     let newJob = {
       query: this.state.query,
       engineID: this.state.engineID,
-      extraTerms:(this.state.extraTerms ===""?"NONE":this.state.extraTerms),
+      exactTerms:(this.state.exactTerms ===""?"NONE":this.state.exactTerms),
       results:this.state.results,
       siteSearch:(this.state.siteSearch ===""?"NONE":this.state.siteSearch)
     };
@@ -64,16 +65,16 @@ export default class AddJobDialog extends React.Component {
   {
     this.setState({query:e.target.value})
   }
-  onChangeEngineID = (event, index, value) => {
+  onChangeEngineID = (event, index) => {
     this.setState({engineID:index})
   };
   
-  onChangeExtraTerms(e)
+  onChangeExactTerms(e)
   {
-    this.setState({extraTerms:e.target.value})
+    this.setState({exactTerms:e.target.value})
   }
   onChangeResults(e)
-  {
+  {  
     this.setState({results:e.target.value})
   }
   onChangeSite(e)
@@ -152,23 +153,25 @@ export default class AddJobDialog extends React.Component {
       fullWidth={true}
       onChange={this.onChangeEngineID.bind(this)}
       >
-      <MenuItem value="eng1" primaryText="engine-1" />
-      <MenuItem value="eng2" primaryText="engine-2" />
-      <MenuItem value="eng3" primaryText="engine-3" />
-
+      <MenuItem value="009216953448521283757:ibz3hdutpom AIzaSyAZlmGbpm66fk3sHXENieM61djlueEds9Y" 
+      primaryText="Engine - A" />
+      <MenuItem value="015901048907159908775:bu8jkb0g1c0 AIzaSyBb4sbJNrnGmPmHiwEOxtF_ZEbcRBzNr60" 
+      primaryText="Engine - B" />
+      <MenuItem value="017039332294312221469:tjlfw4hfuwc AIzaSyAkZ_luP7pNchE_V2EMeiw2AwE7kKmbQVY" 
+      primaryText="Engine - C" />
       </FormsySelect></Col>
       </Row>
       <Row>
-      <Col lg={3} style={Label}>EXTRA-TERMS</Col>
+      <Col lg={3} style={Label}>EXACT-TERMS</Col>
       <Col lg={9}><FormsyText
       type="text"
-      name="extraTerms"
+      name="exactTerms"
       validations="isWords"
       validationError={wordsError}
       updateImmediately
       hintText="value"
       style={tfont}
-      fullWidth={true} onChange={this.onChangeExtraTerms.bind(this)}/></Col>
+      fullWidth={true} onChange={this.onChangeExactTerms.bind(this)}/></Col>
       </Row>
 
       <Row>
@@ -204,4 +207,7 @@ export default class AddJobDialog extends React.Component {
       </div>
       );
   }
+}
+AddJobDialog.propTypes = {  
+  addJob: React.PropTypes.func
 }

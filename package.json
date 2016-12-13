@@ -1,0 +1,26 @@
+{
+  "name": "wave11",
+  "version": "1.0.0",
+  "description": "test repo",
+  "main": "http.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balaSpyrus/wave11.git"
+  },
+  "keywords": [
+    "learning"
+  ],
+  "author": "bala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balaSpyrus/wave11/issues"
+  },
+  "homepage": "https://github.com/balaSpyrus/wave11#readme",
+  "dependencies": {
+    "deasync": "^0.1.9",
+    "request": "^2.79.0"
+  }
+}
