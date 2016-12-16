@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+
 const amqp = require('amqplib/callback_api');
 const highland = require('highland');
 const crawlerModules = require('./crawlerModules');
@@ -8,9 +8,9 @@ const request= require('request');
 const cheerio = require("cheerio");
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
-amqp.connect('amqp://localhost', function(err, conn) {
+amqp.connect(process.env.RABBITMQ, function(err, conn) {
   conn.createChannel(function(errs, ch) {
-    let q = 'hello';
+    let q = 'crawler';
     ch.assertQueue(q, {durable: false});
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
     ch.consume(q, function(msg) {
@@ -60,7 +60,7 @@ searchModel.findOne(url, function(err, urlDetails) {
     text = text.replace(/\s+/g, " ")
     .replace(/[^a-zA-Z ]/g, "")
     .toLowerCase();
-    console.log("created texts")   
+    console.log("created texts for "+urlDetails.url)
     let urlArray=[];
     urlArray.push(text);
     highland(urlArray)
@@ -72,7 +72,5 @@ searchModel.findOne(url, function(err, urlDetails) {
 
   })
 
-}); 
-
-
+});
 }
