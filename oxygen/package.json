@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "www": "node ./bin/www",
-    "start": "node ./bin/www",
-    "search": "node ./bin/search",
-    "crawl": "node ./bin/crawl",
+    "serve": "node bin/www",
+    "www": "node bin/www",
+    "search": "node server/docsearch.service",
+    "crawl": "node server/doccrawl.service",
     "build": "gulp build",
     "lint": "gulp eslint",
     "clean": "gulp clean"
@@ -51,6 +51,7 @@
     "mongoose": "^4.7.0",
     "morgan": "^1.7.0",
     "muicss": "^0.9.4",
+    "neo4j-driver": "^1.0.5",
     "rc-pagination": "^1.6.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
