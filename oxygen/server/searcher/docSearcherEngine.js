@@ -1,5 +1,4 @@
 const logger = require('./../../applogger');
-const crawlerEngine=require('./docOpenCrawlerEngine');
 const storeURL=require('./searchController').storeURL;
 // const amqp = require('amqplib/callback_api');
 const amqp = require('amqplib');

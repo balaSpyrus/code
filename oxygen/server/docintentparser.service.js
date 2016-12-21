@@ -1,5 +1,5 @@
 const logger = require('../applogger');
-const searcherEngine = require('./searcher/docSearcherEngine');
+const intentParserEngine = require('./intentParser/docIntentParserEngine');
 const config = require('../config');
 
 const mongoose = require('mongoose');
@@ -32,7 +32,7 @@ function setupMongooseConnections() {
 }
 
 function welcome() {
-  let motdFile = path.resolve(__dirname, '.search.motd');
+  let motdFile = path.resolve(__dirname, '.intent.motd');
   const fs = require('fs');
   if (fs.existsSync(motdFile)) {
     let msg = fs.readFileSync(motdFile, 'utf-8');
@@ -42,19 +42,19 @@ function welcome() {
   }
 }
 
-let startDocSearcherEngine = function() {
+let startIntentParserEngine = function() {
   try {
     welcome();
 
     //Any pre-requisites for running the engine
     setupMongooseConnections();
 
-    logger.info("Starting doc search engine..!");
+    logger.info("Starting doc intentParser engine..!");
 
-    searcherEngine.startSearcher();
+    intentParserEngine.startIntentParser();
   } catch (err) {
-    logger.error("Caught error in running doc searcher engine: ", err);
+    logger.error("Caught error in running doc intentParser engine: ", err);
   }
 }
 
-startDocSearcherEngine();
+startIntentParserEngine();

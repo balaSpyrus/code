@@ -15,14 +15,11 @@ const getURL= function(jobDetails,i,callback)
   let url="https://www.googleapis.com/customsearch/v1?q="+
   jobDetails.query+"&cx="+eng[0]+"&key="+eng[1]+"&start="+i;
   if(jobDetails.siteSearch!=='NONE'){
-    url="https://www.googleapis.com/customsearch/v1?q="+
-    jobDetails.query+"&cx="+eng[0]+"&key="+eng[1]+"&start="+i+"&siteSearch="+jobDetails.siteSearch;
+    url+="&siteSearch="+jobDetails.siteSearch;
   }
   if(jobDetails.exactTerms!=='NONE')
   {
-    url="https://www.googleapis.com/customsearch/v1?q="+
-    jobDetails.query+"&cx="+eng[0]+"&key="+eng[1]+"&start="+i+"&siteSearch="+
-    jobDetails.siteSearch+"&exactTerms="+jobDetails.exactTerms;
+    url+="&exactTerms="+jobDetails.exactTerms;
   }
   let searchResults=[];
   console.log(i+" "+url+" "+jobDetails.results);
@@ -100,8 +97,12 @@ const storeURL = function(id) {
           }
           else {
             console.log("saved "+i+" "+savedObj._id);
-            let objId=savedObj._id;
-            startCrawlerMQ(objId.toString());
+            let msgObj={
+              domain:jobDetails.exactTerms,
+              concept:jobDetails.query,
+              url:savedObj.url
+            };
+            startCrawlerMQ(msgObj);
               //ch.sendToQueue('hello', new Buffer(objId));
             }
           });

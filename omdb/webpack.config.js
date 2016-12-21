@@ -1,0 +1,18 @@
+module.exports={
+  entry:'./client/App.jsx',
+  output:{
+    path:'client/assets/',
+    filename:'bundle.js',
+    publicPath:'/assets/'
+  },
+  module:
+  {
+    loaders:[{
+      loader:'babel',
+      test:/\.jsx$/,
+      query:{
+        presets:['es2015','react','stage-1']
+      }
+    }]
+  }
+};

@@ -54,12 +54,12 @@ let initialiseDomainOntology = function(domainName) {
         logger.debug('[*] [domainManager] Result from neo4j: ',
           record);
       });
-      
-        // Completed! 
+
+        // Completed!
         session.close();
         resolve(domainName);
       })
-    
+
     .catch(function(err) {
       logger.error(
         'Error in neo4j query for initialising domain with defaults: ',
@@ -75,40 +75,40 @@ let initialiseDomainOntology = function(domainName) {
 
 // Along with domain, specify exact concept(s) and intent(s)
 let buildDomainIndex = function(domainName) {
-  // let promise = new Promise(function(resolve, reject) {
-  //   Fetch all domain concepts and intents
-  //   domainNeo4jController.getDomainConcepts(domainName)
-  //   .then(function(conceptsColln) {
-  //     docSearchJobMgr.kickOffDomainIndexing(domainName, conceptsColln)
-  //     .then(function(result) {
-  //       resolve(result);
-  //     }, function(err) {
-  //       reject(err);
-  //     });
-  //   }, function(err) {
-  //     reject(err);
-  //   });
-  // });
+  let promise = new Promise(function(resolve, reject) {
+   // Fetch all domain concepts and intents
+   domainNeo4jController.getDomainConcept(domainName)
+   .then(function(conceptsColln) {
+    docSearchJobMgr.kickOffDomainIndexing(conceptsColln)
+    .then(function(result) {
+      resolve(conceptsColln);
+    }, function(err) {
+      reject(err);
+    });
+  }, function(err) {
+    reject(err);
+  });
+ });
 
-  // return promise;
+  return promise;
 }
 
 let buildDomainIndexCallBack = function(domainName, callback) {
   buildDomainIndex(domainName)
-    .then(function(result) {
-      callback(null, result);
-    }, function(err) {
-      callback(err, null);
-    });
+  .then(function(result) {
+    callback(null, result);
+  }, function(err) {
+    callback(err, null);
+  });
 }
 
 let initialiseDomainOntologyCallBack = function(domainName, callback) {
   initialiseDomainOntology(domainName)
-    .then(function(result) {
-      callback(null, result);
-    }, function(err) {
-      callback(err, null);
-    });
+  .then(function(result) {
+    callback(null, result);
+  }, function(err) {
+    callback(err, null);
+  });
 }
 
 module.exports = {
