@@ -10,11 +10,9 @@ const style = {
   width: 750,
   marginLeft:"auto",
   marginRight:"auto",
-  marginTop: 20,
+  marginTop: 5,
   align:"center",
- // marginRight:20,
- textAlign: 'center',
-  //display: 'inline-block',
+  textAlign: 'center',
 };
 
 const fruit = [
@@ -47,7 +45,9 @@ const fruit = [
 export default class AutoCompleteSearchBox extends React.Component {
   constructor(props) {
     super(props)
+
   }
+  
   render()
   {
     return(
@@ -56,8 +56,9 @@ export default class AutoCompleteSearchBox extends React.Component {
       <AutoComplete
       floatingLabelText="Search"
       filter={AutoComplete.fuzzyFilter}
-      dataSource={fruit}
+      dataSource={this.props.concepts}
       style={{width:"-10px"}}
+      onNewRequest={this.props.sendConcept}
       textFieldStyle={{width:"680px"}}
       listStyle={{width:"680px"}}
       maxSearchResults={5}

@@ -20,10 +20,9 @@ paper:{
 export default class SelectPanel extends React.Component {
   constructor(props) {
     super(props)
-    this.state={
-      intents:["sample1","sample2","3","4","5","6","sample1","sample2","3","4","5","6","sample2","3","4","5","6","sample1","sample2","3","4","5","6","sample2","3","4","5","6","sample1","sample2","3","4","5","6"]
-    }
   }
+
+
   render()
   {
     return(
@@ -32,10 +31,12 @@ export default class SelectPanel extends React.Component {
       <h2 style={{color:"grey"}}>INTENTS</h2>      
       <div style={{overflowY:"scroll",height:"630px"}}>
       {
-        this.state.intents.map((intent,i)=>{
+        this.props.intents.map((intent,i)=>{
           return <Checkbox
           key={i}
           label={intent}
+          value={intent}
+          onCheck={this.props.getCheckedIntent}
           labelPosition="left"
           style={styles.checkbox}
           />
