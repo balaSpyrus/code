@@ -4,8 +4,6 @@ const router = require('express').Router();
 
 const domainCtrl = require('./domainController');
 
-const DOMAIN_NAME_MIN_LENGTH = 3;
-
 // Mounted at mount point /domain/
 
 // Create new domain
@@ -69,8 +67,7 @@ router.get('/:domainName', function(req, res) {
 
  try {
 
-  let domainName = req.params.domainName;  
-
+  let domainName = req.params.domainName;
   domainCtrl.getDomain(domainName).then(function(domainDetails) {
     logger.info("Successfully retrived all concepts and intents of a domain : ");
     logger.info(domainDetails)
