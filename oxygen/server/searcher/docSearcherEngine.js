@@ -1,12 +1,13 @@
 const logger = require('./../../applogger');
 const storeURL=require('./searchController').storeURL;
+const config = require('./../../config');
 // const amqp = require('amqplib/callback_api');
 const amqp = require('amqplib');
 const highland = require('highland');
 
 // require('events').EventEmitter.defaultMaxListeners = Infinity;
 const startSearcher = function() {
- let amqpConn = amqp.connect('amqp://localhost');
+ let amqpConn = amqp.connect(config.RABBITMQ.rabbitmqURL);
 
  amqpConn
  .then(function(conn) {
@@ -14,19 +15,17 @@ const startSearcher = function() {
    return conn.createChannel();
  })
  .then(function(chConn) {
-   logger.info('[*] Established AMQP Channel connection successfully..!');
-
-     //@TODO take the crawler MQ name from Config
-     let crawlerMQName = 'searcher';
-
+  logger.info('[*] Established AMQP Channel connection successfully..!');
      //making durable as false, so that .....
-     chConn.assertQueue(crawlerMQName, { durable: false })
+     chConn.assertQueue(config.OXYGEN.SEARCHER_MQ_NAME, { durable: false })
      .then(function(ok) {
        logger.debug("What is ok: ", ok);
-       logger.debug('[*] Waiting for messages on [' + crawlerMQName + '], to exit press CTRL+C ');
+       logger.debug('[*] Waiting for messages on [' 
+        + config.OXYGEN.SEARCHER_MQ_NAME +
+        '], to exit press CTRL+C ');
 
        highland(function(push, next) {
-         chConn.consume(crawlerMQName, function(msg) {
+         chConn.consume(config.OXYGEN.SEARCHER_MQ_NAME, function(msg) {
            logger.debug('[*] GOT [', msg.fields.routingKey, ']  [', msg.fields.consumerTag, ']');
 
            const dataObj = {
@@ -46,11 +45,13 @@ const startSearcher = function() {
        .each(function(dataObj) {
          logger.debug("Consuming the data: ", dataObj);
          storeURL(dataObj.data);
+
        });
        }); //end of assertQueue
    }); //end of channelConnection
+
 }
 
 module.exports = {
- startSearcher: startSearcher
+  startSearcher: startSearcher
 };

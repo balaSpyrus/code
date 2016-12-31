@@ -1,6 +1,8 @@
+
+
 var query=["devops","html","css","js","json","react","angular","google","facebook","twitter"];
-var key=["AIzaSyAkZ_luP7pNchE_V2EMeiw2AwE7kKmbQVY"];
-var engID=["009216953448521283757:f-nqohhuzh0"];
+var key=["AIzaSyC7XMsUPGIaHo1rT0nIAYWuQZGNEZdRabs"];
+var engID=["007705081896440677668:8luezkczozo"];
 var start=1;
 var count=0;
 // <br><img src="+data.items[k].pagemap.cse_image[0].src+"/>

@@ -1,11 +1,11 @@
 const logger = require('./../../applogger');
-
+const config = require('./../../config');
 //const amqp = require('amqplib/callback_api');
 const amqp = require('amqplib');
 
 // require('events').EventEmitter.defaultMaxListeners = Infinity;
 const startSearcher = function(urlDataObjId) {
- let amqpConn = amqp.connect('amqp://localhost');
+ let amqpConn = amqp.connect(config.RABBITMQ.rabbitmqURL);
 
  amqpConn
  .then(function(conn) {
@@ -16,14 +16,14 @@ const startSearcher = function(urlDataObjId) {
    logger.info('[*] Established AMQP Channel connection successfully..!');
 
      //@TODO take the crawler MQ name from Config
-     let crawlerMQName = 'searcher';
-
      //making durable as false, so that .....
-     chConn.assertQueue(crawlerMQName, { durable: false })
+     chConn.assertQueue(config.OXYGEN.SEARCHER_MQ_NAME, { durable: false })
      .then(function(ok) {
        logger.debug("What is ok: ", ok);
-       logger.debug('[*] Waiting for messages on [' + crawlerMQName + '], to exit press CTRL+C ');
-       chConn.sendToQueue(crawlerMQName,new Buffer(urlDataObjId) );
+       logger.debug('[*] Waiting for messages on [' +
+        config.OXYGEN.SEARCHER_MQ_NAME +
+        '], to exit press CTRL+C ');
+       chConn.sendToQueue(config.OXYGEN.SEARCHER_MQ_NAME,new Buffer(urlDataObjId) );
        logger.debug("msg sent to searcher .. ..  ..");
        }); //end of assertQueue
    }); //end of channelConnection

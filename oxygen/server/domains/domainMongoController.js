@@ -1,5 +1,5 @@
 const DomainModel = require('./domainEntity').DomainModel;
-
+const webDocumentModel = require('./../crawler/webDocumentsEntity').webDocumentsModel;
 const logger = require('./../../applogger');
 
 let saveNewDomain = function(newDomainObj) {
@@ -59,18 +59,33 @@ let getAllDomain = function() {
        reject(err);
      }
 
-     if (domainColln.length===0) {
-       reject({
-         error: "NO domain object while retriving all the domains from mongo..!"
-       });
-     }
-
-     logger.debug('**************',domainColln);
+     logger.debug('domains',domainColln);
      resolve(domainColln);
    });
  })
 
  return promise;
+
+}
+
+let getSearchResultDocuments = function(url) {
+  let promise = new Promise(function(resolve, reject) {
+
+    let urlObj = {
+      url:url
+    };
+
+
+    webDocumentModel.findOne(urlObj,function(err, foundDocument) {
+      if (err) {
+        reject(err);
+      }
+
+      resolve(foundDocument);
+    });
+  })
+
+  return promise;
 
 }
 
@@ -84,6 +99,7 @@ let saveNewDomainCallBack = function(newDomainObj, callback) {
       callback(err, null);
     });
 }
+
 
 let checkDomainCallback = function(domainName, callback) {
   checkDomain(domainName)
@@ -143,6 +159,7 @@ module.exports = {
   checkDomainCallback:checkDomainCallback,
   saveNewDomainCallBack: saveNewDomainCallBack,
   updateDomainStatus: updateDomainStatus,
-  getDomainObj: getDomainObj
+  getDomainObj: getDomainObj,
+  getSearchResultDocument:getSearchResultDocuments
 
 }

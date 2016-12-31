@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 const logger = require('./../../applogger');
-const searchModel = require('./searchEntity').searchModel;
+//const searchModel = require('./searchEntity').searchModel;
+const datapublisher = require('../serviceLogger/redisLogger');
 const async = require('async');
 const docSearchJobModel = require('./../docSearchJob/docSearchJobEntity').docSearchJobModel;
 const Request = require('superagent');
@@ -25,35 +26,44 @@ const getURL= function(jobDetails,i,callback)
   .get(url)
   .end(function(err,body)
   {
+    let data;
     if(err)
     {
       logger.error("encountered error while communicating with the google api :")
       logger.error(err);
+      callback(err,null);
     }
+    else
+    {
+      data = JSON.parse(body.text);
+    } 
 
-    console.log(body);
-    let data = JSON.parse(body.text);
-    //console.log(data)
-    for (let k = 0; k < data.items.length; k+=1) {
 
-      if((i+k)<=jobDetails.results)
-      {
-        let searchResult={
-          "jobID":jobDetails._id,
-          "query":jobDetails.query,
-          "title":data.items[k].title,
-          "url":data.items[k].link,
-          "description":data.items[k].snippet
-        };
-        searchResults.push(searchResult);
+    if(typeof data!=="undefined" && Object.keys(data).length===6)
+    {
+      logger.debug("retrived the "+data.items.length+" document for concept"+jobDetails.query);
+
+      for (let k = 0; k < data.items.length; k+=1) {
+
+        if((i+k)<=jobDetails.results)
+        {
+          let searchResult={
+            "jobID":jobDetails._id,
+            "query":jobDetails.query,
+            "title":data.items[k].title,
+            "url":data.items[k].link,
+            "description":data.items[k].snippet
+          };
+          searchResults.push(searchResult);
+        }
+        else
+          {break;}
       }
-      else
-        {break;}
+      callback(null,searchResults);
     }
-    callback(null,searchResults);
-   // console.log(searchResults);
 
- });
+
+  });
 
 }
 
@@ -83,35 +93,61 @@ const storeURL = function(id) {
 
 
   let sendData=async.parallel(stack,function(errs,res){
-    let send=[];
-    res.map((ele)=>{
-      console.log(ele.length);
-      ele.map((data,i)=>{
-
-        send.push(data);
-        let saveUrl=new searchModel(data);
-        saveUrl.save(function (saveErr,savedObj) {
-          if (saveErr) {
-            console.log(saveErr);
-          }
-          else {
-            console.log("saved "+i+" "+savedObj._id);
+    // let send=[];
+    if(errs){
+      logger.error("some error in google api :")
+      logger.error(errs)
+      return errs;
+      //return callback(null, {'saved urls':send.length,'content':send});
+    }
+    logger.info("response array")
+    logger.info(res)
+    if(res.length!==0)
+    {
+      res.map((ele)=>{
+        ele.map((data,i)=>{
+          //send.push(data);
+          // let saveUrl=new searchModel(data);
+         // saveUrl.save(function (saveErr,savedObj) {
+          //  if (saveErr) {
+           //   logger.error(saveErr);
+           // }
+           // else {
+            logger.debug("sending "+i+" "+data.query);
             let msgObj={
-              domain:jobDetails.exactTerms,
-              concept:jobDetails.query,
-              url:savedObj.url
+              domain: jobDetails.exactTerms,
+              concept: jobDetails.query,
+              url: data.url,
+              title:data.title,
+              description:data.description
             };
-            startCrawlerMQ(msgObj);
+              //searchModel.close()
+              startCrawlerMQ(msgObj);
+
+              let RedisSearch={
+                domain: jobDetails.exactTerms,
+                actor: 'searcher',
+                message: jobDetails.query,
+                status: 'search completed'
+              }
+              datapublisher.processFinished(RedisSearch);
               //ch.sendToQueue('hello', new Buffer(objId));
-            }
-          });
+              let redisCrawl={
+                domain: jobDetails.exactTerms,
+                actor: 'crawler',
+                message: data.url,
+                status: 'crawl started for the url'
+              }
+              datapublisher.processStart(redisCrawl);
+           // }
+         // });
+
+       })
 
       })
-
-    })
-    console.log(send);
-      //return callback(null, {'saved urls':send.length,'content':send});
-    })
+    }
+    return {msg:"done on searcher and sent msg to crawler"};
+  })
   return sendData;
 });
 

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/balaSpyrus/wave11#readme",
   "dependencies": {
+    "cheerio": "^0.22.0",
     "deasync": "^0.1.9",
     "request": "^2.79.0"
   }

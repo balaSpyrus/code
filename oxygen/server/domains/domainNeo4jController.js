@@ -3,20 +3,21 @@ const neo4jDriver = require('neo4j-driver').v1;
 const logger = require('./../../applogger');
 
 const config = require('./../../config');
+const graphConsts = require('./../common/graphConstants');
 
 let indexNewDomain = function(newDomainObj) {
   let promise = new Promise(function(resolve, reject) {
 
     logger.debug("Now proceeding to index new domain: ", newDomainObj);
-    let driver = neo4jDriver.driver(config.NEO4J_BOLT_URL,
-      neo4jDriver.auth.basic(config.NEO4J_USR, config.NEO4J_PWD),{encrypted:false}
+    let driver = neo4jDriver.driver(config.NEO4J.neo4jURL,
+      neo4jDriver.auth.basic(config.NEO4J.usr, config.NEO4J.pwd),{encrypted:false}
       );
 
     let session = driver.session();
 
     logger.debug("obtained connection with neo4j");
 
-    let query = 'MERGE (d:'+config.NEO4J_DOMAIN+' {name:{domainName}}) return d';
+    let query = 'MERGE (d:'+graphConsts.NODE_DOMAIN+' {name:{domainName}}) return d';
     let params = {
       domainName: newDomainObj.name
     };
@@ -45,20 +46,20 @@ let getAllDomainConcept = function(domainNameColln) {
   let promise = new Promise(function(resolve, reject) {
 
     logger.debug("Now proceeding to retrive the concepts for all domains: ");
-    let driver = neo4jDriver.driver(config.NEO4J_BOLT_URL,
-      neo4jDriver.auth.basic(config.NEO4J_USR, config.NEO4J_PWD),{encrypted:false}
+    let driver = neo4jDriver.driver(config.NEO4J.neo4jURL,
+      neo4jDriver.auth.basic(config.NEO4J.usr, config.NEO4J.pwd),{encrypted:false}
       );
 
     let session = driver.session();
 
     logger.debug("obtained connection with neo4j");
     let data=[];
-    
+
     domainNameColln.forEach(function(domainName){
 
-      let query = 'MATCH (d:'+config.NEO4J_DOMAIN+'{name:{domainName}}) match(c:'
-      +config.NEO4J_CONCEPT+') match(d)<-[r:'+config.NEO4J_CON_REL
-      +']-(c)  RETURN d,count(c)';
+      let query = 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+      query+= 'match(c:'+graphConsts.NODE_CONCEPT+')'
+      query+= 'match(d)<-[r:'+graphConsts.REL_CONCEPT_OF+']-(c)  RETURN d,count(c)';
 
       let params = {
         domainName: domainName
@@ -82,11 +83,11 @@ let getAllDomainConcept = function(domainNameColln) {
             {
               obj.noOfConcepts=field.low
             }
-          });   
+          });
           data.push(obj);
-        }); 
+        });
         if(data.length===domainNameColln.length){
-          resolve(data);    
+          resolve(data);
         }
       }).catch(function(err) {
         logger.error("Error in neo4j query: ", err, ' query is: ',
@@ -97,7 +98,7 @@ let getAllDomainConcept = function(domainNameColln) {
     })
 
    // resolve(data);
-   
+
  });
 
   return promise;
@@ -108,16 +109,17 @@ let getDomainConcept = function(domainName) {
   let promise = new Promise(function(resolve, reject) {
 
     logger.debug("Now proceeding to retrive the concepts for domain name: ", domainName);
-    let driver = neo4jDriver.driver(config.NEO4J_BOLT_URL,
-      neo4jDriver.auth.basic(config.NEO4J_USR, config.NEO4J_PWD),{encrypted:false}
+    let driver = neo4jDriver.driver(config.NEO4J.neo4jURL,
+      neo4jDriver.auth.basic(config.NEO4J.usr, config.NEO4J.pwd),{encrypted:false}
       );
 
     let session = driver.session();
 
     logger.debug("obtained connection with neo4j");
 
-    let query = 'MATCH (d:'+config.NEO4J_DOMAIN+'{name:{domainName}}) match(c:'+config.NEO4J_CONCEPT
-    +') match(d)<-[r:'+config.NEO4J_CON_REL+']-(c) RETURN c';
+    let query = 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+    query+= 'match(c:'+graphConsts.NODE_CONCEPT+')'
+    query+= 'match(d)<-[r:'+graphConsts.REL_CONCEPT_OF+']-(c) RETURN c';
     let params = {
       domainName: domainName
     };
@@ -134,7 +136,7 @@ let getDomainConcept = function(domainName) {
       resolve({Domain:domainName,Concepts:concepts});
     })
     .catch(function(err) {
-      logger.error("Error in neo4j query: ", err, ' query is: ',
+      logger.error("Error in NODE_INTENT query: ", err, ' query is: ',
         query);
       reject(err);
     });
@@ -147,16 +149,17 @@ let getDomainIntent = function(domain) {
   let promise = new Promise(function(resolve, reject) {
 
     logger.debug("Now proceeding to retrive the intent for domain name: ", domain.Domain);
-    let driver = neo4jDriver.driver(config.NEO4J_BOLT_URL,
-      neo4jDriver.auth.basic(config.NEO4J_USR, config.NEO4J_PWD),{encrypted:false}
+    let driver = neo4jDriver.driver(config.NEO4J.neo4jURL,
+      neo4jDriver.auth.basic(config.NEO4J.usr, config.NEO4J.pwd),{encrypted:false}
       );
 
     let session = driver.session();
 
     logger.debug("obtained connection with neo4j");
 
-    let query = 'MATCH (d:'+config.NEO4J_DOMAIN+'{name:{domainName}}) match(i:'+config.NEO4J_INTENT
-    +') match(d)<-[r:'+config.NEO4J_INT_REL+']-(i) RETURN i';
+    let query = 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+    query+= 'match(i:'+graphConsts.NODE_INTENT+')'
+    query+= 'match(d)<-[r:'+graphConsts.REL_INTENT_OF+']-(i) RETURN i';
     let params = {
       domainName: domain.Domain
     };
@@ -186,16 +189,17 @@ let getDomainIntent = function(domain) {
 let getDomainCardDetails = function(domainObj) {
   let promise = new Promise(function(resolve, reject) {
     logger.debug(" in domain card going for getting concepts for : ", domainObj);
-    let driver = neo4jDriver.driver(config.NEO4J_BOLT_URL,
-      neo4jDriver.auth.basic(config.NEO4J_USR, config.NEO4J_PWD),{encrypted:false}
+    let driver = neo4jDriver.driver(config.NEO4J.neo4jURL,
+      neo4jDriver.auth.basic(config.NEO4J.usr, config.NEO4J.pwd),{encrypted:false}
       );
 
     let session = driver.session();
 
     logger.debug("obtained connection with neo4j");
 
-    let query = 'MATCH (d:'+config.NEO4J_DOMAIN+'{name:{domainName}}) match(c:'+config.NEO4J_CONCEPT
-    +') match(d)<-[r:'+config.NEO4J_CON_REL+']-(c) RETURN c';
+    let query = 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+    query+= 'match(c:'+graphConsts.NODE_CONCEPT+')'
+    query+= 'match(d)<-[r:'+graphConsts.REL_CONCEPT_OF+']-(c) RETURN c';
     let params = {
       domainName: domainObj
     };
@@ -212,8 +216,9 @@ let getDomainCardDetails = function(domainObj) {
       });
     //  domainObj['concepts']=concepts;
    //number of concepts calculated
-   let query1 = 'MATCH (d:'+config.NEO4J_DOMAIN+'{name:{domainName}}) MATCH (i:'+config.NEO4J_INTENT
-   +') MATCH (d)<-[r:'+config.NEO4J_INT_REL+']-(i) RETURN i';
+   let query1 = 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+   query1+= 'MATCH (i:'+graphConsts.NODE_INTENT+')'
+   query1+= 'MATCH (d)<-[r:'+graphConsts.REL_INTENT_OF+']-(i) RETURN i';
    let params1 = {
     domainName: domainObj
   };
@@ -227,43 +232,52 @@ let getDomainCardDetails = function(domainObj) {
           //logger.debug("Result from neo4j: ", record);
           record._fields.forEach(function(fields){
             intent=fields.properties.name;
-            logger.debug(" domain intent ", fields.properties.name);
-            logger.debug("proceeding to fetch no of documents for each intent");
-            let query2 = 'MATCH (d:'+config.NEO4J_DOMAIN+'{name:{domainName}}) MATCH (c:'
-            +config.NEO4J_CONCEPT+') MATCH (w:'+config.NEO4J_WEBDOCUMENT+') match(d)<-[r:'
-            +config.NEO4J_CON_REL+']-(c) match(c)<-[r:'+config.NEO4J_DOC_REL+']-(w) RETURN w';
-            let params2 = {
-              domainName: domainObj
-            };
-            let session2 = driver.session();
-            session2.run(query2, params2)
-            .then(function(results) {
-              results.records.forEach(function(records) {
-            //  logger.debug("Result from neo4j: ", record);
-            documents=0;
-            records._fields.forEach(function(field){
-              logger.debug("document for "+intent+' is '+ field.properties.name);
-              documents+=1;
-            });
-
-          });
-
-              session2.close();
-
-            })
-            .catch(function(err) {
-              logger.error("Error in neo4j query: ", err, ' query is: ',
-                query2);
-
-            //  reject(err);
-          });
             intents.push(intent);
+            logger.debug(" domain intent ", fields.properties.name);
 
           });
-          resolve({concepts:concepts,intents:intents,docs:documents});
         });
 
           // fetching intents Completed!
+
+          logger.debug("proceeding to fetch no of documents");
+          let query2 = 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+          query2+= 'MATCH (c:'+graphConsts.NODE_CONCEPT+')'
+          query2+= 'MATCH (w:'+graphConsts.NODE_WEBDOCUMENT+')'
+          query2+= 'match(d)<-[r:'+graphConsts.REL_CONCEPT_OF+']-(c)'
+          query2+= 'match(c)<-[r1:'+graphConsts.REL_HAS_EXPLANATION_OF+']-(w) RETURN w';
+          let params2 = {
+            domainName: domainObj
+          };
+          let session2 = driver.session();
+          session2.run(query2, params2)
+          .then(function(results) {
+            if(results.records.length===0)
+            {
+              resolve({concepts:concepts,intents:intents,docs:documents});
+            }
+            else
+            {
+              results.records.forEach(function(records) {
+                records._fields.forEach(function(field){
+                  logger.debug('document is'+ field.properties.name);
+                  documents+=1;
+                  logger.debug('Number is ++++++++++++++++^^^^^##### '+documents);
+                });
+                logger.debug('Number is  '+documents);
+              });
+              resolve({concepts:concepts,intents:intents,docs:documents});
+            }
+            session2.close();
+
+          })
+          .catch(function(err) {
+            logger.error("Error in neo4j query: ", err, ' query is: ',
+              query2);
+
+            //  reject(err);
+          });
+
           session1.close();
 
         })
@@ -277,6 +291,79 @@ let getDomainCardDetails = function(domainObj) {
         session.close();
         //resolve({Domain:domainName,Concepts:concepts});
       })
+    .catch(function(err) {
+      logger.error("Error in neo4j query: ", err, ' query is: ',
+        query);
+      reject(err);
+    });
+  });
+
+  return promise;
+}
+
+let getWebDocuments = function(domainObj) {
+  let promise = new Promise(function(resolve, reject) {
+
+    logger.debug("Now proceeding to retrive "+
+      "the web Documents for domain name: ", domainObj.domainName);
+    let driver = neo4jDriver.driver(config.NEO4J.neo4jURL,
+      neo4jDriver.auth.basic(config.NEO4J.usr, config.NEO4J.pwd),{encrypted:false}
+      );
+
+    let session = driver.session();
+
+    logger.debug("obtained connection with neo4j");
+    let query='';
+    let str=JSON.stringify(domainObj.reqConcepts);
+    let str1=JSON.stringify(domainObj.reqIntents);
+    logger.debug("***********"+str+"     "+str1);
+    if(domainObj.reqIntents.length===0)
+    {
+      query += 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+      query += 'match(c:'+graphConsts.NODE_CONCEPT+')'
+      query += 'match(d)<-[r1:'+graphConsts.REL_CONCEPT_OF+']-(c)'
+      query += 'MATCH (w:'+graphConsts.NODE_WEBDOCUMENT+')';
+      query +=' match(w)-[r]-(c) where c.name in '+str;
+      query +=' return w.name,sum(r.intensity) as sum order by sum desc';
+    }
+    else
+    {
+      query += 'MATCH (d:'+graphConsts.NODE_DOMAIN+'{name:{domainName}})'
+      query += 'match (c:'+graphConsts.NODE_CONCEPT+')'
+      query += 'match(d)<-[r1:'+graphConsts.REL_CONCEPT_OF+']-(c)'
+      query += 'MATCH (w:'+graphConsts.NODE_WEBDOCUMENT+')';
+      query+= 'match(w)-[r]-(c) where type(r) in '+str1+' and c.name in '+str;
+      query+= 'return w.name,sum(r.intensity) as sum order by sum desc';
+    }
+    let params = {
+      domainName: domainObj.domainName
+    };
+    logger.debug("@@@@@@@@@ "+query);
+
+    let docs=[];
+    session.run(query, params)
+    .then(function(result) {
+      result.records.forEach(function(record) {
+        logger.debug("Result from neo4j: ", record);
+        let i=0;
+        let obj={};
+        record._fields.forEach(function(fields){
+          i+=1;
+          if(i===1)
+          {
+            obj.url=fields;
+          }
+          else
+          {
+            obj.intensity=Number(fields);
+            docs.push(obj);
+          }
+        });
+
+      });
+      session.close();
+      resolve(docs);
+    })
     .catch(function(err) {
       logger.error("Error in neo4j query: ", err, ' query is: ',
         query);
@@ -325,15 +412,26 @@ let getDomainCardDetailsCallback = function(domainName, callback) {
   });
 }
 
+let getWebDocumentsCallback = function(domainObj, callback) {
+  logger.debug("from the callback : "+domainObj)
+  getWebDocuments(domainObj).then(function(retrievedDocs) {
+    callback(null, retrievedDocs);
+  }, function(err) {
+    callback(err, null);
+  });
+}
+
 module.exports = {
   indexNewDomain: indexNewDomain,
-  getDomainConcept:getDomainConcept,
-  getDomainIntent:getDomainIntent,
-  getAllDomainConcept:getAllDomainConcept,
+  getDomainConcept: getDomainConcept,
+  getDomainIntent: getDomainIntent,
+  getAllDomainConcept: getAllDomainConcept,
   indexNewDomainCallBack: indexNewDomainCallBack,
   getDomainConceptCallback: getDomainConceptCallback,
   getDomainIntentCallback: getDomainIntentCallback,
   getAllDomainConceptCallback: getAllDomainConceptCallback,
   getDomainCardDetailsCallback: getDomainCardDetailsCallback,
-  getDomainCardDetails:getDomainCardDetails
+  getDomainCardDetails: getDomainCardDetails,
+  getWebDocumentsCallback: getWebDocumentsCallback,
+  getWebDocuments: getWebDocuments
 }
