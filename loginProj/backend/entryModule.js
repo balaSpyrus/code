@@ -14,7 +14,7 @@ router.post('/login',function(req,res){
 		}
 		else if(data===null)
 		{
-			res.send({msg:"not found"});
+			res.send({msg:"USER NOT FOUND"});
 		}
 		else if(data.password===details.password)
 		{
@@ -23,7 +23,7 @@ router.post('/login',function(req,res){
 		}
 		else
 		{
-			res.send({msg:"incorrect"});
+			res.send({msg:"INCORRECT USERNAME/PASSWORD"});
 		}	
 
 	})
@@ -32,22 +32,39 @@ router.post('/login',function(req,res){
 
 router.post('/register',function(req,res){
 	
-	var j=req.body.data;
-	var add=new userSchema({
-		name: j.name,
-		email:j.email,
-		password:j.password
-	});
-
-
-	add.save(function(err,data){
+	
+	userSchema.findOne({email:req.body.data.email},function(err,data){
 		if(err)
 		{
-			res.send({err:"sorry cannot save data"})
+			res.send({msg:"INTERNAL ERROR"})
 		}
-		console.log(data)
-		res.send(data);
-	});
+		else if(data!==null)
+		{
+			res.send({msg:"USER ALREADY EXISTS"});
+		}	
+		else
+		{
+			var j=req.body.data;
+			var add=new userSchema({
+				name: j.name,
+				email:j.email,
+				password:j.password
+			});
+
+			add.save(function(err,data){
+				if(err)
+				{
+					res.send({msg:"ERROR WHILE SAVING USER DATA"})
+				}
+				console.log(data)
+				res.send({msg:"SUCCESSFULLY REGISTERED",data:data});
+			});
+
+		}
+		
+
+	})
+	
 
 
 });
