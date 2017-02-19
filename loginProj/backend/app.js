@@ -5,10 +5,9 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //adding all the route modules
-var register = require('./register.js');
-var login = require('./login.js');
+var entryMod = require('./entryModule.js');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/user');
+mongoose.connect('mongodb://localhost:27017/User');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...:'));
 db.once('open', function() {
@@ -28,8 +27,7 @@ app.use(function(req,res,next)
 app.use(bodyParser.json());
 
 //mounting the routes
-app.use('/register',register);
-app.use('/login',login);
+app.use('/',entryMod);
 
 
 //app.use('/searchJobResult', sendJobList);
