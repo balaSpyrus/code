@@ -14,14 +14,15 @@ const paperStyle = {
 	display: 'inline-block',
 };
 const layout={
-	marginTop:"10%",
+	marginTop:"6%",
 	width: 600,
 	marginLeft:"auto",
 	marginRight:"auto",
 }
 const spaceStyle={
 	backgroundColor:"#e8e9ea",
-	height:420
+	height:420,
+	overflowY: "scroll"
 }
 const iconStyle = {
 	sizeIcon: {
@@ -39,13 +40,20 @@ const iconStyle = {
 const userChip={
 	
 	float:"right",
-	margin:"8px 40px 5px 0px"
+	textAlign:"right",
+	margin:"8px 35px 8px 0px"
 }
-
+const botChip={
+	
+	float:"left",
+	textAlign:"left",
+	margin:"8px 0px 8px 35px"
+}
 export default class displayPane extends React.Component{
 	constructor(props) {
 		super(props);
 		this.captureCon=this.captureCon.bind(this);
+		this.captureConByKey=this.captureConByKey.bind(this);
 		this.readCon=this.readCon.bind(this);
 		this.state={
 			conv:"",
@@ -54,31 +62,76 @@ export default class displayPane extends React.Component{
 		
 	}
 	captureCon(e){
-		console.log("im clicked ",this.state.conv);
-		let arr=this.state.convArr
-		let stringarr=['hai','hello','hi']
-		let x=""
-		if(this.state.conv==='hi')
-		{
-			x=stringarr[Math.floor(Math.random() * (stringarr.length - 1))]
+		if (this.state.conv!=="") {
+			let greetArr=["hi..!!","hello :)","hai.."]
+			let errArr=["sorry i can't get you","i can't understand","what do you mean??"]
+			let botReply=""
+			if(this.state.conv==="hi")
+			{
+				let num=this.getNum(0,greetArr.length-1)
+				botReply=greetArr[num];
+
+			}
+			else
+			{
+				let num=this.getNum(0,errArr.length-1)
+				botReply=errArr[num];
+
+			}
+			
+			let arr=this.state.convArr;
+			arr.push(this.state.conv)
+			arr.push(botReply)
+			this.setState({
+				convArr:arr,
+				conv:""
+			})
+			
+
 		}
-		console.log(x);
-		arr.push(
-			<div key={Date()}>
-			<Chip backgroundColor="#3fda96"
-			labelColor="white"
-			style={userChip} >
-			{this.state.conv}
-			</Chip>
-			<br/><br/>
-			</div>
-			)
-		this.setState({
-			convArr:arr,
-			conv:""
-		})
-		console.log("done");
 		
+	}
+
+	getNum(min,max)
+	{
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	captureConByKey(e){
+		if (e.key === 'Enter' && this.state.conv!=="") {
+			let greetArr=["hi..!!","hello :)","hai.."]
+			let errArr=["sorry i can't get you","i can't understand","what do you mean??"]
+			let botReply=""
+			if(this.state.conv==="hi")
+			{
+				let num=this.getNum(0,greetArr.length-1)
+				botReply=greetArr[num];
+
+			}
+			else
+			{
+				let num=this.getNum(0,errArr.length-1)
+				botReply=errArr[num];
+
+			}
+			
+			let arr=this.state.convArr;
+			arr.push(this.state.conv)
+			arr.push(botReply)
+			this.setState({
+				convArr:arr,
+				conv:""
+			})
+			
+
+		}		
+		
+	}
+	componentDidUpdate() {		
+		let len = this.state.convArr.length-1;
+		const node = ReactDOM.findDOMNode(this[''+len]);
+		if (node) {
+			node.scrollIntoView();
+		}
 	}
 	readCon(e){
 		this.setState({
@@ -87,14 +140,77 @@ export default class displayPane extends React.Component{
 	}
 
 	render() {
-		
+
 		return (
 			<div style={layout}>
 			<Paper style={paperStyle} zDepth={2}>
 			<Container>
 			<Row style={{paddingBottom:15}}>
 			<div style={spaceStyle}>
-			{this.state.convArr}
+			{
+				this.state.convArr.map((eachConv,key)=>{
+
+					let displayText=[];
+					if(eachConv.length<60)
+					{
+						displayText.push(eachConv)
+					}					
+					else
+					{							
+						let start=0,end=60,len=eachConv.length;
+						while(end!=len)
+						{
+							displayText.push(eachConv.slice(start,end))
+							start=end;
+							if(len-end>0 && (len-end)>=60)
+								{end+=60;}
+							else
+								{end=len;}
+						}
+						displayText.push(eachConv.slice(start,end))
+						console.log(displayText);
+					}
+
+					if(key%2==0)
+					{
+						
+						return (
+							<Col key={key} ref={(ref) => this[''+key] = ref} >							
+							{
+								displayText.map(function (data,i) {
+									return(
+										<Chip backgroundColor="#3fda96"
+										labelColor="#ffffff"
+										key={i}
+										style={userChip} >
+										{data}
+										</Chip>
+										)
+								})}							
+								</Col>
+								)
+					}
+
+					else
+					{
+						return (
+							<Col key={key} ref={(ref) => this[''+key] = ref} >
+							{
+								displayText.map(function (data,i) {
+									return(
+										<Chip backgroundColor="#ffffff"
+										labelColor="#3fda96"
+										key={i}
+										style={botChip} >
+										{data}
+										</Chip>
+										)
+								})}		
+								</Col>)
+					}
+				})
+
+			}
 			</div>
 			</Row>
 			<Row>
@@ -106,6 +222,7 @@ export default class displayPane extends React.Component{
 			fullWidth={true}
 			value={this.state.conv}
 			onChange={this.readCon}
+			onKeyPress={this.captureConByKey}
 			inputStyle={{border:"3px solid #4ace96", borderRadius:5,paddingLeft:10,paddingRight:-10,color:"#005e35"}}
 			/>
 			</Col>

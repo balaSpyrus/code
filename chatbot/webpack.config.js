@@ -4,11 +4,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'ui', 'assets'),
     filename: 'bundle.js',
-    publicPath: path.resolve(__dirname, 'ui', 'assets')
-  },
-  module: {
-    loaders: [
-    { test: /\.json$/, loader: 'json'},
+    publicPath: '/ui/assets'
+   // publicPath: path.resolve(__dirname, 'ui', 'assets')
+ },
+ module: {
+  loaders: [
+  { test: /\.json$/, loader: 'json'},
     //  { test: /\.js$/,loader: 'babel',query: {compact: false}},
     //{ test: /\.css$/, loader: 'style!css'},
     {
