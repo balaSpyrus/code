@@ -2,13 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Chip from 'material-ui/Chip';
 import {Row, Col} from 'react-grid-system';
-
+import Avatar from 'material-ui/Avatar';
 const spaceStyle={
 	backgroundColor:"#e8e9ea",
 	height:420,
 	overflowY: "scroll"
 }
-
+const avatarStyle={
+	fontSize:10,
+	fontWeight:'bold',
+	height:31,
+	backgroundColor:"#83bef9"
+}
 const userChip={
 	
 	float:"right",
@@ -96,6 +101,7 @@ export default class ConvPane extends React.Component{
 										labelColor="#3fda96"
 										key={i}
 										style={botChip} >
+										<Avatar style={avatarStyle}>BOT</Avatar>
 										{data}
 										</Chip>
 										)
