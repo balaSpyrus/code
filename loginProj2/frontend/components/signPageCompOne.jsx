@@ -93,7 +93,7 @@
 	  			</Row>
 	  			<Row style={gap}>
 	  			<Col >
-	  			<RaisedButton label="SignUp" type="submit" secondary={true} fullWidth={true} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={true} disabled={!this.props.btnControl}/>
 	  			</Col>
 	  			</Row>
 	  			</Formsy.Form>

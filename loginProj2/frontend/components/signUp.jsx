@@ -29,8 +29,8 @@
 	  			fatherName:"",
 	  			motherName:"",
 	  			dob:null,
-	  			perAdd:"",
-	  			currAdd:"",
+	  			perAdd:{},
+	  			currAdd:{},
 	  			counter:1,
 	  			btnControl:true,
 	  			show:""
@@ -55,8 +55,8 @@
 	  	fatherName(event,value) { this.setState({ fatherName:value }) }
 	  	motherName(event,value) { this.setState({ motherName:value }) }
 	  	dob(event,value) { this.setState({ dob:value }) }
-	  	perAdd(event,value) { this.setState({ perAdd:value }) }
-	  	currAdd(event,value) { this.setState({ currAdd:value }) }
+	  	perAdd(value) { this.setState({ perAdd:value }) }
+	  	currAdd(value) { this.setState({ currAdd:value }) }
 	  	email(event,value) { this.setState({ email:value }) }
 	  	password(event,value) { this.setState({ password:value }) }
 	  	rePassword(event,value) { this.setState({ repassword:value }) }

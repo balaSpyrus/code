@@ -9,6 +9,7 @@
 	  import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
 	  import Avatar from 'material-ui/Avatar';
+	  import AddComp from './addComp';
 	  import {Row, Col} from 'react-grid-system';
 
 	  
@@ -87,9 +88,10 @@
 	  			/>
 	  			</Col>
 	  			</Row>
+	  			<AddComp currAdd={this.props.currAdd}/>
 	  			<Row style={gap}>
 	  			<Col >
-	  			<RaisedButton label="SignUp" type="submit" secondary={true} fullWidth={true} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={true} disabled={!this.props.btnControl}/>
 	  			</Col>
 	  			</Row>
 	  			</Formsy.Form>
