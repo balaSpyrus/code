@@ -1,0 +1,135 @@
+<html lang="en">
+<head>
+  <title>Capture Image</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    margin: 0;
+    background-image: url(https://image.shutterstock.com/z/stock-photo-abstract-blue-on-white-digital-background-element-83822863.jpg);
+  }
+  </style>
+</head>
+<body >
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <span><img alt="Brand" src="http://17776-presscdn-0-6.pagely.netdna-cdn.com/wp-content/themes/wiprodigital/images/wdlogo.png" class="img-responsive" style="width:150px;">
+        </span>
+      </a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-5" >
+      <img src="" id="profile-img-tag" height="300px" width="500px" style="border-style: solid;
+      border-width: 10px;"/>
+    </div>
+    <div class="col-sm-6" >
+      <!-- <table class="table table-condensed" id="table"> -->
+        <table class="table table-bordered" id="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>String</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+  <button type="button" class="btn btn-danger" id="display1">Close</button>
+</div>
+  </div>
+  <br>
+  <div class="row clearfix">
+    <div class="col-sm-3">
+      <div class="input-group">
+        <input type="file" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="profile-img">
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="btn-group" id="display">
+        <button type="button" class="btn btn-danger">Analyse</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$("#table").hide();
+$("#display1").hide();
+$("#saveButton").hide();
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#profile-img-tag').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+$("#profile-img").change(function(){
+  readURL(this);
+
+});
+$("#display").click(function(){
+  $("#table").show();
+  $("#display1").show();
+  $("#saveButton").show();
+});
+$("#display1").click(function(){
+  $("#table").hide();
+  $("#display1").hide();
+  $("#saveButton").hide();
+});
+$("table.table tr th").bind("click", headerClick);
+$("table.table tr td").bind("click", dataClick);
+$("#saveButton").bind("click",saveButton);
+
+function headerClick(e) {
+    console.log(e);
+    $(e.currentTarget).css({
+        color:"red"
+    });
+}
+
+function dataClick(e) {
+    console.log(e);
+    // if (e.currentTarget.innerHTML != "") return;
+    if(e.currentTarget.contentEditable != null){
+        $(e.currentTarget).attr("contentEditable",true);
+    }
+    else{
+        $(e.currentTarget).append("<input type='text'>");
+    }
+}
+function saveButton(){
+    $("table.table tr td").each(function(td, index){
+        console.log(td);
+        console.log(index);
+    });
+}
+</script>
+
+</body>
+</html>
