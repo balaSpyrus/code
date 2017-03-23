@@ -10,69 +10,69 @@
 	  import Paper from 'material-ui/Paper';
 
 	  const style = {
-	  	height: 310,
-	  	width: 370,
-	  	marginLeft: "auto",
-	  	marginRight:"auto",
-	  	marginTop:"5%"
-	  	
-	  };
+	  //	height: 310,
+	  //	width: 370,
+	  marginLeft: "auto",
+	  marginRight:"auto",
+	  marginTop:"5%"
 	  
-	  export default class Login extends React.Component {
-	  	constructor(props){
-	  		super(props)
-	  		this.state={
-	  			name:"",
-	  			password:"",
-	  			repassword:"",
-	  			email:"",
-	  			fatherName:"",
-	  			motherName:"",
-	  			dob:null,
-	  			perAdd:{},
-	  			currAdd:{},
-	  			counter:1,
-	  			btnControl:true,
-	  			show:""
-	  		}
-	  		console.log(this.state)
-	  		this.comp1=this.comp1.bind(this);
-	  		this.comp2=this.comp2.bind(this);
-	  		this.enableButton = this.enableButton.bind(this);
-	  		this.disableButton = this.disableButton.bind(this);
-	  		this.name=this.name.bind(this);
-	  		this.fatherName=this.fatherName.bind(this);
-	  		this.motherName=this.motherName.bind(this);
-	  		this.currAdd=this.currAdd.bind(this);
-	  		this.perAdd=this.perAdd.bind(this);
-	  		this.dob=this.dob.bind(this);
-	  		this.email=this.email.bind(this);
-	  		this.password=this.password.bind(this);
-	  		this.rePassword=this.rePassword.bind(this);
-	  	}
+	};
+	
+	export default class Login extends React.Component {
+		constructor(props){
+			super(props)
+			this.state={
+				name:"",
+				password:"",
+				repassword:"",
+				email:"",
+				fatherName:"",
+				motherName:"",
+				dob:null,
+				perAdd:{},
+				currAdd:{},
+				counter:1,
+				btnControl:true,
+				show:""
+			}
+			console.log(this.state)
+			this.comp1=this.comp1.bind(this);
+			this.comp2=this.comp2.bind(this);
+			this.enableButton = this.enableButton.bind(this);
+			this.disableButton = this.disableButton.bind(this);
+			this.name=this.name.bind(this);
+			this.fatherName=this.fatherName.bind(this);
+			this.motherName=this.motherName.bind(this);
+			this.currAdd=this.currAdd.bind(this);
+			this.perAdd=this.perAdd.bind(this);
+			this.dob=this.dob.bind(this);
+			this.email=this.email.bind(this);
+			this.password=this.password.bind(this);
+			this.rePassword=this.rePassword.bind(this);
+		}
 
-	  	name(event,value) { this.setState({ name:value }) }
-	  	fatherName(event,value) { this.setState({ fatherName:value }) }
-	  	motherName(event,value) { this.setState({ motherName:value }) }
-	  	dob(event,value) { this.setState({ dob:value }) }
-	  	perAdd(value) { this.setState({ perAdd:value }) }
-	  	currAdd(value) { this.setState({ currAdd:value }) }
-	  	email(event,value) { this.setState({ email:value }) }
-	  	password(event,value) { this.setState({ password:value }) }
-	  	rePassword(event,value) { this.setState({ repassword:value }) }
+		name(event,value) { this.setState({ name:value }) }
+		fatherName(event,value) { this.setState({ fatherName:value }) }
+		motherName(event,value) { this.setState({ motherName:value }) }
+		dob(event,value) { this.setState({ dob:value }) }
+		perAdd(value) { this.setState({ perAdd:value }) }
+		currAdd(value) { this.setState({ currAdd:value }) }
+		email(event,value) { this.setState({ email:value }) }
+		password(event,value) { this.setState({ password:value }) }
+		rePassword(event,value) { this.setState({ repassword:value }) }
 
-	  	comp1()
-	  	{
-	  		console.log(this.state);
-	  		if(this.state.password===this.state.repassword)
-	  		{
-	  			let cnt=this.state.counter
-	  			cnt++;
-	  			this.setState({
-	  				counter:cnt,
-	  				btnControl:true
-	  			})
-	  			
+		comp1()
+		{
+			console.log(this.state);
+			if(this.state.password===this.state.repassword)
+			{
+				let cnt=this.state.counter
+				cnt++;
+				this.setState({
+					counter:cnt,
+					btnControl:true
+				})
+				
 	  			// let url =`http://localhost:8081/register`;
 	  			// let user={
 	  			// 	name:this.state.name,

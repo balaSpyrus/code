@@ -29,19 +29,19 @@
  	}
  	streetOne(event,value) { 
  		this.setState({ street1:value });
- 	 this.props.currAdd(this.state) 	 }
+ 		this.props.Add(this.state) 	 }
  	streetTwo(event,value) { 
  		this.setState({ street2:value });
- 	 this.props.currAdd(this.state) 	}
+ 		this.props.Add(this.state) 	}
  	city(event,value) { 
  		this.setState({ city:value });
- 	 this.props.currAdd(this.state) 	}
+ 		this.props.Add(this.state) 	}
  	states(event,value) { 
  		this.setState({ states:value });
- 	 this.props.currAdd(this.state) 	}
+ 		this.props.Add(this.state) 	}
  	zip(event,value) { 
  		this.setState({ zip:value });
- 	 this.props.currAdd(this.state) 	}
+ 		this.props.Add(this.state) 	}
 	
 
  	render() {
