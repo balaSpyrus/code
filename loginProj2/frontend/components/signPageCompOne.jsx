@@ -14,7 +14,7 @@
 	  	width: 370,
 	  	marginLeft: "auto",
 	  	marginRight:"auto",
-	  	paddingBottom: 20,
+	  	
 	  }
 
 	  const desStyle={
@@ -99,7 +99,8 @@
 	  			<FormsyText
 	  			name="repassword"
 	  			required
-
+	  			validations="equalsField:password"
+	  			validationError="passwords are not matching"
 	  			hintText="re-enter password"
 	  			type="password"
 	  			onChange={this.props.rePassword}
@@ -107,7 +108,7 @@
 	  			</Col>	
 	  			</Row>
 	  			<Row style={gap}>
-	  			<Col >
+	  			<Col style={{paddingBottom: 20}}>
 	  			<RaisedButton label="Next" type="submit" secondary={true} style={{float:'right'}} fullWidth={false} disabled={!this.props.btnControl}/>
 	  			</Col>
 	  			</Row>

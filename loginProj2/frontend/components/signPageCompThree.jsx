@@ -3,6 +3,7 @@
 	  import RaisedButton from 'material-ui/RaisedButton';	
 	  import FontIcon from 'material-ui/FontIcon';
 	  import FormsyText from 'formsy-material-ui/lib/FormsyText';
+	  import FlatButton from 'material-ui/FlatButton';
 	  import ActionAccountBox from 'material-ui/svg-icons/action/account-box';	  
 	  import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
@@ -12,11 +13,17 @@
 	  import MenuItem from 'material-ui/MenuItem';
 
 	  const layStyle = {
-	  	height: 310,
+	  	height: 276,
 	  	width: 370,
 	  	marginLeft: "auto",
 	  	marginRight:"auto",
-	  	paddingBottom: 20,
+	  	
+	  }
+	  const outerStyle = {
+	  	width:"50%",
+	  	marginLeft: "auto",
+	  	marginRight:"auto",
+	  	
 	  }
 
 	  const desStyle={
@@ -34,19 +41,55 @@
 	  	constructor(props){
 	  		super(props)	  		
 	  		console.log(props)
-	  		this.onChangeSelect=this.onChangeSelect.bind(this)
+	  		
 	  		this.state={
 	  			examType:'10th grade',
 	  			eduBoard:'',
-	  			percent:''
+	  			percent:'',
+	  			details:[]
 	  		}
+	  		this.onChangeSelect=this.onChangeSelect.bind(this);
+	  		this.eBoard=this.eBoard.bind(this);
+	  		this.percentObt=this.percentObt.bind(this);
+	  		this.addDetails=this.addDetails.bind(this);
+	  		this.deleteDetails=this.deleteDetails.bind(this);
+	  	}
 
+	  	eBoard(event,value) { this.setState({ eduBoard:value }) }
+	  	percentObt(event,value) { this.setState({ percent:value+"%" }) }
+	  	onChangeSelect(event, index){ this.setState({examType: index}) 	}
+
+	  	addDetails()
+	  	{
+	  		console.log(this.state);
+	  		let data={
+	  			examType:this.state.examType,
+	  			eduBoard:this.state.eduBoard,
+	  			percent:this.state.percent,
+	  			id:this.props.eduDetails.length
+	  		}
+	  		let tempDetails=this.props.eduDetails;
+	  		tempDetails.push(data);
+	  		this.setState({
+	  			examType:'10th grade',
+	  			eduBoard:'',
+	  			percent:'',
+	  			details:tempDetails
+
+	  		})
+	  		this.props.education(tempDetails)
+	  		this.refs.form.reset()
+	  		
 	  	}
-	  	onChangeSelect(event, index){
-	  		this.setState({examType: index})
+	  	deleteDetails(event)
+	  	{
+	  		console.log(event.target)
 	  	}
+
 	  	render(){
+	  		const that=this;
 	  		return(
+	  			<div style={outerStyle}>
 	  			<div style={layStyle}>
 	  			<Formsy.Form
 	  			ref="form"
@@ -87,13 +130,13 @@
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
-	  			name="mail"
+	  			name="eboard"
 	  			type="text"
 	  			required
-	  			validations="isEmail"
-	  			validationError="give a valid one"
-	  			hintText="email"
-	  			onChange={this.props.email}
+	  			hintText="education board"
+	  			validations="isAlpha"
+	  			validationError="type only letters"
+	  			onChange={this.eBoard}
 	  			/>
 	  			</Col>	
 	  			</Row>
@@ -103,36 +146,55 @@
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
-	  			name="password"
+	  			name="percentage"
 	  			required
-
-	  			hintText="password"
-	  			type="password"
-	  			onChange={this.props.password}
+	  			hintText="Percentage Obtained"
+	  			type="number"
+	  			max="100"
+	  			validations="maxLength:3"
+	  			validationError="not more than 100"
+	  			onChange={this.percentObt}
 	  			/>
 	  			</Col>	
 	  			</Row>
 	  			<Row style={gap}>
-	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
-	  			<Avatar icon={<ActionLock/>} />
-	  			</Col>
-	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
-	  			<FormsyText
-	  			name="repassword"
-	  			required
+	  			<Col style={{paddingBottom: 20}}>
+	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10}} disabled={!this.props.btnControl}/>
 
-	  			hintText="re-enter password"
-	  			type="password"
-	  			onChange={this.props.rePassword}
-	  			/>
-	  			</Col>	
-	  			</Row>
-	  			<Row style={gap}>
-	  			<Col >
-	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={false} style={{float:'right'}} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Add" onClick={this.addDetails} secondary={true} style={{float:'right',height:34,marginLeft:10}} fullWidth={false} disabled={!this.props.btnControl}/>
 	  			</Col>
 	  			</Row>
+	  			
 	  			</Formsy.Form>
+	  			</div>
+
+	  			{
+	  				this.props.eduDetails.length!==0?	
+	  				<div style={{fontSize:'13px'}}>  
+	  				<Row style={gap}>	
+	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Exam Type</Col>
+	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Education Board</Col>
+	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Percentage</Col>
+	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Action</Col>
+	  				</Row>				
+	  				{
+	  					
+	  					this.props.eduDetails.map(function(eachDetail,index){
+	  						return(<Row key={index} style={gap}>
+	  							<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{eachDetail.examType}</Col>
+	  							<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{eachDetail.eduBoard}</Col>
+	  							<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{eachDetail.percent}</Col>
+	  							<Col xl={3} lg={3} md={3} sm={6} xs={6}>
+	  							<FlatButton label="Delete" secondary={true} style={{marginLeft:-25}} labelStyle={{fontSize:'11px'}} onClick={that.deleteDetails} />
+	  							</Col>
+	  							</Row>
+	  							)
+	  					})
+	  				}  	
+	  				</div>
+	  				:null
+	  			}
+	  			
 	  			</div>
 	  			)
 	  	}

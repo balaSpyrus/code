@@ -64,21 +64,19 @@
 		email(event,value) { this.setState({ email:value }) }
 		password(event,value) { this.setState({ password:value }) }
 		rePassword(event,value) { this.setState({ repassword:value }) }
-		education(event,value) { this.setState({ eduDetails:value }) }
+		education(value) { this.setState({ eduDetails:value }) }
 
 		comp1()
 		{
 			console.log(this.state);
-			if(this.state.password===this.state.repassword)
-			{
-				let cnt=this.state.counter
-				cnt++;
-				this.setState({
-					counter:cnt,
-					btnControl:true,
-					show:""
-				})
-				
+			let cnt=this.state.counter
+			cnt++;
+			this.setState({
+				counter:cnt,
+				btnControl:true,
+				show:""
+			})
+
 	  			// let url =`http://localhost:8081/register`;
 	  			// let user={
 	  			// 	name:this.state.name,
@@ -107,51 +105,45 @@
 	  			// 	}
 
 	  			// });
+
 	  		}
-	  		else
+	  		comp2()
 	  		{
+	  			let cnt=this.state.counter
+	  			cnt++;
 	  			this.setState({
-	  				show:"PASSWORDS NOT MATCHING"
+	  				counter:cnt,
+	  				btnControl:true,
+	  				show:""
 	  			})
 	  		}
-	  	}
-	  	comp2()
-	  	{
-	  		let cnt=this.state.counter
-	  		cnt++;
-	  		this.setState({
-	  			counter:cnt,
-	  			btnControl:true,
-	  			show:""
-	  		})
-	  	}
-	  	comp3()
-	  	{
-	  		let cnt=this.state.counter
-	  		cnt++;
-	  		this.setState({
-	  			counter:cnt,
-	  			btnControl:true,
-	  			show:""
-	  		})
-	  	}
-	  	enableButton() {
-	  		this.setState(()=>({
-	  			btnControl: true
-	  		}));
-	  	}
-	  	disableButton() {
-	  		this.setState(()=>({
-	  			btnControl: false
-	  		}));
-	  	}
+	  		comp3()
+	  		{
+	  			let cnt=this.state.counter
+	  			cnt++;
+	  			this.setState({
+	  				counter:cnt,
+	  				btnControl:true,
+	  				show:""
+	  			})
+	  		}
+	  		enableButton() {
+	  			this.setState(()=>({
+	  				btnControl: true
+	  			}));
+	  		}
+	  		disableButton() {
+	  			this.setState(()=>({
+	  				btnControl: false
+	  			}));
+	  		}
 
-	  	render(){
-	  		return(
-	  			<div style={style}>
-	  			<Paper style={style} zDepth={2}>
-	  			<Container style={{paddingTop:20}}>
-	  			{
+	  		render(){
+	  			return(
+	  				<div style={style}>
+	  				<Paper style={style} zDepth={2}>
+	  				<Container style={{paddingTop:20}}>
+	  				{
 	  				// this.state.counter===1?
 	  				// <SignUpCompOne
 	  				// addUser={this.comp1}
@@ -208,5 +200,5 @@
 	  			}
 	  			</div>
 	  			)
+	  		}
 	  	}
-	  }
