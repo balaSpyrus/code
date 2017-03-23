@@ -9,6 +9,21 @@
 	  import Avatar from 'material-ui/Avatar';
 	  import {Row, Col} from 'react-grid-system';
 
+	  const layStyle = {
+	  	height: 310,
+	  	width: 370,
+	  	marginLeft: "auto",
+	  	marginRight:"auto",
+	  	paddingBottom: 20,
+	  }
+
+	  const desStyle={
+	  	fontSize: 25,
+	  	textAlign: 'left',
+	  	color: 'grey',
+	  	paddingBottom: 20,
+	  	margin: 0,
+	  }
 	  
 	  const gap={
 	  	paddingBottom:10
@@ -22,17 +37,17 @@
 
 	  	render(){
 	  		return(
-
+	  			<div style={layStyle}>
 	  			<Formsy.Form
 	  			ref="form"
 	  			onValid={this.props.enableButton}
 	  			onInvalid={this.props.disableButton}
 	  			onValidSubmit={this.props.addUser}
 	  			>
-
+	  			<h1 style={desStyle}>General details</h1>
 	  			<Row style={gap}>
-	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
-	  			<Avatar icon={<ActionAccountBox/>} />
+	  			<Col style={{width:70}} xl={2} lg={2} md={2} sm={2} xs={2} >
+	  			<Avatar  icon={<ActionAccountBox/>} />
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
@@ -46,8 +61,8 @@
 	  			</Col>	
 	  			</Row>
 	  			<Row style={gap}>
-	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
-	  			<Avatar icon={<CommunicationEmail/>} />
+	  			<Col style={{width:70}} xl={2} lg={2} md={2} sm={2} xs={2} >
+	  			<Avatar  icon={<CommunicationEmail/>} />
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
@@ -62,8 +77,8 @@
 	  			</Col>	
 	  			</Row>
 	  			<Row style={gap}>
-	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
-	  			<Avatar icon={<ActionLock/>} />
+	  			<Col style={{width:70}} xl={2} lg={2} md={2} sm={2} xs={2} >
+	  			<Avatar  icon={<ActionLock/>} />
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
@@ -77,8 +92,8 @@
 	  			</Col>	
 	  			</Row>
 	  			<Row style={gap}>
-	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
-	  			<Avatar icon={<ActionLock/>} />
+	  			<Col style={{width:70}} xl={2} lg={2} md={2} sm={2} xs={2} >
+	  			<Avatar  icon={<ActionLock/>} />
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
@@ -93,10 +108,11 @@
 	  			</Row>
 	  			<Row style={gap}>
 	  			<Col >
-	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={true} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Next" type="submit" secondary={true} style={{float:'right'}} fullWidth={false} disabled={!this.props.btnControl}/>
 	  			</Col>
 	  			</Row>
 	  			</Formsy.Form>
+	  			</div>
 	  			)
 	  	}
 	  }
