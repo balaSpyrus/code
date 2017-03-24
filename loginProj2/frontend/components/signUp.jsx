@@ -53,6 +53,7 @@
 			this.email=this.email.bind(this);
 			this.password=this.password.bind(this);
 			this.rePassword=this.rePassword.bind(this);
+			this.showMsg=this.showMsg.bind(this);
 		}
 
 		name(event,value) { this.setState({ name:value }) }
@@ -65,6 +66,7 @@
 		password(event,value) { this.setState({ password:value }) }
 		rePassword(event,value) { this.setState({ repassword:value }) }
 		education(value) { this.setState({ eduDetails:value }) }
+		showMsg(value) { this.setState({ show:value }) }
 
 		comp1()
 		{
@@ -175,6 +177,7 @@
 	  				disableButton={this.disableButton}
 	  				eduDetails={this.state.eduDetails}
 	  				education={this.education}
+	  				showMsg={this.showMsg}
 	  				btnControl={this.state.btnControl}
 	  				/>
 

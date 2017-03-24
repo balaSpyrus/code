@@ -3,11 +3,12 @@
 	  import RaisedButton from 'material-ui/RaisedButton';	
 	  import FontIcon from 'material-ui/FontIcon';
 	  import FormsyText from 'formsy-material-ui/lib/FormsyText';
-	  import FlatButton from 'material-ui/FlatButton';
 	  import ActionAccountBox from 'material-ui/svg-icons/action/account-box';	  
 	  import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
 	  import Avatar from 'material-ui/Avatar';
+	  import Formsy from 'formsy-react';
+	  import Details from './details';
 	  import {Row, Col} from 'react-grid-system';
 	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 	  import MenuItem from 'material-ui/MenuItem';
@@ -37,6 +38,11 @@
 	  const gap={
 	  	paddingBottom:10
 	  }
+
+	  Formsy.addValidationRule('checkMin', function (values, value) {
+	  	return value<=100;
+	  })
+
 	  export default class SignUpCompThree extends React.Component {
 	  	constructor(props){
 	  		super(props)	  		
@@ -55,13 +61,15 @@
 	  		this.deleteDetails=this.deleteDetails.bind(this);
 	  	}
 
+
+	  	
 	  	eBoard(event,value) { this.setState({ eduBoard:value }) }
 	  	percentObt(event,value) { this.setState({ percent:value+"%" }) }
 	  	onChangeSelect(event, index){ this.setState({examType: index}) 	}
 
 	  	addDetails()
 	  	{
-	  		console.log(this.state);
+	  		
 	  		let data={
 	  			examType:this.state.examType,
 	  			eduBoard:this.state.eduBoard,
@@ -69,7 +77,20 @@
 	  			id:this.props.eduDetails.length
 	  		}
 	  		let tempDetails=this.props.eduDetails;
-	  		tempDetails.push(data);
+	  		let flag=false;
+	  		tempDetails.map(function(tempData,index){
+	  			if(tempData.examType === data.examType)
+	  				flag=true
+	  		})
+	  		if(flag === false)
+	  		{
+	  			tempDetails.push(data);
+	  			this.props.showMsg('')
+	  		}
+	  		else
+	  		{
+	  			this.props.showMsg('Duplicate details for '+data.examType)
+	  		}
 	  		this.setState({
 	  			examType:'10th grade',
 	  			eduBoard:'',
@@ -81,9 +102,14 @@
 	  		this.refs.form.reset()
 	  		
 	  	}
-	  	deleteDetails(event)
+	  	deleteDetails(id)
 	  	{
-	  		console.log(event.target)
+	  		let tempDetails=[]
+	  		this.props.eduDetails.map(function(data,index){
+	  			if(index!==id)
+	  				tempDetails.push(data)
+	  		})
+	  		this.props.education(tempDetails)
 	  	}
 
 	  	render(){
@@ -150,8 +176,7 @@
 	  			required
 	  			hintText="Percentage Obtained"
 	  			type="number"
-	  			max="100"
-	  			validations="maxLength:3"
+	  			validations="checkMin"
 	  			validationError="not more than 100"
 	  			onChange={this.percentObt}
 	  			/>
@@ -177,19 +202,11 @@
 	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Percentage</Col>
 	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Action</Col>
 	  				</Row>				
-	  				{
-	  					
-	  					this.props.eduDetails.map(function(eachDetail,index){
-	  						return(<Row key={index} style={gap}>
-	  							<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{eachDetail.examType}</Col>
-	  							<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{eachDetail.eduBoard}</Col>
-	  							<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{eachDetail.percent}</Col>
-	  							<Col xl={3} lg={3} md={3} sm={6} xs={6}>
-	  							<FlatButton label="Delete" secondary={true} style={{marginLeft:-25}} labelStyle={{fontSize:'11px'}} onClick={that.deleteDetails} />
-	  							</Col>
-	  							</Row>
-	  							)
-	  					})
+	  				{	  					
+	  					this.props.eduDetails.map(
+	  						(eachDetail,index)=><Details key={index} index={index}	
+	  						eachDetail={eachDetail} deleteDetails={that.deleteDetails}/>
+	  						)
 	  				}  	
 	  				</div>
 	  				:null
