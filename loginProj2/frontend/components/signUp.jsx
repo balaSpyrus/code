@@ -6,6 +6,7 @@
 	  import SignUpCompOne from './signPageCompOne';
 	  import SignUpCompTwo from './signPageCompTwo';	  
 	  import SignUpCompThree from './signPageCompThree';
+	  import SignUpCompFour from './signPageCompFour';
 	  import {Link} from 'react-router';
 	  import {Container} from 'react-grid-system';
 	  import Paper from 'material-ui/Paper';
@@ -33,19 +34,19 @@
 				perAdd:{},
 				currAdd:{},
 				eduDetails:[],
+				expDetails:[],
 				counter:1,
 				btnControl:true,
 				show:""
 			}
 			console.log(this.state)
-			this.comp1=this.comp1.bind(this);
-			this.comp2=this.comp2.bind(this);
-			this.comp3=this.comp3.bind(this);
+			this.compUpdate=this.compUpdate.bind(this);
 			this.enableButton = this.enableButton.bind(this);
 			this.disableButton = this.disableButton.bind(this);
 			this.name=this.name.bind(this);
 			this.fatherName=this.fatherName.bind(this);
 			this.education=this.education.bind(this);
+			this.experience=this.experience.bind(this);
 			this.motherName=this.motherName.bind(this);
 			this.currAdd=this.currAdd.bind(this);
 			this.perAdd=this.perAdd.bind(this);
@@ -66,9 +67,10 @@
 		password(event,value) { this.setState({ password:value }) }
 		rePassword(event,value) { this.setState({ repassword:value }) }
 		education(value) { this.setState({ eduDetails:value }) }
+		experience(value) { this.setState({ expDetails:value }) }
 		showMsg(value) { this.setState({ show:value }) }
 
-		comp1()
+		compUpdate()
 		{
 			console.log(this.state);
 			let cnt=this.state.counter
@@ -109,26 +111,7 @@
 	  			// });
 
 	  		}
-	  		comp2()
-	  		{
-	  			let cnt=this.state.counter
-	  			cnt++;
-	  			this.setState({
-	  				counter:cnt,
-	  				btnControl:true,
-	  				show:""
-	  			})
-	  		}
-	  		comp3()
-	  		{
-	  			let cnt=this.state.counter
-	  			cnt++;
-	  			this.setState({
-	  				counter:cnt,
-	  				btnControl:true,
-	  				show:""
-	  			})
-	  		}
+	  		
 	  		enableButton() {
 	  			this.setState(()=>({
 	  				btnControl: true
@@ -148,7 +131,7 @@
 	  				{
 	  				// this.state.counter===1?
 	  				// <SignUpCompOne
-	  				// addUser={this.comp1}
+	  				// addUser={this.compUpdate}
 	  				// enableButton={this.enableButton}
 	  				// disableButton={this.disableButton}
 	  				// name={this.name}
@@ -160,7 +143,7 @@
 	  				// :
 	  				// this.state.counter===2?
 	  				// <SignUpCompTwo
-	  				// addUser={this.comp2}
+	  				// addUser={this.compUpdate}
 	  				// enableButton={this.enableButton}
 	  				// disableButton={this.disableButton}
 	  				// fatherName={this.fatherName}
@@ -171,15 +154,27 @@
 	  				// btnControl={this.state.btnControl}
 	  				// />
 	  				// :
-	  				<SignUpCompThree
-	  				addUser={this.comp3}
+	  				// this.state.counter===3?
+	  				// <SignUpCompThree
+	  				// addUser={this.compUpdate}
+	  				// enableButton={this.enableButton}
+	  				// disableButton={this.disableButton}
+	  				// eduDetails={this.state.eduDetails}
+	  				// education={this.education}
+	  				// showMsg={this.showMsg}
+	  				// btnControl={this.state.btnControl}
+	  				// />
+	  				// :
+	  				<SignUpCompFour
+	  				addUser={this.compUpdate}
 	  				enableButton={this.enableButton}
 	  				disableButton={this.disableButton}
-	  				eduDetails={this.state.eduDetails}
-	  				education={this.education}
+	  				expDetails={this.state.expDetails}
+	  				experience={this.experience}
 	  				showMsg={this.showMsg}
 	  				btnControl={this.state.btnControl}
 	  				/>
+
 
 	  			}
 	  			

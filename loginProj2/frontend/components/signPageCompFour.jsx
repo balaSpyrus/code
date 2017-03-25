@@ -7,8 +7,7 @@
 	  import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
 	  import Avatar from 'material-ui/Avatar';
-	  import Formsy from 'formsy-react';
-	  import DetailsEdu from './detailsEdu';
+	  import DetailsExp from './detailsExp';
 	  import {Row, Col} from 'react-grid-system';
 	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 	  import MenuItem from 'material-ui/MenuItem';
@@ -39,47 +38,41 @@
 	  	paddingBottom:10
 	  }
 
-	  Formsy.addValidationRule('checkMin', function (values, value) {
-	  	return value<=100;
-	  })
-
-	  export default class SignUpCompThree extends React.Component {
+	  export default class SignUpCompFour extends React.Component {
 	  	constructor(props){
 	  		super(props)	  		
 	  		console.log(props)
 	  		
 	  		this.state={
-	  			examType:'10th grade',
-	  			eduBoard:'',
-	  			percent:'',
+	  			companyName:'',
+	  			yrOfExp:'',
 	  			details:[]
 	  		}
-	  		this.onChangeSelect=this.onChangeSelect.bind(this);
-	  		this.eBoard=this.eBoard.bind(this);
-	  		this.percentObt=this.percentObt.bind(this);
+	  		
+	  		this.expYr=this.expYr.bind(this);
+	  		this.comName=this.comName.bind(this);
 	  		this.addDetails=this.addDetails.bind(this);
 	  		this.deleteDetails=this.deleteDetails.bind(this);
 	  	}
 
 
 	  	
-	  	eBoard(event,value) { this.setState({ eduBoard:value }) }
-	  	percentObt(event,value) { this.setState({ percent:value+"%" }) }
-	  	onChangeSelect(event, index){ this.setState({examType: index}) 	}
-
+	  	comName(event,value) { this.setState({ companyName:value.toUpperCase() }) }
+	  	expYr(event,value) { this.setState({ yrOfExp:value+" year(s)" }) }
+	  	
 	  	addDetails()
 	  	{
 	  		
 	  		let data={
-	  			examType:this.state.examType,
-	  			eduBoard:this.state.eduBoard,
-	  			percent:this.state.percent,
-	  			id:this.props.eduDetails.length
+	  			
+	  			companyName:this.state.companyName,
+	  			yrOfExp:this.state.yrOfExp,
+	  			id:this.props.expDetails.length
 	  		}
-	  		let tempDetails=this.props.eduDetails;
+	  		let tempDetails=this.props.expDetails;
 	  		let flag=false;
 	  		tempDetails.map(function(tempData,index){
-	  			if(tempData.examType === data.examType)
+	  			if(tempData.companyName === data.companyName)
 	  				flag=true
 	  		})
 	  		if(flag === false)
@@ -89,27 +82,27 @@
 	  		}
 	  		else
 	  		{
-	  			this.props.showMsg('Duplicate details for '+data.examType)
+	  			this.props.showMsg('Duplicate details for '+data.companyName)
 	  		}
 	  		this.setState({
-	  			examType:'10th grade',
-	  			eduBoard:'',
-	  			percent:'',
+	  			
+	  			companyName:'',
+	  			yrOfExp:'',
 	  			details:tempDetails
 
 	  		})
-	  		this.props.education(tempDetails)
+	  		this.props.experience(tempDetails)
 	  		this.refs.form.reset()
 	  		
 	  	}
 	  	deleteDetails(id)
 	  	{
 	  		let tempDetails=[]
-	  		this.props.eduDetails.map(function(data,index){
+	  		this.props.expDetails.map(function(data,index){
 	  			if(index!==id)
 	  				tempDetails.push(data)
 	  		})
-	  		this.props.education(tempDetails)
+	  		this.props.experience(tempDetails)
 	  	}
 
 	  	render(){
@@ -123,46 +116,21 @@
 	  			onInvalid={this.props.disableButton}
 	  			onValidSubmit={this.props.addUser}
 	  			>
-	  			<h1 style={desStyle}>Education Details</h1>
-	  			<Row style={gap}>
-	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
-	  			<Avatar icon={<ActionAccountBox/>} />
-	  			</Col>
-	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
-	  			<FormsySelect
-	  			name="type of exam"	  			
-	  			value={this.state.examType}
-	  			style={{height:44,display:'block'}}
-	  			required
-	  			fullWidth={false}
-	  			onChange={this.onChangeSelect}
-	  			>
-	  			<MenuItem value="10th grade" 
-	  			primaryText="10th" />
-	  			<MenuItem value="12th grade" 
-	  			primaryText="12th" />
-	  			<MenuItem value="diploma"
-	  			primaryText="Diploma" />
-	  			<MenuItem value="under graduate"
-	  			primaryText="UG" />
-	  			<MenuItem value="post graduate"
-	  			primaryText="PG" />
-	  			</FormsySelect>
-	  			</Col>	
-	  			</Row>
+	  			<h1 style={desStyle}>Experience Details</h1>
+	  			
 	  			<Row style={gap}>
 	  			<Col xl={2} lg={2} md={2} sm={2} xs={2} >
 	  			<Avatar icon={<CommunicationEmail/>} />
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
-	  			name="eboard"
+	  			name="comName"
 	  			type="text"
 	  			required
-	  			hintText="education board"
+	  			hintText="company name"
 	  			validations="isAlpha"
 	  			validationError="type only letters"
-	  			onChange={this.eBoard}
+	  			onChange={this.comName}
 	  			/>
 	  			</Col>	
 	  			</Row>
@@ -172,13 +140,13 @@
 	  			</Col>
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
-	  			name="percentage"
+	  			name="experience"
 	  			required
-	  			hintText="Percentage Obtained"
+	  			hintText="Experience in years"
 	  			type="number"
-	  			validations="checkMin"
-	  			validationError="not more than 100"
-	  			onChange={this.percentObt}
+	  			validations="isNumeric"
+	  			validationError="type only numbers"
+	  			onChange={this.expYr}
 	  			/>
 	  			</Col>	
 	  			</Row>
@@ -194,17 +162,16 @@
 	  			</div>
 
 	  			{
-	  				this.props.eduDetails.length!==0?	
+	  				this.props.expDetails.length!==0?	
 	  				<div style={{fontSize:'13px'}}>  
 	  				<Row style={gap}>	
-	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Exam Type</Col>
-	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Education Board</Col>
-	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Percentage</Col>
+	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Company</Col>
+	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Experience</Col>
 	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Action</Col>
 	  				</Row>				
 	  				{	  					
-	  					this.props.eduDetails.map(
-	  						(eachDetail,index)=><DetailsEdu key={index} index={index}	
+	  					this.props.expDetails.map(
+	  						(eachDetail,index)=><DetailsExp key={index} index={index}	
 	  						eachDetail={eachDetail} deleteDetails={that.deleteDetails}/>
 	  						)
 	  				}  	

@@ -10,7 +10,7 @@
 	  import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
 	  import Avatar from 'material-ui/Avatar';
-	  import AddComp from './addComp';
+	  import AddressComp from './addressComp';
 	  import {Row, Col} from 'react-grid-system';
 	  const desStyle={
 	  	fontSize: 25,
@@ -127,13 +127,13 @@
 	  			</Col>
 	  			<Col lg={this.state.colSize} xl={this.state.colSize} md={this.state.colSize}>
 	  			<h1 style={desStyle}>{this.state.addCopy===false?'Current ':''}Address</h1>
-	  			<AddComp Add={this.currAdd}/>
+	  			<AddressComp Add={this.currAdd}/>
 	  			</Col>
 	  			{
 	  				this.state.addCopy===false?
 	  				<Col lg={4} xl={4} md={4}>
 	  				<h1 style={desStyle}>Permanent Address</h1>
-	  				<AddComp Add={this.props.perAdd}/>	  				
+	  				<AddressComp Add={this.props.perAdd}/>	  				
 	  				</Col>
 	  				:null
 	  			}

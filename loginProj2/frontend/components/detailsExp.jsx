@@ -7,7 +7,7 @@
  	paddingBottom:10
  }
 
- export default class Details extends React.Component{
+ export default class DetailsEdu extends React.Component{
  	constructor(props) {
  		super(props);
  		this.sendId=this.sendId.bind(this)
@@ -18,10 +18,9 @@
  	}
  	render(){
  		return(<Row style={gap}>
- 			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.examType}</Col>
- 			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.eduBoard}</Col>
- 			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.percent}</Col>
- 			<Col xl={3} lg={3} md={3} sm={6} xs={6}>
+ 			<Col xl={4} lg={4} md={4} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.companyName}</Col>
+ 			<Col xl={4} lg={4} md={4} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.yrOfExp}</Col>
+ 			<Col xl={4} lg={4} md={4} sm={6} xs={6}>
  			<FlatButton label="Delete" secondary={true} style={{marginLeft:-25}} labelStyle={{fontSize:'11px'}} onClick={this.sendId} />
  			</Col>
  			</Row>)
