@@ -7,6 +7,7 @@
 	  import SignUpCompTwo from './signPageCompTwo';	  
 	  import SignUpCompThree from './signPageCompThree';
 	  import SignUpCompFour from './signPageCompFour';
+	  import VerifyCompFive from './signPageCompFive';
 	  import {Link} from 'react-router';
 	  import {Container} from 'react-grid-system';
 	  import Paper from 'material-ui/Paper';
@@ -72,8 +73,8 @@
 
 		compUpdate()
 		{
-			console.log('returningg to main')
-			console.log(this.state);
+			console.log(this.state)
+			
 			let cnt=this.state.counter
 			cnt++;
 			this.setState({
@@ -114,13 +115,13 @@
 	  		}
 	  		
 	  		enableButton() {
-	  			console.log('enabling')
+	  			
 	  			this.setState(()=>({
 	  				btnControl: true
 	  			}));
 	  		}
 	  		disableButton() {
-	  			console.log('disabling')
+	  			
 	  			this.setState(()=>({
 	  				btnControl: false
 	  			}));
@@ -132,74 +133,79 @@
 	  				<Paper style={style} zDepth={2}>
 	  				<Container style={{paddingTop:20}}>
 	  				{
-	  				// this.state.counter===1?
-	  				// <SignUpCompOne
-	  				// addUser={this.compUpdate}
-	  				// enableButton={this.enableButton}
-	  				// disableButton={this.disableButton}
-	  				// name={this.name}
-	  				// email={this.email}
-	  				// password={this.password}
-	  				// rePassword={this.rePassword}
-	  				// btnControl={this.state.btnControl}
-	  				// />
-	  				// :
-	  				// this.state.counter===2?
-	  				// <SignUpCompTwo
-	  				// addUser={this.compUpdate}
-	  				// enableButton={this.enableButton}
-	  				// disableButton={this.disableButton}
-	  				// fatherName={this.fatherName}
-	  				// motherName={this.motherName}
-	  				// dob={this.dob}
-	  				// perAdd={this.perAdd}
-	  				// currAdd={this.currAdd}
-	  				// btnControl={this.state.btnControl}
-	  				// />
-	  				// :
-	  				// this.state.counter===3?
-	  				<SignUpCompThree
-	  				addUser={this.compUpdate}
-	  				enableButton={this.enableButton}
-	  				disableButton={this.disableButton}
-	  				eduDetails={this.state.eduDetails}
-	  				education={this.education}
-	  				showMsg={this.showMsg}
-	  				btnControl={this.state.btnControl}
-	  				/>
-	  				// :
-	  				// <SignUpCompFour
-	  				// addUser={this.compUpdate}
-	  				// enableButton={this.enableButton}
-	  				// disableButton={this.disableButton}
-	  				// expDetails={this.state.expDetails}
-	  				// experience={this.experience}
-	  				// showMsg={this.showMsg}
-	  				// btnControl={this.state.btnControl}
-	  				// />
+	  					this.state.counter===1?
+	  					<SignUpCompOne
+	  					addUser={this.compUpdate}
+	  					enableButton={this.enableButton}
+	  					disableButton={this.disableButton}
+	  					name={this.name}
+	  					email={this.email}
+	  					password={this.password}
+	  					rePassword={this.rePassword}
+	  					btnControl={this.state.btnControl}
+	  					/>
+	  					:
+	  					this.state.counter===2?
+	  					<SignUpCompTwo
+	  					addUser={this.compUpdate}
+	  					enableButton={this.enableButton}
+	  					disableButton={this.disableButton}
+	  					fatherName={this.fatherName}
+	  					motherName={this.motherName}
+	  					dob={this.dob}
+	  					perAdd={this.perAdd}
+	  					currAdd={this.currAdd}
+	  					btnControl={this.state.btnControl}
+	  					/>
+	  					:
+	  					this.state.counter===3?
+	  					<SignUpCompThree
+	  					addUser={this.compUpdate}
+	  					enableButton={this.enableButton}
+	  					disableButton={this.disableButton}
+	  					eduDetails={this.state.eduDetails}
+	  					education={this.education}
+	  					showMsg={this.showMsg}
+	  					btnControl={this.state.btnControl}
+	  					/>
+	  					:
+	  					this.state.counter===4?
+	  					<SignUpCompFour
+	  					addUser={this.compUpdate}
+	  					enableButton={this.enableButton}
+	  					disableButton={this.disableButton}
+	  					expDetails={this.state.expDetails}
+	  					experience={this.experience}
+	  					showMsg={this.showMsg}
+	  					btnControl={this.state.btnControl}
+	  					/>
+	  					:
+	  					<VerifyCompFive
+	  					userDetails={this.state}
+	  					/>
 
 
-	  			}
-	  			
-	  			</Container>
-	  			</Paper>
-	  			{
-	  				this.state.show!==""?
-	  				<div>
-	  				<h1 style={{textAlign:"center",fontFamily: "sans-serif",fontSize: 18,color: "#4b70ff"}}>{this.state.show}</h1>
-	  				<div style={{ marginLeft: "auto", marginRight: "auto", width: 100}}>
-	  				<Link to= '/' >
-	  				<RaisedButton label="Go Back" primary={true}  />
-	  				</Link>
+	  				}
+
+	  				</Container>
+	  				</Paper>
+	  				{
+	  					this.state.show!==""?
+	  					<div>
+	  					<h1 style={{textAlign:"center",fontFamily: "sans-serif",fontSize: 18,color: "#4b70ff"}}>{this.state.show}</h1>
+	  					<div style={{ marginLeft: "auto", marginRight: "auto", width: 100}}>
+	  					<Link to= '/' >
+	  					<RaisedButton label="Go Back" primary={true}  />
+	  					</Link>
+	  					</div>
+	  					</div>
+	  					:<div style={{ paddingTop:25,marginLeft: "auto", marginRight: "auto", width: 100}}>	
+	  					<Link to= '/'>
+	  					<RaisedButton label="Go Back" primary={true}  />
+	  					</Link>
+	  					</div>
+	  				}
 	  				</div>
-	  				</div>
-	  				:<div style={{ paddingTop:25,marginLeft: "auto", marginRight: "auto", width: 100}}>	
-	  				<Link to= '/'>
-	  				<RaisedButton label="Go Back" primary={true}  />
-	  				</Link>
-	  				</div>
-	  			}
-	  			</div>
-	  			)
+	  				)
 	  		}
 	  	}

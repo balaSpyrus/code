@@ -20,7 +20,7 @@
  		return(<Row style={gap}>
  			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.examType}</Col>
  			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.eduBoard}</Col>
- 			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.percent}</Col>
+ 			<Col xl={3} lg={3} md={3} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.percent+"%"}</Col>
  			<Col xl={3} lg={3} md={3} sm={6} xs={6}>
  			<FlatButton label="Delete" secondary={true} style={{marginLeft:-25}} labelStyle={{fontSize:'11px'}} onClick={this.sendId} />
  			</Col>

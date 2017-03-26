@@ -71,7 +71,6 @@
 
 	  	noWork(event,checkedStatus)
 	  	{
-	  		console.log(checkedStatus)
 	  		
 	  		if(checkedStatus === true)
 	  		{
@@ -111,36 +110,46 @@
 	  	addDetails()
 	  	{
 	  		
-	  		let data={
-	  			
-	  			companyName:this.state.companyName,
-	  			yrOfExp:this.state.yrOfExp,
-	  			
-	  		}
-	  		let tempDetails=this.props.expDetails;
-	  		let flag=false;
-	  		tempDetails.map(function(tempData,index){
-	  			if(tempData.companyName === data.companyName)
-	  				flag=true
-	  		})
-	  		if(flag === false)
+	  		if(this.state.companyName==='' || this.state.yrOfExp==='')
 	  		{
-	  			tempDetails.push(data);
-	  			this.props.showMsg('')
+	  			this.props.showMsg('Cannot add empty values')
+
 	  		}
 	  		else
 	  		{
-	  			this.props.showMsg('Duplicate details for '+data.companyName)
-	  		}
-	  		this.setState({
-	  			
-	  			companyName:'',
-	  			yrOfExp:'',
-	  			details:tempDetails
+	  			this.props.showMsg('')
 
-	  		})
-	  		this.props.experience(tempDetails)
-	  		this.refs.form.reset()
+	  			let data={
+
+	  				companyName:this.state.companyName,
+	  				yrOfExp:this.state.yrOfExp,
+
+	  			}
+	  			let tempDetails=this.props.expDetails;
+	  			let flag=false;
+	  			tempDetails.map(function(tempData,index){
+	  				if(tempData.companyName === data.companyName)
+	  					flag=true
+	  			})
+	  			if(flag === false)
+	  			{
+	  				tempDetails.push(data);
+	  				this.props.showMsg('')
+	  			}
+	  			else
+	  			{
+	  				this.props.showMsg('Duplicate details for '+data.companyName)
+	  			}
+	  			this.setState({
+
+	  				companyName:'',
+	  				yrOfExp:'',
+	  				details:tempDetails
+
+	  			})
+	  			this.props.experience(tempDetails)
+	  			this.refs.form.reset()
+	  		}
 	  		
 	  	}
 	  	deleteDetails(id)
@@ -178,7 +187,7 @@
 	  			<FormsyText
 	  			name="comName"
 	  			type="text"
-	  			required
+	  			
 	  			disabled={this.state.checked}
 	  			value={this.state.companyName}
 	  			hintText="company name"
@@ -193,7 +202,7 @@
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
 	  			name="experience"
-	  			required
+	  			
 	  			disabled={this.state.checked}
 	  			value={this.state.yrOfExp}
 	  			hintText="Experience in years"

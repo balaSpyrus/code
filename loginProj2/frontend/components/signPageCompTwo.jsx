@@ -26,7 +26,7 @@
 	  export default class SignUpCompTwo extends React.Component {
 	  	constructor(props){
 	  		super(props)	  		
-	  		console.log(props)
+	  		
 	  		let tmpDate=new Date();
 	  		let minDate = new Date(1900,tmpDate.getMonth(),tmpDate.getDate() );
 	  		let maxDate = new Date(1999,tmpDate.getMonth(),tmpDate.getDate() );
@@ -36,24 +36,23 @@
 	  			minDate: minDate,
 	  			maxDate: maxDate,
 	  			addCopy:false,
-	  			colSize:4,
-	  			add:{}
+	  			colSize:4
 	  		}
 
 	  	}
 	  	currAdd(value)
 	  	{
-	  		this.setState({
-	  			add:value
-	  		})
+	  		
 	  		this.props.currAdd(value)
+
+	  		if(this.state.addCopy ===true)
+	  		{
+	  			this.props.perAdd(value);
+	  		}
 	  	}
 	  	copyAdd(event,checked)
 	  	{
-	  		if(checked ===true)
-	  		{
-	  			this.props.perAdd(this.state.add);
-	  		}
+	  		
 	  		this.setState({
 	  			addCopy:checked
 	  		})

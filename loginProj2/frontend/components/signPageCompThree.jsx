@@ -40,7 +40,7 @@
 	  }
 
 	  Formsy.addValidationRule('checkMin', function (values, value) {
-	  	return value<=100;
+	  	return value>=0 && value<=100;
 	  })
 
 	  export default class SignUpCompThree extends React.Component {
@@ -50,8 +50,8 @@
 	  		
 	  		this.state={
 	  			examType:'10th grade',
-	  			eduBoard:'',
-	  			percent:'',
+	  			eduBoard:'NONE',
+	  			percent:0,
 	  			details:[]
 	  		}
 	  		this.onChangeSelect=this.onChangeSelect.bind(this);
@@ -65,7 +65,7 @@
 
 	  	
 	  	eBoard(event,value) { this.setState({ eduBoard:value }) }
-	  	percentObt(event,value) { this.setState({ percent:value+"%" }) }
+	  	percentObt(event,value) { this.setState({ percent:value }) }
 	  	onChangeSelect(event, index){ this.setState({examType: index}) 	}
 
 	  	submitForm()
@@ -84,36 +84,46 @@
 	  	addDetails()
 	  	{
 	  		
-	  		let data={
-	  			examType:this.state.examType,
-	  			eduBoard:this.state.eduBoard,
-	  			percent:this.state.percent,
-	  			id:this.props.eduDetails.length
-	  		}
-	  		let tempDetails=this.props.eduDetails;
-	  		let flag=false;
-	  		tempDetails.map(function(tempData,index){
-	  			if(tempData.examType === data.examType)
-	  				flag=true
-	  		})
-	  		if(flag === false)
+	  		if(this.state.eduBoard==='NONE')
 	  		{
-	  			tempDetails.push(data);
-	  			this.props.showMsg('')
+	  			this.props.showMsg('Cannot add empty values')
+
 	  		}
 	  		else
 	  		{
-	  			this.props.showMsg('Duplicate details for '+data.examType)
-	  		}
-	  		this.setState({
-	  			examType:'10th grade',
-	  			eduBoard:'',
-	  			percent:'',
-	  			details:tempDetails
+	  			this.props.showMsg('');
 
-	  		})
-	  		this.props.education(tempDetails)
-	  		this.refs.form.reset()
+	  			let data={
+	  				examType:this.state.examType,
+	  				eduBoard:this.state.eduBoard,
+	  				percent:this.state.percent,
+	  				id:this.props.eduDetails.length
+	  			}
+	  			let tempDetails=this.props.eduDetails;
+	  			let flag=false;
+	  			tempDetails.map(function(tempData,index){
+	  				if(tempData.examType === data.examType)
+	  					flag=true
+	  			})
+	  			if(flag === false)
+	  			{
+	  				tempDetails.push(data);
+	  				this.props.showMsg('')
+	  			}
+	  			else
+	  			{
+	  				this.props.showMsg('Duplicate details for '+data.examType)
+	  			}
+	  			this.setState({
+	  				examType:'10th grade',
+	  				eduBoard:'NONE',
+	  				percent:1,
+	  				details:tempDetails
+
+	  			})
+	  			this.props.education(tempDetails)
+	  			this.refs.form.reset()
+	  		}
 	  		
 	  	}
 	  	deleteDetails(id)
@@ -147,7 +157,7 @@
 	  			name="type of exam"	  			
 	  			value={this.state.examType}
 	  			style={{height:44,display:'block'}}
-	  			required={this.state.details.length!==0?null:'required'}
+	  			required
 	  			fullWidth={false}
 	  			onChange={this.onChangeSelect}
 	  			>
@@ -172,10 +182,10 @@
 	  			<FormsyText
 	  			name="eboard"
 	  			type="text"
-	  			required={this.state.details.length!==0?null:'required'}
+	  			
 	  			hintText="education board"
-	  			validations="isAlpha"
-	  			validationError="type only letters"
+	  			validations="isAlpha,minLength:3"
+	  			validationError="type letters"
 	  			onChange={this.eBoard}
 	  			/>
 	  			</Col>	
@@ -187,7 +197,6 @@
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
 	  			name="percentage"
-	  			required={this.state.details.length!==0?'required':null}
 	  			hintText="Percentage Obtained"
 	  			type="number"
 	  			validations="checkMin"
