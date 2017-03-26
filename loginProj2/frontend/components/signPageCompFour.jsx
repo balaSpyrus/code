@@ -11,9 +11,15 @@
 	  import {Row, Col} from 'react-grid-system';
 	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 	  import MenuItem from 'material-ui/MenuItem';
+	  import Formsy from 'formsy-react';
+	  import Checkbox from 'material-ui/Checkbox';
+
+	  Formsy.addValidationRule('checkExp', function (values, value) {
+	  	return value<=25;
+	  })
 
 	  const layStyle = {
-	  	height: 276,
+	  	height: 220,
 	  	width: 370,
 	  	marginLeft: "auto",
 	  	marginRight:"auto",
@@ -46,19 +52,61 @@
 	  		this.state={
 	  			companyName:'',
 	  			yrOfExp:'',
-	  			details:[]
+	  			details:[],
+	  			checked:false
 	  		}
 	  		
 	  		this.expYr=this.expYr.bind(this);
 	  		this.comName=this.comName.bind(this);
 	  		this.addDetails=this.addDetails.bind(this);
 	  		this.deleteDetails=this.deleteDetails.bind(this);
+	  		this.submitForm=this.submitForm.bind(this);
+	  		this.noWork=this.noWork.bind(this)
 	  	}
 
 
 	  	
 	  	comName(event,value) { this.setState({ companyName:value.toUpperCase() }) }
-	  	expYr(event,value) { this.setState({ yrOfExp:value+" year(s)" }) }
+	  	expYr(event,value) { this.setState({ yrOfExp:value }) }
+
+	  	noWork(event,checkedStatus)
+	  	{
+	  		console.log(checkedStatus)
+	  		
+	  		if(checkedStatus === true)
+	  		{
+	  			this.setState({
+	  				checked:checkedStatus,
+	  				yrOfExp:0,
+	  				companyName:'NONE'
+	  			})
+	  			this.props.experience([])
+	  		}
+	  		else
+	  		{
+	  			this.setState({
+	  				checked:checkedStatus,
+	  				yrOfExp:'',
+	  				companyName:''
+	  			})
+	  			this.props.experience(this.state.details)
+	  		}
+	  		
+
+	  	}
+	  	submitForm()
+	  	{
+	  		console.log('im in the submit form function')
+	  		if(this.state.details.length===0 && this.state.checked===false)
+	  		{
+	  			this.props.showMsg('Please add atleast one experience')
+	  		}
+	  		else
+	  		{
+	  			this.props.showMsg('')
+	  			this.props.addUser()
+	  		}
+	  	}
 	  	
 	  	addDetails()
 	  	{
@@ -67,7 +115,7 @@
 	  			
 	  			companyName:this.state.companyName,
 	  			yrOfExp:this.state.yrOfExp,
-	  			id:this.props.expDetails.length
+	  			
 	  		}
 	  		let tempDetails=this.props.expDetails;
 	  		let flag=false;
@@ -102,8 +150,12 @@
 	  			if(index!==id)
 	  				tempDetails.push(data)
 	  		})
+	  		this.setState({
+	  			details:tempDetails
+	  		})
 	  		this.props.experience(tempDetails)
 	  	}
+	  	
 
 	  	render(){
 	  		const that=this;
@@ -114,7 +166,7 @@
 	  			ref="form"
 	  			onValid={this.props.enableButton}
 	  			onInvalid={this.props.disableButton}
-	  			onValidSubmit={this.props.addUser}
+	  			onValidSubmit={this.submitForm}
 	  			>
 	  			<h1 style={desStyle}>Experience Details</h1>
 	  			
@@ -127,9 +179,9 @@
 	  			name="comName"
 	  			type="text"
 	  			required
+	  			disabled={this.state.checked}
+	  			value={this.state.companyName}
 	  			hintText="company name"
-	  			validations="isAlpha"
-	  			validationError="type only letters"
 	  			onChange={this.comName}
 	  			/>
 	  			</Col>	
@@ -142,19 +194,28 @@
 	  			<FormsyText
 	  			name="experience"
 	  			required
+	  			disabled={this.state.checked}
+	  			value={this.state.yrOfExp}
 	  			hintText="Experience in years"
 	  			type="number"
-	  			validations="isNumeric"
-	  			validationError="type only numbers"
+	  			validations="isNumeric,checkExp"
+	  			validationError="Type valid Experience"
 	  			onChange={this.expYr}
 	  			/>
 	  			</Col>	
 	  			</Row>
 	  			<Row style={gap}>
-	  			<Col style={{paddingBottom: 20}}>
+	  			<Col xl={5} lg={5} md={5} sm={5} xs={5} style={{paddingRight:0}}>
+	  			<Checkbox
+	  			style={{width:150,fontSize:15,paddingTop:5,float:'right'}}
+	  			label="Not working!!"
+	  			onCheck={this.noWork}
+	  			/>
+	  			</Col>
+	  			<Col xl={7} lg={7} md={7} sm={7} xs={7} style={{paddingBottom: 20}}>
 	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10}} disabled={!this.props.btnControl}/>
 
-	  			<RaisedButton label="Add" onClick={this.addDetails} secondary={true} style={{float:'right',height:34,marginLeft:10}} fullWidth={false} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Add" onClick={this.addDetails} secondary={true} style={{float:'right',height:34,marginLeft:10}} fullWidth={false} disabled={this.state.checked===true?true:!this.props.btnControl}/>
 	  			</Col>
 	  			</Row>
 	  			
@@ -163,11 +224,11 @@
 
 	  			{
 	  				this.props.expDetails.length!==0?	
-	  				<div style={{fontSize:'13px'}}>  
+	  				<div style={{fontSize:'15px',width:'70%',marginLeft:'auto',marginRight:'auto',paddingLeft:50}}>  
 	  				<Row style={gap}>	
-	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Company</Col>
-	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Experience</Col>
-	  				<Col xl={3} lg={3} md={3} sm={6} xs={6}>Action</Col>
+	  				<Col xl={4} lg={4} md={4} sm={6} xs={6}>Company</Col>
+	  				<Col xl={4} lg={4} md={4} sm={6} xs={6}>Experience</Col>
+	  				<Col xl={4} lg={4} md={4} sm={6} xs={6}>Action</Col>
 	  				</Row>				
 	  				{	  					
 	  					this.props.expDetails.map(

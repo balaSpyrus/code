@@ -59,6 +59,7 @@
 	  		this.percentObt=this.percentObt.bind(this);
 	  		this.addDetails=this.addDetails.bind(this);
 	  		this.deleteDetails=this.deleteDetails.bind(this);
+	  		this.submitForm=this.submitForm.bind(this);
 	  	}
 
 
@@ -66,6 +67,19 @@
 	  	eBoard(event,value) { this.setState({ eduBoard:value }) }
 	  	percentObt(event,value) { this.setState({ percent:value+"%" }) }
 	  	onChangeSelect(event, index){ this.setState({examType: index}) 	}
+
+	  	submitForm()
+	  	{
+	  		if(this.state.details.length===0 )
+	  		{
+	  			this.props.showMsg('Please add atleast one education')
+	  		}
+	  		else
+	  		{
+	  			this.props.showMsg('')
+	  			this.props.addUser()
+	  		}
+	  	}
 
 	  	addDetails()
 	  	{
@@ -121,7 +135,7 @@
 	  			ref="form"
 	  			onValid={this.props.enableButton}
 	  			onInvalid={this.props.disableButton}
-	  			onValidSubmit={this.props.addUser}
+	  			onValidSubmit={this.submitForm}
 	  			>
 	  			<h1 style={desStyle}>Education Details</h1>
 	  			<Row style={gap}>
@@ -133,7 +147,7 @@
 	  			name="type of exam"	  			
 	  			value={this.state.examType}
 	  			style={{height:44,display:'block'}}
-	  			required
+	  			required={this.state.details.length!==0?null:'required'}
 	  			fullWidth={false}
 	  			onChange={this.onChangeSelect}
 	  			>
@@ -158,7 +172,7 @@
 	  			<FormsyText
 	  			name="eboard"
 	  			type="text"
-	  			required
+	  			required={this.state.details.length!==0?null:'required'}
 	  			hintText="education board"
 	  			validations="isAlpha"
 	  			validationError="type only letters"
@@ -173,7 +187,7 @@
 	  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
 	  			<FormsyText
 	  			name="percentage"
-	  			required
+	  			required={this.state.details.length!==0?'required':null}
 	  			hintText="Percentage Obtained"
 	  			type="number"
 	  			validations="checkMin"
@@ -184,7 +198,7 @@
 	  			</Row>
 	  			<Row style={gap}>
 	  			<Col style={{paddingBottom: 20}}>
-	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10}} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Next" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10}} disabled={this.state.details.length!==0?false:!this.props.btnControl}/>
 
 	  			<RaisedButton label="Add" onClick={this.addDetails} secondary={true} style={{float:'right',height:34,marginLeft:10}} fullWidth={false} disabled={!this.props.btnControl}/>
 	  			</Col>

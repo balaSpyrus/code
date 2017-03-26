@@ -19,7 +19,7 @@
  	render(){
  		return(<Row style={gap}>
  			<Col xl={4} lg={4} md={4} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.companyName}</Col>
- 			<Col xl={4} lg={4} md={4} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.yrOfExp}</Col>
+ 			<Col xl={4} lg={4} md={4} sm={6} xs={6} style={{paddingTop:5}}>{this.props.eachDetail.yrOfExp+" year(s)"}</Col>
  			<Col xl={4} lg={4} md={4} sm={6} xs={6}>
  			<FlatButton label="Delete" secondary={true} style={{marginLeft:-25}} labelStyle={{fontSize:'11px'}} onClick={this.sendId} />
  			</Col>

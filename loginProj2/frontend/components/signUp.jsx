@@ -72,6 +72,7 @@
 
 		compUpdate()
 		{
+			console.log('returningg to main')
 			console.log(this.state);
 			let cnt=this.state.counter
 			cnt++;
@@ -113,11 +114,13 @@
 	  		}
 	  		
 	  		enableButton() {
+	  			console.log('enabling')
 	  			this.setState(()=>({
 	  				btnControl: true
 	  			}));
 	  		}
 	  		disableButton() {
+	  			console.log('disabling')
 	  			this.setState(()=>({
 	  				btnControl: false
 	  			}));
@@ -155,25 +158,25 @@
 	  				// />
 	  				// :
 	  				// this.state.counter===3?
-	  				// <SignUpCompThree
-	  				// addUser={this.compUpdate}
-	  				// enableButton={this.enableButton}
-	  				// disableButton={this.disableButton}
-	  				// eduDetails={this.state.eduDetails}
-	  				// education={this.education}
-	  				// showMsg={this.showMsg}
-	  				// btnControl={this.state.btnControl}
-	  				// />
-	  				// :
-	  				<SignUpCompFour
+	  				<SignUpCompThree
 	  				addUser={this.compUpdate}
 	  				enableButton={this.enableButton}
 	  				disableButton={this.disableButton}
-	  				expDetails={this.state.expDetails}
-	  				experience={this.experience}
+	  				eduDetails={this.state.eduDetails}
+	  				education={this.education}
 	  				showMsg={this.showMsg}
 	  				btnControl={this.state.btnControl}
 	  				/>
+	  				// :
+	  				// <SignUpCompFour
+	  				// addUser={this.compUpdate}
+	  				// enableButton={this.enableButton}
+	  				// disableButton={this.disableButton}
+	  				// expDetails={this.state.expDetails}
+	  				// experience={this.experience}
+	  				// showMsg={this.showMsg}
+	  				// btnControl={this.state.btnControl}
+	  				// />
 
 
 	  			}
