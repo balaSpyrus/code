@@ -123,6 +123,7 @@
 
 	  				companyName:this.state.companyName,
 	  				yrOfExp:this.state.yrOfExp,
+	  				id:this.props.expDetails.length
 
 	  			}
 	  			let tempDetails=this.props.expDetails;

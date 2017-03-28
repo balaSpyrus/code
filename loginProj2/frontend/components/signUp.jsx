@@ -133,53 +133,53 @@
 	  				<Paper style={style} zDepth={2}>
 	  				<Container style={{paddingTop:20}}>
 	  				{
-	  					this.state.counter===1?
-	  					<SignUpCompOne
-	  					addUser={this.compUpdate}
-	  					enableButton={this.enableButton}
-	  					disableButton={this.disableButton}
-	  					name={this.name}
-	  					email={this.email}
-	  					password={this.password}
-	  					rePassword={this.rePassword}
-	  					btnControl={this.state.btnControl}
-	  					/>
-	  					:
-	  					this.state.counter===2?
-	  					<SignUpCompTwo
-	  					addUser={this.compUpdate}
-	  					enableButton={this.enableButton}
-	  					disableButton={this.disableButton}
-	  					fatherName={this.fatherName}
-	  					motherName={this.motherName}
-	  					dob={this.dob}
-	  					perAdd={this.perAdd}
-	  					currAdd={this.currAdd}
-	  					btnControl={this.state.btnControl}
-	  					/>
-	  					:
-	  					this.state.counter===3?
-	  					<SignUpCompThree
-	  					addUser={this.compUpdate}
-	  					enableButton={this.enableButton}
-	  					disableButton={this.disableButton}
-	  					eduDetails={this.state.eduDetails}
-	  					education={this.education}
-	  					showMsg={this.showMsg}
-	  					btnControl={this.state.btnControl}
-	  					/>
-	  					:
-	  					this.state.counter===4?
-	  					<SignUpCompFour
-	  					addUser={this.compUpdate}
-	  					enableButton={this.enableButton}
-	  					disableButton={this.disableButton}
-	  					expDetails={this.state.expDetails}
-	  					experience={this.experience}
-	  					showMsg={this.showMsg}
-	  					btnControl={this.state.btnControl}
-	  					/>
-	  					:
+	  					// this.state.counter===1?
+	  					// <SignUpCompOne
+	  					// addUser={this.compUpdate}
+	  					// enableButton={this.enableButton}
+	  					// disableButton={this.disableButton}
+	  					// name={this.name}
+	  					// email={this.email}
+	  					// password={this.password}
+	  					// rePassword={this.rePassword}
+	  					// btnControl={this.state.btnControl}
+	  					// />
+	  					// :
+	  					// this.state.counter===2?
+	  					// <SignUpCompTwo
+	  					// addUser={this.compUpdate}
+	  					// enableButton={this.enableButton}
+	  					// disableButton={this.disableButton}
+	  					// fatherName={this.fatherName}
+	  					// motherName={this.motherName}
+	  					// dob={this.dob}
+	  					// perAdd={this.perAdd}
+	  					// currAdd={this.currAdd}
+	  					// btnControl={this.state.btnControl}
+	  					// />
+	  					// :
+	  					// this.state.counter===3?
+	  					// <SignUpCompThree
+	  					// addUser={this.compUpdate}
+	  					// enableButton={this.enableButton}
+	  					// disableButton={this.disableButton}
+	  					// eduDetails={this.state.eduDetails}
+	  					// education={this.education}
+	  					// showMsg={this.showMsg}
+	  					// btnControl={this.state.btnControl}
+	  					// />
+	  					// :
+	  					// this.state.counter===4?
+	  					// <SignUpCompFour
+	  					// addUser={this.compUpdate}
+	  					// enableButton={this.enableButton}
+	  					// disableButton={this.disableButton}
+	  					// expDetails={this.state.expDetails}
+	  					// experience={this.experience}
+	  					// showMsg={this.showMsg}
+	  					// btnControl={this.state.btnControl}
+	  					// />
+	  					// :
 	  					<VerifyCompFive
 	  					userDetails={this.state}
 	  					/>
