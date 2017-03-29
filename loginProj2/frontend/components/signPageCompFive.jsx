@@ -2,13 +2,16 @@
 	  import ReactDOM from 'react-dom';
 	  import RaisedButton from 'material-ui/RaisedButton';	
 	  import FontIcon from 'material-ui/FontIcon';
-	  import FormsyText from 'formsy-material-ui/lib/FormsyText';
 	  import IconButton from 'material-ui/IconButton';
 	  import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';	
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
 	  import Avatar from 'material-ui/Avatar';
 	  import {Row, Col,Container} from 'react-grid-system';
 	  import TextField from 'material-ui/TextField';
+	  import FormsyText from 'formsy-material-ui/lib/FormsyText';
+	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
+	  import MenuItem from 'material-ui/MenuItem';
+	  import Formsy from 'formsy-react';
 
 	  const desStyle={
 	  	fontSize: 25,
@@ -58,7 +61,7 @@
 	  			eduDetails:[{
 	  				examType:'10th grade',
 	  				eduBoard:'NONE',
-	  				percent:0
+	  				percent:22
 	  			},
 	  			{
 	  				examType:'10th grade',
@@ -204,6 +207,12 @@
 	  	render(){
 	  		const that=this
 	  		return(
+	  			<Formsy.Form
+	  			ref="form"
+	  			onValid={this.props.enableButton}
+	  			onInvalid={this.props.disableButton}
+	  			onValidSubmit={this.submitForm}
+	  			>
 	  			<Container>
 	  			<Row >
 	  			<Col xl={6} lg={6} md={6}>
@@ -217,8 +226,10 @@
 	  			</Row>
 	  			<Row style={gap}>
 	  			<Col xl={4} lg={4} md={4}>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="name"
 	  			floatingLabelText="Name"
 	  			disabled={!this.state.generalDetails}
 	  			onChange={this.name}
@@ -227,8 +238,10 @@
 	  			/>
 	  			</Col>
 	  			<Col xl={4} lg={4} md={4}>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="email"
 	  			floatingLabelText="e-mail"
 	  			disabled={!this.state.generalDetails}
 	  			onChange={this.email}
@@ -237,8 +250,10 @@
 	  			/>
 	  			</Col>
 	  			<Col xl={4} lg={4} md={4}>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="dob"
 	  			floatingLabelText="Date of Birth"
 	  			disabled={!this.state.generalDetails}
 	  			onChange={this.dob}
@@ -249,8 +264,10 @@
 	  			</Row>
 	  			<Row style={gap}>
 	  			<Col xl={6} lg={6} md={6}>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="fname"
 	  			floatingLabelText="Father Name"
 	  			disabled={!this.state.generalDetails}
 	  			onChange={this.fatherName}
@@ -259,8 +276,10 @@
 	  			/>
 	  			</Col>
 	  			<Col xl={6} lg={6} md={6}>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="mname"
 	  			floatingLabelText="Mother Name"
 	  			disabled={!this.state.generalDetails}
 	  			onChange={this.motherName}
@@ -283,8 +302,10 @@
 	  			<Col xl={6} lg={6} md={6}>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="currstreet1"
 	  			floatingLabelText="Street 1"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currStreet1}
@@ -295,8 +316,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="currStreet2"
 	  			floatingLabelText="Street 2"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currStreet2}
@@ -307,8 +330,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="currstate"
 	  			floatingLabelText="State"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currStates}
@@ -319,8 +344,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="currcity"
 	  			floatingLabelText="City"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currCity}
@@ -331,8 +358,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="currzip"
 	  			floatingLabelText="Zip"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currZip}
@@ -346,8 +375,10 @@
 	  			<Col xl={6} lg={6} md={6}>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="perStreet1"
 	  			floatingLabelText="Street 1"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perStreet1}
@@ -358,8 +389,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="perstreet2"
 	  			floatingLabelText="Street 2"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perStreet2}
@@ -370,8 +403,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="perstate"
 	  			floatingLabelText="State"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perStates}
@@ -382,8 +417,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="percity"
 	  			floatingLabelText="City"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perCity}
@@ -394,8 +431,10 @@
 	  			</Row>
 	  			<Row>
 	  			<Col>
-	  			<TextField
+	  			<FormsyText
+	  			required
 	  			fullWidth={true}
+	  			name="perzip"
 	  			floatingLabelText="Zip"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perZip}
@@ -423,8 +462,10 @@
 	  					return(
 	  						<div key={index}>
 	  						<Col xl={4} lg={4} md={4}>
-	  						<TextField
+	  						<FormsyText
+	  						required
 	  						fullWidth={true}
+	  						name="examtype"
 	  						floatingLabelText="Exam Type"
 	  						disabled={!that.state.studyDetails}
 	  						id={index}
@@ -432,8 +473,10 @@
 	  						/>
 	  						</Col>
 	  						<Col xl={4} lg={4} md={4}>
-	  						<TextField
+	  						<FormsyText
+	  						required
 	  						fullWidth={true}
+	  						name="eduboard"
 	  						floatingLabelText="Education Board"
 	  						disabled={!that.state.studyDetails}
 	  						id={index}
@@ -441,13 +484,15 @@
 	  						/>
 	  						</Col>
 	  						<Col xl={4} lg={4} md={4}>
-	  						<TextField
+	  						<FormsyText
+	  						required
 	  						fullWidth={true}
+	  						name="percent"
 	  						floatingLabelText="Percentage Obtained"
 	  						disabled={!that.state.studyDetails}
 	  						id={index}
-	  						
-	  						value={eachDetail.percent}
+	  						validation="isNumeric"
+	  						value={eachDetail.percent+""}
 	  						/>
 	  						</Col>
 	  						</div>
@@ -456,8 +501,14 @@
 	  				})
 	  			}
 	  			</Row>
-	  			</Container>
+	  			<Row>
+	  			<Col>
+	  			<RaisedButton label="Submit" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10}} disabled={!this.props.btnControl}/>
 
+	  			</Col>
+	  			</Row>
+	  			</Container>
+	  			</Formsy.Form>
 	  			)
 	}
 }

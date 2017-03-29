@@ -3,15 +3,16 @@
 	  import RaisedButton from 'material-ui/RaisedButton';	
 	  import FontIcon from 'material-ui/FontIcon';
 	  import FormsyText from 'formsy-material-ui/lib/FormsyText';
+	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
+	  import MenuItem from 'material-ui/MenuItem';
+	  import Formsy from 'formsy-react';
 	  import ActionAccountBox from 'material-ui/svg-icons/action/account-box';	  
 	  import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 	  import ActionLock from 'material-ui/svg-icons/action/lock';
 	  import Avatar from 'material-ui/Avatar';
 	  import DetailsExp from './detailsExp';
 	  import {Row, Col} from 'react-grid-system';
-	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
-	  import MenuItem from 'material-ui/MenuItem';
-	  import Formsy from 'formsy-react';
+	  
 	  import Checkbox from 'material-ui/Checkbox';
 
 	  Formsy.addValidationRule('checkExp', function (values, value) {

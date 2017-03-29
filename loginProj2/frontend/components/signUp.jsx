@@ -182,6 +182,10 @@
 	  					// :
 	  					<VerifyCompFive
 	  					userDetails={this.state}
+	  					enableButton={this.enableButton}
+	  					disableButton={this.disableButton}
+	  					btnControl={this.state.btnControl}
+
 	  					/>
 
 
