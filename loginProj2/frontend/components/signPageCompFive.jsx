@@ -11,6 +11,8 @@
 	  import FormsyText from 'formsy-material-ui/lib/FormsyText';
 	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 	  import MenuItem from 'material-ui/MenuItem';
+	  import DatePicker from 'material-ui/DatePicker';
+
 	  import Formsy from 'formsy-react';
 
 	  const desStyle={
@@ -24,12 +26,21 @@
 	  const gap={
 	  	paddingBottom:10
 	  }
+
+	  Formsy.addValidationRule('checkMin', function (values, value) {
+	  	return value>=0 && value<=100;
+	  })
+
 	  export default class VerifyCompFive extends React.Component {
 	  	constructor(props){
 	  		super(props)	  		
 	  		console.log(props.userDetails)
+	  		let tmpDate=new Date();
+	  		let minDate = new Date(1900,tmpDate.getMonth(),tmpDate.getDate() );
+	  		let maxDate = new Date(1999,tmpDate.getMonth(),tmpDate.getDate() );
 	  		this.state={
-
+	  			minDate: minDate,
+	  			maxDate: maxDate,
 	  			// name:this.props.userDetails.name,	  		
 	  			// email:this.props.userDetails.email,
 	  			// fatherName:this.props.userDetails.fatherName,
@@ -40,10 +51,10 @@
 	  			// eduDetails:this.props.userDetails.eduDetails,
 	  			// expDetails:this.props.userDetails.expDetails,
 	  			name:"name",	  		
-	  			email:"email",
+	  			email:"email@email.com",
 	  			fatherName:"fatherName",
 	  			motherName:"motherName",
-	  			dob:new Date(),
+	  			dob:maxDate,
 	  			perAdd:{
 	  				street1:"dummy",
 	  				street2:"dummy",
@@ -246,19 +257,25 @@
 	  			disabled={!this.state.generalDetails}
 	  			onChange={this.email}
 	  			id="email"
+	  			validations="isEmail"
+	  			validationError="give a valid one"
 	  			value={this.state.email}
 	  			/>
 	  			</Col>
 	  			<Col xl={4} lg={4} md={4}>
-	  			<FormsyText
+	  			<DatePicker
 	  			required
+	  			value={this.state.dob}
 	  			fullWidth={true}
 	  			name="dob"
-	  			floatingLabelText="Date of Birth"
 	  			disabled={!this.state.generalDetails}
-	  			onChange={this.dob}
+	  			floatingLabelText="Date of Birth"
 	  			id="dob"
-	  			value={this.state.dob}
+	  			autoOk={true}
+	  			minDate={this.state.minDate}
+	  			maxDate={this.state.maxDate}
+	  			defaultDate={this.state.maxDate}
+	  			onChange={this.props.dob}
 	  			/>
 	  			</Col>
 	  			</Row>
@@ -468,7 +485,7 @@
 	  						name="examtype"
 	  						floatingLabelText="Exam Type"
 	  						disabled={!that.state.studyDetails}
-	  						id={index}
+	  						id={index+""}
 	  						value={eachDetail.examType}
 	  						/>
 	  						</Col>
@@ -479,7 +496,7 @@
 	  						name="eduboard"
 	  						floatingLabelText="Education Board"
 	  						disabled={!that.state.studyDetails}
-	  						id={index}
+	  						id={index+""}
 	  						value={eachDetail.eduBoard}
 	  						/>
 	  						</Col>
@@ -490,8 +507,10 @@
 	  						name="percent"
 	  						floatingLabelText="Percentage Obtained"
 	  						disabled={!that.state.studyDetails}
-	  						id={index}
-	  						validation="isNumeric"
+	  						id={index+""}
+	  						validations="isNumeric,checkMin"
+	  						validationError="numbers within 100"
+
 	  						value={eachDetail.percent+""}
 	  						/>
 	  						</Col>
