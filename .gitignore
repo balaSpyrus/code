@@ -4,3 +4,5 @@
 /chatbot/node_modules
 /billManager/node_modules
 /billManagerAng/node_modules
+/onlineBot/node_modules
+/onlineBot/flask-env
