@@ -12,6 +12,7 @@
 	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 	  import MenuItem from 'material-ui/MenuItem';
 	  import DatePicker from 'material-ui/DatePicker';
+	  import ShowEdu from './showEdu'
 
 	  import Formsy from 'formsy-react';
 
@@ -110,6 +111,8 @@
 	  		this.perStates=this.perStates.bind(this)
 	  		this.perCity=this.perCity.bind(this)
 	  		this.perZip=this.perZip.bind(this)
+	  		this.modEduData=this.modEduData.bind(this)
+
 
 	  	}
 	  	name(event,value) { this.setState({ name:value }) }
@@ -214,7 +217,15 @@
 	  		console.log(this.state.studyDetails)
 
 	  	}
-
+	  	modEduData(data,index)
+	  	{
+	  		let eduData=this.state.eduDetails
+	  		eduData[index]=data
+	  		this.setState({
+	  			eduDetails:eduData
+	  		})
+	  		console.log(this.state)
+	  	}
 	  	render(){
 	  		const that=this
 	  		return(
@@ -474,49 +485,13 @@
 	  			</Row>
 	  			<Row style={gap}>
 	  			{
-	  				this.state.eduDetails.map(function(eachDetail,index){
+	  				this.state.eduDetails.map((eachDetail,index)=>{
 
-	  					return(
-	  						<div key={index}>
-	  						<Col xl={4} lg={4} md={4}>
-	  						<FormsyText
-	  						required
-	  						fullWidth={true}
-	  						name="examtype"
-	  						floatingLabelText="Exam Type"
-	  						disabled={!that.state.studyDetails}
-	  						id={index+""}
-	  						value={eachDetail.examType}
-	  						/>
-	  						</Col>
-	  						<Col xl={4} lg={4} md={4}>
-	  						<FormsyText
-	  						required
-	  						fullWidth={true}
-	  						name="eduboard"
-	  						floatingLabelText="Education Board"
-	  						disabled={!that.state.studyDetails}
-	  						id={index+""}
-	  						value={eachDetail.eduBoard}
-	  						/>
-	  						</Col>
-	  						<Col xl={4} lg={4} md={4}>
-	  						<FormsyText
-	  						required
-	  						fullWidth={true}
-	  						name="percent"
-	  						floatingLabelText="Percentage Obtained"
-	  						disabled={!that.state.studyDetails}
-	  						id={index+""}
-	  						validations="isNumeric,checkMin"
-	  						validationError="numbers within 100"
-
-	  						value={eachDetail.percent+""}
-	  						/>
-	  						</Col>
-	  						</div>
-	  						)
-
+	  					return <ShowEdu key={index}
+	  					index={index} 
+	  					modEduData={this.modEduData}
+	  					eduData={eachDetail} 
+	  					studyDetails={this.state.studyDetails}/>
 	  				})
 	  			}
 	  			</Row>
