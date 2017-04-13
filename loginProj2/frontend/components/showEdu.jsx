@@ -3,6 +3,11 @@
  import FlatButton from 'material-ui/FlatButton';
  import {Row, Col} from 'react-grid-system';
  import FormsyText from 'formsy-material-ui/lib/FormsyText';
+ import Formsy from 'formsy-react';
+
+ Formsy.addValidationRule('checkMin', function (values, value) {
+ 	return value>=0 && value<=100;
+ })
 
  const gap={
  	paddingBottom:10

@@ -4,7 +4,14 @@ var user=new userSchema({
 	
 	name: String,
 	email:String,
-	password:String
+	password:String,
+	fName:String,
+	mName:String,
+	DOB:Date,
+	perAdd:Object,
+	currAdd:Object,
+	eduDetails:Array,
+	expDetails:Array
 
 },{versionKey:false});
 

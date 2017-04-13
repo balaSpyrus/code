@@ -1,0 +1,14 @@
+package com.wipro.chatbot.message;
+
+public class InputRecord {
+
+	private String value;
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+}

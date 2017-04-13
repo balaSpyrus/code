@@ -16,7 +16,7 @@
 	  import Checkbox from 'material-ui/Checkbox';
 
 	  Formsy.addValidationRule('checkExp', function (values, value) {
-	  	return value<=25;
+	  	return value>=0 && value<=25;
 	  })
 
 	  const layStyle = {
@@ -96,7 +96,6 @@
 	  	}
 	  	submitForm()
 	  	{
-	  		console.log('im in the submit form function')
 	  		if(this.state.details.length===0 && this.state.checked===false)
 	  		{
 	  			this.props.showMsg('Please add atleast one experience')

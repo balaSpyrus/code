@@ -133,7 +133,7 @@
  			<Col xl={10} lg={10} md={10} sm={10} xs={10}>
  			<FormsyText
  			name="ZIP"
- 			type="text"
+ 			type="number"
  			required
  			value={this.state.zip}
  			validations="isNumeric,minLength:6,maxLength:6"

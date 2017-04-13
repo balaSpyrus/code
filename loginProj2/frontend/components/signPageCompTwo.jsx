@@ -47,7 +47,13 @@
 
 	  		if(this.state.addCopy ===true)
 	  		{
-	  			this.props.perAdd(value);
+	  			let data = new Object()
+	  			data.street1=value.street1
+	  			data.street2=value.street2
+	  			data.states=value.states
+	  			data.city=value.city
+	  			data.zip=value.zip
+	  			this.props.perAdd(data);
 	  		}
 	  	}
 	  	copyAdd(event,checked)

@@ -27,7 +27,6 @@
 			this.state={
 				name:"",
 				password:"",
-				repassword:"",
 				email:"",
 				fatherName:"",
 				motherName:"",
@@ -54,7 +53,6 @@
 			this.dob=this.dob.bind(this);
 			this.email=this.email.bind(this);
 			this.password=this.password.bind(this);
-			this.rePassword=this.rePassword.bind(this);
 			this.showMsg=this.showMsg.bind(this);
 		}
 
@@ -62,18 +60,19 @@
 		fatherName(event,value) { this.setState({ fatherName:value }) }
 		motherName(event,value) { this.setState({ motherName:value }) }
 		dob(event,value) { this.setState({ dob:value }) }
-		perAdd(value) { this.setState({ perAdd:value }) }
+		perAdd(value) { console.log("from preadd",value) 
+		this.setState({ perAdd:value }) 
+		console.log(this.state)}
 		currAdd(value) { this.setState({ currAdd:value }) }
 		email(event,value) { this.setState({ email:value }) }
 		password(event,value) { this.setState({ password:value }) }
-		rePassword(event,value) { this.setState({ repassword:value }) }
 		education(value) { this.setState({ eduDetails:value }) }
 		experience(value) { this.setState({ expDetails:value }) }
 		showMsg(value) { this.setState({ show:value }) }
 
-		compUpdate()
+		compUpdate(data)
 		{
-			console.log(this.state)
+			
 			
 			let cnt=this.state.counter
 			cnt++;
@@ -82,134 +81,129 @@
 				btnControl:true,
 				show:""
 			})
+			if(cnt===6)
+			{
+				let url =`http://localhost:8081/register`;
+				let user=data
+				console.log(user)
+				let that = this;
+				Request
+				.post(url)
+				.send({'data':user})
+				.end(function(err, res){
+					if(err){
+						that.setState({
+							show:""+err
+						})
+					}
+					else
+					{
+						let data=JSON.parse(res.text)
+						that.setState({
+							show:data.msg
+						})
+						console.log(data.msg)	
+					}
 
-	  			// let url =`http://localhost:8081/register`;
-	  			// let user={
-	  			// 	name:this.state.name,
-	  			// 	email:this.state.email.toLowerCase(),
-	  			// 	password:this.state.password
-	  			// }
-	  			// console.log(user)
-	  			// let that = this;
-	  			// Request
-	  			// .post(url)
-	  			// .send({'data':user})
-	  			// .end(function(err, res){
-	  			// 	if(err){
-	  			// 		that.setState({
-	  			// 			show:""+err
-	  			// 		})
-	  			// 	}
-	  			// 	else
-	  			// 	{
-	  			// 		let data=JSON.parse(res.text)
-	  			// 		that.setState({
-	  			// 			show:data.msg
-	  			// 		})
-	  			// 		that.refs.form.reset()
-	  			// 		console.log(data.msg)	
-	  			// 	}
-
-	  			// });
-
-	  		}
-	  		
-	  		enableButton() {
-	  			
-	  			this.setState(()=>({
-	  				btnControl: true
-	  			}));
-	  		}
-	  		disableButton() {
-	  			
-	  			this.setState(()=>({
-	  				btnControl: false
-	  			}));
-	  		}
-
-	  		render(){
-	  			return(
-	  				<div style={style}>
-	  				<Paper style={style} zDepth={2}>
-	  				<Container style={{paddingTop:20}}>
-	  				{
-	  					// this.state.counter===1?
-	  					// <SignUpCompOne
-	  					// addUser={this.compUpdate}
-	  					// enableButton={this.enableButton}
-	  					// disableButton={this.disableButton}
-	  					// name={this.name}
-	  					// email={this.email}
-	  					// password={this.password}
-	  					// rePassword={this.rePassword}
-	  					// btnControl={this.state.btnControl}
-	  					// />
-	  					// :
-	  					// this.state.counter===2?
-	  					// <SignUpCompTwo
-	  					// addUser={this.compUpdate}
-	  					// enableButton={this.enableButton}
-	  					// disableButton={this.disableButton}
-	  					// fatherName={this.fatherName}
-	  					// motherName={this.motherName}
-	  					// dob={this.dob}
-	  					// perAdd={this.perAdd}
-	  					// currAdd={this.currAdd}
-	  					// btnControl={this.state.btnControl}
-	  					// />
-	  					// :
-	  					// this.state.counter===3?
-	  					// <SignUpCompThree
-	  					// addUser={this.compUpdate}
-	  					// enableButton={this.enableButton}
-	  					// disableButton={this.disableButton}
-	  					// eduDetails={this.state.eduDetails}
-	  					// education={this.education}
-	  					// showMsg={this.showMsg}
-	  					// btnControl={this.state.btnControl}
-	  					// />
-	  					// :
-	  					// this.state.counter===4?
-	  					// <SignUpCompFour
-	  					// addUser={this.compUpdate}
-	  					// enableButton={this.enableButton}
-	  					// disableButton={this.disableButton}
-	  					// expDetails={this.state.expDetails}
-	  					// experience={this.experience}
-	  					// showMsg={this.showMsg}
-	  					// btnControl={this.state.btnControl}
-	  					// />
-	  					// :
-	  					<VerifyCompFive
-	  					userDetails={this.state}
-	  					enableButton={this.enableButton}
-	  					disableButton={this.disableButton}
-	  					btnControl={this.state.btnControl}
-
-	  					/>
+				});
+				
+			}
 
 
-	  				}
 
-	  				</Container>
-	  				</Paper>
-	  				{
-	  					this.state.show!==""?
-	  					<div>
-	  					<h1 style={{textAlign:"center",fontFamily: "sans-serif",fontSize: 18,color: "#4b70ff"}}>{this.state.show}</h1>
-	  					<div style={{ marginLeft: "auto", marginRight: "auto", width: 100}}>
-	  					<Link to= '/' >
-	  					<RaisedButton label="Go Back" primary={true}  />
-	  					</Link>
-	  					</div>
-	  					</div>
-	  					:<div style={{ paddingTop:25,marginLeft: "auto", marginRight: "auto", width: 100}}>	
-	  					<Link to= '/'>
-	  					<RaisedButton label="Go Back" primary={true}  />
-	  					</Link>
-	  					</div>
-	  				}
-	  				</div>
-	  				)
-	  		}
-	  	}
+		}
+
+		enableButton() {
+
+			this.setState(()=>({
+				btnControl: true
+			}));
+		}
+		disableButton() {
+
+			this.setState(()=>({
+				btnControl: false
+			}));
+		}
+
+		render(){
+			return(
+				<div style={style}>
+				<Paper style={style} zDepth={2}>
+				<Container style={{paddingTop:20}}>
+				{
+					this.state.counter===1?
+					<SignUpCompOne
+					addUser={this.compUpdate}
+					enableButton={this.enableButton}
+					disableButton={this.disableButton}
+					name={this.name}
+					email={this.email}
+					password={this.password}
+					btnControl={this.state.btnControl}
+					/>
+					:
+					this.state.counter===2?
+					<SignUpCompTwo
+					addUser={this.compUpdate}
+					enableButton={this.enableButton}
+					disableButton={this.disableButton}
+					fatherName={this.fatherName}
+					motherName={this.motherName}
+					dob={this.dob}
+					perAdd={this.perAdd}
+					currAdd={this.currAdd}
+					btnControl={this.state.btnControl}
+					/>
+					:
+					this.state.counter===3?
+					<SignUpCompThree
+					addUser={this.compUpdate}
+					enableButton={this.enableButton}
+					disableButton={this.disableButton}
+					eduDetails={this.state.eduDetails}
+					education={this.education}
+					showMsg={this.showMsg}
+					btnControl={this.state.btnControl}
+					/>
+					:
+					this.state.counter===4?
+					<SignUpCompFour
+					addUser={this.compUpdate}
+					enableButton={this.enableButton}
+					disableButton={this.disableButton}
+					expDetails={this.state.expDetails}
+					experience={this.experience}
+					showMsg={this.showMsg}
+					btnControl={this.state.btnControl}
+					/>
+					:
+					<VerifyCompFive
+					userDetails={this.state}
+					enableButton={this.enableButton}
+					disableButton={this.disableButton}
+					btnControl={this.state.btnControl}
+					addUser={this.compUpdate}
+					/>
+
+
+				}
+
+				</Container>
+				</Paper>
+				{
+					this.state.show!==""?
+					<h1 style={{textAlign:"center",fontFamily: "sans-serif",
+					fontSize: 18,color: "#4b70ff"}}>{this.state.show}</h1>
+
+					:null
+				}
+				<div style={{ paddingTop:25,marginLeft: "auto", marginRight: "auto", width: 100}}>	
+				<Link to= '/'>
+				<RaisedButton label="HOME" primary={true}  />
+				</Link>
+				</div>
+				</div>
+				)
+		}
+	}

@@ -12,6 +12,11 @@
 	  import {Row, Col} from 'react-grid-system';
 	  import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 	  import MenuItem from 'material-ui/MenuItem';
+	  
+
+	  Formsy.addValidationRule('checkMin', function (values, value) {
+	  	return value>=0 && value<=100;
+	  })
 
 	  const layStyle = {
 	  	height: 276,
@@ -38,10 +43,6 @@
 	  const gap={
 	  	paddingBottom:10
 	  }
-
-	  Formsy.addValidationRule('checkMin', function (values, value) {
-	  	return value>=0 && value<=100;
-	  })
 
 	  export default class SignUpCompThree extends React.Component {
 	  	constructor(props){

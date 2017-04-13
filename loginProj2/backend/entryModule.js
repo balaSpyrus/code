@@ -47,8 +47,16 @@ router.post('/register',function(req,res){
 			var j=req.body.data;
 			var add=new userSchema({
 				name: j.name,
-				email:j.email,
-				password:j.password
+				email:j.email.toLowerCase(),
+				password:j.password,
+				fName:j.fatherName,
+				mName:j.motherName,
+				DOB:j.dob,
+				perAdd:j.perAdd,
+				currAdd:j.currAdd,
+				eduDetails:j.eduDetails,
+				expDetails:j.expDetails
+
 			});
 
 			add.save(function(err,data){

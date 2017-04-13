@@ -13,6 +13,7 @@
 	  import MenuItem from 'material-ui/MenuItem';
 	  import DatePicker from 'material-ui/DatePicker';
 	  import ShowEdu from './showEdu'
+	  import ShowExp from './showExp'
 
 	  import Formsy from 'formsy-react';
 
@@ -35,60 +36,75 @@
 	  export default class VerifyCompFive extends React.Component {
 	  	constructor(props){
 	  		super(props)	  		
-	  		console.log(props.userDetails)
+	  		console.log("from the props",props.userDetails)
 	  		let tmpDate=new Date();
 	  		let minDate = new Date(1900,tmpDate.getMonth(),tmpDate.getDate() );
 	  		let maxDate = new Date(1999,tmpDate.getMonth(),tmpDate.getDate() );
 	  		this.state={
 	  			minDate: minDate,
 	  			maxDate: maxDate,
-	  			// name:this.props.userDetails.name,	  		
-	  			// email:this.props.userDetails.email,
-	  			// fatherName:this.props.userDetails.fatherName,
-	  			// motherName:this.props.userDetails.motherName,
-	  			// dob:this.props.userDetails.dob,
-	  			// perAdd:this.props.userDetails.perAdd,
-	  			// currAdd:this.props.userDetails.currAdd,
-	  			// eduDetails:this.props.userDetails.eduDetails,
-	  			// expDetails:this.props.userDetails.expDetails,
-	  			name:"name",	  		
-	  			email:"email@email.com",
-	  			fatherName:"fatherName",
-	  			motherName:"motherName",
-	  			dob:maxDate,
-	  			perAdd:{
-	  				street1:"dummy",
-	  				street2:"dummy",
-	  				states:"dummy",
-	  				city:"dummy",
-	  				zip:"dummy"
-	  			},
-	  			currAdd:{
-	  				street1:"dummy",
-	  				street2:"dummy",
-	  				states:"dummy",
-	  				city:"dummy",
-	  				zip:"dummy"
-	  			},
-	  			eduDetails:[{
-	  				examType:'10th grade',
-	  				eduBoard:'NONE',
-	  				percent:22
-	  			},
-	  			{
-	  				examType:'10th grade',
-	  				eduBoard:'NONE',
-	  				percent:0
-	  			}
-	  			],
-	  			expDetails:[],
+	  			name:this.props.userDetails.name,	  		
+	  			email:this.props.userDetails.email,
+	  			password:this.props.userDetails.password,
+	  			fatherName:this.props.userDetails.fatherName,
+	  			motherName:this.props.userDetails.motherName,
+	  			dob:this.props.userDetails.dob,
+	  			perAdd:this.props.userDetails.perAdd,
+	  			currAdd:this.props.userDetails.currAdd,
+	  			eduDetails:this.props.userDetails.eduDetails,
+	  			expDetails:this.props.userDetails.expDetails,
+	  			// name:"name",	  		
+	  			// email:"email@email.com",
+	  			// fatherName:"fatherName",
+	  			// motherName:"motherName",
+	  			// dob:maxDate,
+	  			// perAdd:{
+	  			// 	street1:"dummy",
+	  			// 	street2:"dummy",
+	  			// 	states:"dummy",
+	  			// 	city:"dummy",
+	  			// 	zip:"dummy"
+	  			// },
+	  			// currAdd:{
+	  			// 	street1:"dummy",
+	  			// 	street2:"dummy",
+	  			// 	states:"dummy",
+	  			// 	city:"dummy",
+	  			// 	zip:"dummy"
+	  			// },
+	  			// eduDetails:[{
+	  			// 	examType:'10th grade',
+	  			// 	eduBoard:'NONE',
+	  			// 	percent:22,
+	  			// 	id:0
+	  			// },
+	  			// {
+	  			// 	examType:'10th grade',
+	  			// 	eduBoard:'NONE',
+	  			// 	percent:0,
+	  			// 	id:1
+	  			// }
+	  			// ],
+	  			// expDetails:[
+	  			// {
+	  			// 	companyName:"WIPRO",
+	  			// 	yrOfExp:2,
+	  			// 	id:0
+	  			// },
+	  			// {
+	  			// 	companyName:"ZOHO",
+	  			// 	yrOfExp:1,
+	  			// 	id:1
+	  			// }
+	  			// ],
 	  			generalDetails:false,
 	  			addressDetails:false,
-	  			studyDetails:false
+	  			studyDetails:false,
+	  			workDetails:false
 
 	  		}
 
-
+	  		console.log("from the states",this.state)
 	  		this.name=this.name.bind(this);
 	  		this.fatherName=this.fatherName.bind(this);
 	  		this.education=this.education.bind(this);
@@ -101,6 +117,7 @@
 	  		this.changeGeneral=this.changeGeneral.bind(this);
 	  		this.changeAddress=this.changeAddress.bind(this);
 	  		this.changeEducation=this.changeEducation.bind(this);
+	  		this.changeExperience=this.changeExperience.bind(this);
 	  		this.currStreet1=this.currStreet1.bind(this)
 	  		this.currStreet2=this.currStreet2.bind(this)
 	  		this.currStates=this.currStates.bind(this)
@@ -112,7 +129,8 @@
 	  		this.perCity=this.perCity.bind(this)
 	  		this.perZip=this.perZip.bind(this)
 	  		this.modEduData=this.modEduData.bind(this)
-
+	  		this.modExpData=this.modExpData.bind(this)
+	  		this.submitForm=this.submitForm.bind(this)
 
 	  	}
 	  	name(event,value) { this.setState({ name:value }) }
@@ -124,70 +142,70 @@
 	  	email(event,value) { this.setState({ email:value }) }
 	  	education(value) { this.setState({ eduDetails:value }) }
 	  	experience(value) { this.setState({ expDetails:value }) }
-	  	currStreet1(value) { 
+	  	currStreet1(event,value) { 
 	  		let tempAdd=this.state.currAdd
 	  		tempAdd.street1=value
 	  		this.setState({ 
 	  			currAdd:tempAdd
 	  		})
 	  	}
-	  	currStreet2(value) { 
+	  	currStreet2(event,value) { 
 	  		let tempAdd=this.state.currAdd
 	  		tempAdd.street2=value
 	  		this.setState({ 
 	  			currAdd:tempAdd
 	  		})
 	  	}
-	  	currStates(value) { 
+	  	currStates(event,value) { 
 	  		let tempAdd=this.state.currAdd
 	  		tempAdd.states=value
 	  		this.setState({ 
 	  			currAdd:tempAdd
 	  		})
 	  	}
-	  	currCity(value) { 
+	  	currCity(event,value) { 
 	  		let tempAdd=this.state.currAdd
 	  		tempAdd.city=value
 	  		this.setState({ 
 	  			currAdd:tempAdd
 	  		})
 	  	}
-	  	currZip(value) { 
+	  	currZip(event,value) { 
 	  		let tempAdd=this.state.currAdd
 	  		tempAdd.zip=value
 	  		this.setState({ 
 	  			currAdd:tempAdd
 	  		})
 	  	}
-	  	perStreet1(value) { 
+	  	perStreet1(event,value) {
 	  		let tempAdd=this.state.perAdd
 	  		tempAdd.street1=value
 	  		this.setState({ 
 	  			perAdd:tempAdd
 	  		})
 	  	}
-	  	perStreet2(value) { 
+	  	perStreet2(event,value) {
 	  		let tempAdd=this.state.perAdd
 	  		tempAdd.street2=value
 	  		this.setState({ 
 	  			perAdd:tempAdd
 	  		})
 	  	}
-	  	perStates(value) { 
+	  	perStates(event,value) {
 	  		let tempAdd=this.state.perAdd
 	  		tempAdd.states=value
 	  		this.setState({ 
 	  			perAdd:tempAdd
 	  		})
 	  	}
-	  	perCity(value) { 
+	  	perCity(event,value) {
 	  		let tempAdd=this.state.perAdd
 	  		tempAdd.city=value
 	  		this.setState({ 
 	  			perAdd:tempAdd
 	  		})
 	  	}
-	  	perZip(value) { 
+	  	perZip(event,value) {
 	  		let tempAdd=this.state.perAdd
 	  		tempAdd.zip=value
 	  		this.setState({ 
@@ -217,6 +235,13 @@
 	  		console.log(this.state.studyDetails)
 
 	  	}
+	  	changeExperience()
+	  	{
+	  		let toggle=this.state.workDetails
+	  		this.setState({workDetails:!toggle})
+	  		console.log(this.state.workDetails)
+
+	  	}
 	  	modEduData(data,index)
 	  	{
 	  		let eduData=this.state.eduDetails
@@ -225,6 +250,19 @@
 	  			eduDetails:eduData
 	  		})
 	  		console.log(this.state)
+	  	}
+	  	modExpData(data,index)
+	  	{
+	  		let expData=this.state.expDetails
+	  		expData[index]=data
+	  		this.setState({
+	  			expDetails:expData
+	  		})
+	  		console.log(this.state)
+	  	}
+	  	submitForm()
+	  	{
+	  		this.props.addUser(this.state)
 	  	}
 	  	render(){
 	  		const that=this
@@ -286,7 +324,7 @@
 	  			minDate={this.state.minDate}
 	  			maxDate={this.state.maxDate}
 	  			defaultDate={this.state.maxDate}
-	  			onChange={this.props.dob}
+	  			onChange={this.dob}
 	  			/>
 	  			</Col>
 	  			</Row>
@@ -337,7 +375,6 @@
 	  			floatingLabelText="Street 1"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currStreet1}
-	  			id="name"
 	  			value={this.state.currAdd.street1}
 	  			/>
 	  			</Col>
@@ -351,7 +388,6 @@
 	  			floatingLabelText="Street 2"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currStreet2}
-	  			id="name"
 	  			value={this.state.currAdd.street2}
 	  			/>
 	  			</Col>
@@ -365,7 +401,6 @@
 	  			floatingLabelText="State"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currStates}
-	  			id="name"
 	  			value={this.state.currAdd.states}
 	  			/>
 	  			</Col>
@@ -379,7 +414,6 @@
 	  			floatingLabelText="City"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currCity}
-	  			id="name"
 	  			value={this.state.currAdd.city}
 	  			/>
 	  			</Col>
@@ -390,10 +424,13 @@
 	  			required
 	  			fullWidth={true}
 	  			name="currzip"
+	  			type="number"
 	  			floatingLabelText="Zip"
+	  			validations="isNumeric,minLength:6,maxLength:6"
+	  			validationError="give a valid ZIP code "
+
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.currZip}
-	  			id="name"
 	  			value={this.state.currAdd.zip}
 	  			/>
 	  			</Col>
@@ -410,7 +447,6 @@
 	  			floatingLabelText="Street 1"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perStreet1}
-	  			id="name"
 	  			value={this.state.perAdd.street1}
 	  			/>
 	  			</Col>
@@ -424,7 +460,6 @@
 	  			floatingLabelText="Street 2"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perStreet2}
-	  			id="name"
 	  			value={this.state.perAdd.street2}
 	  			/>
 	  			</Col>
@@ -438,7 +473,6 @@
 	  			floatingLabelText="State"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perStates}
-	  			id="name"
 	  			value={this.state.perAdd.states}
 	  			/>
 	  			</Col>
@@ -452,7 +486,6 @@
 	  			floatingLabelText="City"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perCity}
-	  			id="name"
 	  			value={this.state.perAdd.city}
 	  			/>
 	  			</Col>
@@ -464,9 +497,11 @@
 	  			fullWidth={true}
 	  			name="perzip"
 	  			floatingLabelText="Zip"
+	  			validations="isNumeric,minLength:6,maxLength:6"
+	  			validationError="give a valid ZIP code "
+	  			type="number"
 	  			disabled={!this.state.addressDetails}
 	  			onChange={this.perZip}
-	  			id="name"
 	  			value={this.state.perAdd.zip}
 	  			/>
 	  			</Col>
@@ -495,9 +530,37 @@
 	  				})
 	  			}
 	  			</Row>
+	  			{
+	  				this.state.expDetails.length!==0?
+	  				<div>
+	  				<Row >
+	  				<Col xl={6} lg={6} md={6}>
+	  				<h1 style={desStyle}>Experience Details</h1>
+	  				</Col>
+	  				<Col xl={6} lg={6} md={6} style={{float:'right'}}>
+	  				<IconButton style={{float:'right'}} tooltip="edit" tooltipPosition='top-center' onClick={this.changeExperience}>
+	  				<EditorModeEdit/>
+	  				</IconButton>
+	  				</Col>
+	  				</Row>
+	  				<Row style={gap}>
+	  				{
+	  					this.state.expDetails.map((eachDetail,index)=>{
+
+	  						return <ShowExp key={index}
+	  						index={index} 
+	  						modExpData={this.modExpData}
+	  						expData={eachDetail} 
+	  						workDetails={this.state.workDetails}/>
+	  					})
+	  				}
+	  				</Row>
+	  				</div>
+	  				:null
+	  			}
 	  			<Row>
 	  			<Col>
-	  			<RaisedButton label="Submit" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10}} disabled={!this.props.btnControl}/>
+	  			<RaisedButton label="Submit" type="submit" secondary={true} fullWidth={false} style={{float:'right',height:34,marginLeft:10,marginBottom:20}} disabled={!this.props.btnControl}/>
 
 	  			</Col>
 	  			</Row>

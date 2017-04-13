@@ -84,7 +84,6 @@
 	  			<FormsyText
 	  			name="password"
 	  			required
-
 	  			hintText="password"
 	  			type="password"
 	  			onChange={this.props.password}
@@ -103,7 +102,6 @@
 	  			validationError="passwords are not matching"
 	  			hintText="re-enter password"
 	  			type="password"
-	  			onChange={this.props.rePassword}
 	  			/>
 	  			</Col>	
 	  			</Row>
