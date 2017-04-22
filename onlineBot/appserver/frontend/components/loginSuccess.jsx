@@ -76,7 +76,7 @@ export default class LoginSuccess extends React.Component {
 
     }
     iconElementRight={
-      <div style={{width:385,float:'right'}}>
+      <div style={{width:390,float:'right'}}>
       <DropDownMenu value={this.state.value} style={{float:'left',width:200}}
       onChange={this.handleChange} underlineStyle={{borderColor:"#42a5f5"}} labelStyle={{color:'white'}}>
       <MenuItem value={1} primaryText="Dashboard" />

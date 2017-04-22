@@ -147,6 +147,7 @@ export default class RegisterAlgorithm extends React.Component {
   fetchData = () => {
     console.log("im going")
     console.log($('#file'))
+    let that=this;
     if(this.state.algorithm_name!=="" && this.state.dataSource!=="" && this.state.path!==""&& $('#file')[0].files.length!==0)
     {
       this.setState({
@@ -157,12 +158,9 @@ export default class RegisterAlgorithm extends React.Component {
       data.append('dataSource',this.state.dataSource)
       console.log(data)
       $.each($('#file')[0].files, function(i, file) {
-        if(file.size<=10485760)
-          data.append('file', file);
-        else
-          this.setState({
-            msg:"FILES ABOVE 10MB ARE OMITTED"
-          })
+       
+        data.append('file', file);
+        
       });
 
       $.ajax({
@@ -175,7 +173,10 @@ export default class RegisterAlgorithm extends React.Component {
         processData: false,
         type: 'POST',
         success: function(data){
-          alert(data);
+          that.setState({
+            guideMsg:data
+          })
+          
         }
       });
     }
@@ -189,9 +190,9 @@ export default class RegisterAlgorithm extends React.Component {
   render(){
     return(
 
-     <Container style={{paddingTop:40}}>
-     <Row>
-     <Col xl={9} lg={9} md={9}>
+     <div >
+     
+     <Col xl={9} lg={9} md={9} style={{paddingTop:30}}>
      <div style={styles.layout}>
      <Formsy.Form
      ref="form"
@@ -265,15 +266,15 @@ export default class RegisterAlgorithm extends React.Component {
     }
     </div>
     </Col>
-    <Col xl={3} lg={3} md={3} style={{ backgroundColor: '#6db5ef',minHeight:550 }}>
+    <Col xl={3} lg={3} md={3} style={{position:'fixed',left:'75%', backgroundColor: '#888888',minHeight:'100vh',maxHeight:'100vh',overflowY:'scroll' }}>
     <h1 style={styles.desHead}>DESCRIPTION PANE</h1>
     {
       this.state.guideMsg!==""?
       <h1 style={styles.desStyle}>{this.state.guideMsg}</h1>:null
     }
     </Col>
-    </Row>
-    </Container>
+    
+    </div>
 
     );
   }

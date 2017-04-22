@@ -22,6 +22,11 @@
 		  };
 		  const gap={
 		  	paddingBottom:10
+		  };
+		  const dataStyle={
+		  	textAlign:"center",
+		  	fontFamily: "sans-serif",
+		  	color: "#4b70ff"
 		  }
 		  export default class Login extends React.Component {
 		  	constructor(props){
@@ -37,6 +42,8 @@
 		  		this.disableButton = this.disableButton.bind(this);
 		  		this.email=this.email.bind(this);
 		  		this.password=this.password.bind(this);
+		  		this.login=this.login.bind(this);
+		  		this.jsonString=this.jsonString.bind(this);
 		  	}
 		  	email(event,value)
 		  	{
@@ -71,10 +78,11 @@
 		  					show:""+err
 		  				})
 		  			}
-		  			let data=new String(JSON.parse(res.text).msg).toString()
+		  			let data=JSON.parse(res.text).msg
 		  			console.log(data)
 		  			if(data==="INCORRECT USERNAME/PASSWORD" || data==="USER NOT FOUND")
 		  			{
+
 		  				that.setState({
 		  					show:data.toUpperCase()
 		  				})
@@ -82,8 +90,22 @@
 		  			}
 		  			else
 		  			{
+		  				let keys=Object.keys(data)
+		  				let values=Object.values(data)
+		  				let stringData=''
+		  				keys.map(function(key,i){
+		  					if(typeof values[i]!== 'string')
+		  					{
+		  						stringData+=that.jsonString(values[i])
+		  					}
+		  					else
+		  					{
+		  						stringData+=key+" : "+values[i]+","	
+		  					}
+		  				})
+		  				console.log(stringData)
 		  				that.setState({
-		  					swap:data.toUpperCase()
+		  					swap:stringData
 		  				})
 
 		  			}
@@ -91,7 +113,30 @@
 		  		});
 
 		  	}
-
+		  	jsonString(data)
+		  	{
+		  		let that=this
+		  		let keys=Object.keys(data)
+		  		let values=Object.values(data)
+		  		let stringData=''
+		  		if(typeof data!=='string')
+		  		{
+		  			if(data.length === undefined)
+		  			{
+		  				keys.map(function(key,i){
+		  					stringData+=key+" : "+values[i]+","	
+		  				})
+		  			}
+		  			else
+		  			{
+		  				
+		  				data.map(function(arrData){
+		  					stringData+=that.jsonString(arrData)
+		  				})
+		  			}
+		  		}
+		  		return stringData
+		  	}
 		  	enableButton() {
 		  		this.setState(()=>({
 		  			btnControl: true
@@ -109,7 +154,12 @@
 		  			{
 		  				this.state.swap!==""?
 		  				<div style={{marginTop:"20%"}}>
-		  				<h1 style={{textAlign:"center",fontFamily: "sans-serif",color: "#4b70ff"}}>Welcome {this.state.swap}.. !!</h1>
+		  				<h1 style={dataStyle}>Welcome...!!</h1>
+		  				{
+		  					this.state.swap.split(',').map(function(eachDetail,index){
+		  						return <h1 style={dataStyle} key={index} >{eachDetail}</h1>
+		  					})
+		  				}
 		  				<div style={{ marginLeft: "auto", marginRight: "auto", width: 100}}>
 		  				<Link to= '/' >
 		  				<RaisedButton label="Go Back" primary={true}  />
@@ -125,7 +175,7 @@
 		  				ref="form"
 		  				onValid={this.enableButton}
 		  				onInvalid={this.disableButton}
-		  				onValidSubmit={this.login.bind(this)}
+		  				onValidSubmit={this.login}
 		  				>
 
 		  				<Row style={gap}>

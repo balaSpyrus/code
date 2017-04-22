@@ -18,7 +18,7 @@ router.post('/login',function(req,res){
 		}
 		else if(data.password===details.password)
 		{
-			res.send({msg:data.name});
+			res.send({msg:data});
 			console.log(data)
 		}
 		else
