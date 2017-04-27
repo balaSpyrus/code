@@ -4,15 +4,12 @@ import shlex
 import time
 from flask import Flask
 from flaskext.mysql import MySQL
-from flask import request,jsonify,json,make_response,Response
+from flask import request,jsonify,json
 from flask_cors import CORS, cross_origin
 from werkzeug import secure_filename
+from msg import msg
+from logicset import logicset
 
-
-# code to call shell script containing spark submit
-#import subprocess
-#import shlex
-#subprocess.call(shlex.split('./test.sh param1 param2'))
 
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'jar','gif','json','py','jar','js'])
@@ -32,6 +29,10 @@ CORS(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 cursor.execute("""USE onlinebot""")
+
+app.register_blueprint(msg)
+app.register_blueprint(logicset)
+
 @app.route('/')
 def index():
   return 'home page'
@@ -93,6 +94,7 @@ def retriveAlgorithmName():
 		arr.append(row[0])
 		print arr
 	return jsonify(arr)
+
 
 @app.route('/process',methods=['GET','POST'])
 @cross_origin(origin='*')
