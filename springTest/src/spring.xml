@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="polygon"
+          class="com.test1.Poly">
+          <property name="sides" value="10"></property>
+           <property name="descriptions">
+           <list>
+           <ref bean="Des1"/>
+            <ref bean="Des2"/>
+             <ref bean="Des3"/>
+           </list>
+</property>
+          </bean>
+    
+<bean id="Des1"  class="com.test1.Description">
+          <constructor-arg type="java.lang.String" value="red"/>
+           <constructor-arg type="int" value="5"/>
+          </bean>
+          <bean id="Des2"  class="com.test1.Description">
+  <constructor-arg type="java.lang.String" value="white"/>
+         <constructor-arg type="int" value="15"/>
+                     </bean>
+          <bean id="Des3"  class="com.test1.Description">
+          <constructor-arg type="java.lang.String" value="black"/>
+           <constructor-arg type="int" value="52"/>
+          </bean>
+</beans>

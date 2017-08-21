@@ -1,0 +1,16 @@
+{
+  "name": "ba354098",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bala",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "xlsx": "^0.10.3"
+  }
+}
