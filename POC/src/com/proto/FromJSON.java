@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -18,8 +17,6 @@ import org.apache.wink.json4j.JSONArray;
 import org.apache.wink.json4j.JSONException;
 import org.apache.wink.json4j.JSONObject;
 import org.apache.wink.json4j.OrderedJSONObject;
-
-
 
 /**
  * @author BA354098
@@ -74,13 +71,13 @@ public class FromJSON
 			JSONArray dataArr = (JSONArray) obj.get("datas");
 			Iterator<Object> itd = dataArr.iterator();
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length, CellStyle.ALIGN_CENTER, CellType.STRING, "");
+			createCell(1, length, CellStyle.ALIGN_CENTER, "");
 
 			while (itd.hasNext())
 				extractDataValues(null, itd.next(), sheet, length);
 
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length, CellStyle.ALIGN_CENTER, CellType.STRING, obj.get("note").toString());
+			createCell(1, length, CellStyle.ALIGN_CENTER, obj.get("note").toString());
 		}
 		catch (Exception e)
 		{
@@ -121,7 +118,7 @@ public class FromJSON
 					String dataKey = (String) dataIt.next();
 					if (!dataKey.equals("sector"))
 					{
-						createCell(start, end, CellStyle.ALIGN_LEFT, CellType.STRING, dataKey);
+						createCell(start, end, CellStyle.ALIGN_LEFT, dataKey);
 						start = end + 1;
 						end = start + 2;
 					}
@@ -129,7 +126,7 @@ public class FromJSON
 				flag = true;
 			}
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length, CellStyle.ALIGN_LEFT, CellType.STRING, jObj.get("sector").toString());
+			createCell(1, length, CellStyle.ALIGN_LEFT, jObj.get("sector").toString());
 			dataIt = jObj.getOrder();
 			while (dataIt.hasNext())
 			{
@@ -145,10 +142,10 @@ public class FromJSON
 					for (int i = 0; i < months.length; i++)
 					{
 						tempRow = sheet.createRow((short) rows++);
-						createCell(1, 2, CellStyle.ALIGN_LEFT, CellType.STRING, months[i].toString());
-						createCell(3, 5, CellStyle.ALIGN_LEFT, CellType.STRING, currYr[i].toString());
-						createCell(6, 8, CellStyle.ALIGN_LEFT, CellType.STRING, prevYr[i].toString());
-						createCell(9, 11, CellStyle.ALIGN_LEFT, CellType.STRING, var[i].toString());
+						createCell(1, 2, CellStyle.ALIGN_LEFT, months[i].toString());
+						createCell(3, 5, CellStyle.ALIGN_LEFT, currYr[i].toString());
+						createCell(6, 8, CellStyle.ALIGN_LEFT, prevYr[i].toString());
+						createCell(9, 11, CellStyle.ALIGN_LEFT, var[i].toString());
 					}
 				}
 			}
@@ -164,7 +161,7 @@ public class FromJSON
 					String dataKey = (String) dataIt.next();
 					if (!dataKey.equals("sector"))
 					{
-						createCell(start, end, CellStyle.ALIGN_LEFT, CellType.STRING, dataKey);
+						createCell(start, end, CellStyle.ALIGN_LEFT, dataKey);
 						start = end + 1;
 						end = start + 3;
 					}
@@ -182,7 +179,7 @@ public class FromJSON
 						Iterator<String> subHead = data.getOrder();
 						while (subHead.hasNext())
 						{
-							createCell(start, end, CellStyle.ALIGN_LEFT, CellType.STRING, subHead.next().toString());
+							createCell(start, end, CellStyle.ALIGN_LEFT, subHead.next().toString());
 							start = end + 1;
 							end = start + 1;
 						}
@@ -195,36 +192,42 @@ public class FromJSON
 			while (dataIt.hasNext())
 			{
 				Object months[], cr[] = null, ct[] = null, pr[] = null, pt[] = null;
-				OrderedJSONObject temp;
-				Iterator<String> tempIt;
-				months = jObj.getJSONArray(dataIt.next()).toArray();
-				temp = (OrderedJSONObject) jObj.get(dataIt.next());
-				tempIt = temp.getOrder();
-				while (tempIt.hasNext())
-				{
-					cr = temp.getJSONArray(tempIt.next()).toArray();
-					ct = temp.getJSONArray(tempIt.next()).toArray();
-				}
-				temp = (OrderedJSONObject) jObj.get(dataIt.next());
-				tempIt = temp.getOrder();
-				while (tempIt.hasNext())
-				{
-					pr = temp.getJSONArray(tempIt.next()).toArray();
-					pt = temp.getJSONArray(tempIt.next()).toArray();
-				}
+				String dataKey = dataIt.next();
+				months = jObj.getJSONArray(dataKey).toArray();
+				dataKey = dataIt.next();
+				cr = getArrayDatas(jObj, dataKey, 1);
+				ct = getArrayDatas(jObj, dataKey, 2);
+				dataKey = dataIt.next();
+				pr = getArrayDatas(jObj, dataKey, 1);
+				pt = getArrayDatas(jObj, dataKey, 2);
 
 				for (int i = 0; i < months.length; i++)
 				{
 					tempRow = sheet.createRow((short) rows++);
-					createCell(1, 2, CellStyle.ALIGN_LEFT, CellType.STRING, months[i].toString());
-					createCell(3, 4, CellStyle.ALIGN_LEFT, CellType.STRING, cr[i].toString());
-					createCell(5, 6, CellStyle.ALIGN_LEFT, CellType.STRING, ct[i].toString());
-					createCell(7, 8, CellStyle.ALIGN_LEFT, CellType.STRING, pr[i].toString());
-					createCell(9, 10, CellStyle.ALIGN_LEFT, CellType.STRING, pt[i].toString());
+					createCell(1, 2, CellStyle.ALIGN_LEFT, months[i].toString());
+					createCell(3, 4, CellStyle.ALIGN_LEFT, cr[i].toString());
+					createCell(5, 6, CellStyle.ALIGN_LEFT, ct[i].toString());
+					createCell(7, 8, CellStyle.ALIGN_LEFT, pr[i].toString());
+					createCell(9, 10, CellStyle.ALIGN_LEFT, pt[i].toString());
 				}
 
 			}
 		}
+	}
+
+	@SuppressWarnings(
+	{ "unchecked" })
+	private static Object[] getArrayDatas(OrderedJSONObject jObj, String key, int index) throws JSONException
+	{
+		OrderedJSONObject temp;
+		Iterator<String> tempIt;
+		Object[] ret = null;
+		temp = (OrderedJSONObject) jObj.get(key);
+		tempIt = temp.getOrder();
+		if (index == 2)
+			tempIt.next();
+		ret = temp.getJSONArray(tempIt.next()).toArray();
+		return ret;
 	}
 
 	@SuppressWarnings(
@@ -246,11 +249,11 @@ public class FromJSON
 					Iterator<String> keyIt = data.getOrder();
 					tempRow = sheet.createRow((short) rows++);
 					while (keyIt.hasNext())
-						createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_LEFT, CellType.STRING, keyIt.next());
+						createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_LEFT, keyIt.next());
 					flag = true;
 				}
 				tempRow = sheet.createRow((short) rows++);
-				createCell(1, length, CellStyle.ALIGN_LEFT, CellType.STRING, dataKey);
+				createCell(1, length, CellStyle.ALIGN_LEFT, dataKey);
 				arrIt = jArr.iterator();
 				while (arrIt.hasNext())
 				{
@@ -258,8 +261,7 @@ public class FromJSON
 					Iterator<String> keyIt = data.getOrder();
 					tempRow = sheet.createRow((short) rows++);
 					while (keyIt.hasNext())
-						createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_LEFT, CellType.STRING,
-								data.get(keyIt.next()).toString());
+						createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_LEFT, data.get(keyIt.next()).toString());
 				}
 			}
 			else
@@ -267,18 +269,16 @@ public class FromJSON
 				tempRow = sheet.createRow((short) rows++);
 				if (dataKey.length() <= 5)
 				{
-					createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_RIGHT, CellType.STRING, dataKey);
-					createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_LEFT, CellType.STRING,
-							jObj.get(dataKey).toString());
+					createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_RIGHT, dataKey);
+					createCell(tempRow.getPhysicalNumberOfCells() + 1, -1, CellStyle.ALIGN_LEFT, jObj.get(dataKey).toString());
 				}
 				else
 				{
-					createCell(tempRow.getPhysicalNumberOfCells() + 1, 4, CellStyle.ALIGN_RIGHT, CellType.STRING, dataKey);
+					createCell(tempRow.getPhysicalNumberOfCells() + 1, 4, CellStyle.ALIGN_RIGHT, dataKey);
 					JSONArray jArr = jObj.getJSONArray(dataKey);
 					Iterator<Integer> arrIt = jArr.iterator();
 					while (arrIt.hasNext())
-						createCell(tempRow.getPhysicalNumberOfCells() + 4, -1, CellStyle.ALIGN_LEFT, CellType.STRING,
-								arrIt.next().toString());
+						createCell(tempRow.getPhysicalNumberOfCells() + 4, -1, CellStyle.ALIGN_LEFT, arrIt.next().toString());
 				}
 			}
 		}
@@ -288,37 +288,34 @@ public class FromJSON
 	private static int getHeaders(XSSFSheet sheet, int length) throws JSONException
 	{
 		tempRow = sheet.createRow((short) rows++);
-		createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING, obj.get("title").toString());
-		createCell(length - 2, length, CellStyle.ALIGN_LEFT, CellType.STRING, "Report Date : " + obj.get("reportDate").toString());
+		createCell(1, length - 3, CellStyle.ALIGN_CENTER, obj.get("title").toString());
+		createCell(length - 2, length, CellStyle.ALIGN_LEFT, "Report Date : " + obj.get("reportDate").toString());
 
 		if (obj.containsKey("title2") != false && obj.containsKey("customerLevel") != false)
 		{
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING, obj.get("title2").toString());
-			createCell(length - 2, length, CellStyle.ALIGN_LEFT, CellType.STRING,
-					"Report Name : " + obj.get("reportName").toString());
+			createCell(1, length - 3, CellStyle.ALIGN_CENTER, obj.get("title2").toString());
+			createCell(length - 2, length, CellStyle.ALIGN_LEFT, "Report Name : " + obj.get("reportName").toString());
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING,
-					"Customer Level : " + obj.get("customerLevel").toString());
+			createCell(1, length - 3, CellStyle.ALIGN_CENTER, "Customer Level : " + obj.get("customerLevel").toString());
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING, "Customer : " + obj.get("Customer").toString());
+			createCell(1, length - 3, CellStyle.ALIGN_CENTER, "Customer : " + obj.get("Customer").toString());
 		}
 		else
 		{
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING, "Customer : " + obj.get("Customer").toString());
-			createCell(length - 2, length, CellStyle.ALIGN_LEFT, CellType.STRING,
-					"Report Name : " + obj.get("reportName").toString());
+			createCell(1, length - 3, CellStyle.ALIGN_CENTER, "Customer : " + obj.get("Customer").toString());
+			createCell(length - 2, length, CellStyle.ALIGN_LEFT, "Report Name : " + obj.get("reportName").toString());
 		}
 
 		if (obj.containsKey("duration") != false)
 		{
 			tempRow = sheet.createRow((short) rows++);
-			createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING, "Date Range : " + obj.get("duration").toString());
+			createCell(1, length - 3, CellStyle.ALIGN_CENTER, "Date Range : " + obj.get("duration").toString());
 		}
 
 		tempRow = sheet.createRow((short) rows++);
-		createCell(1, length - 3, CellStyle.ALIGN_CENTER, CellType.STRING, getOtherDetails(obj));
+		createCell(1, length - 3, CellStyle.ALIGN_CENTER, getOtherDetails(obj));
 
 		return rows;
 
@@ -344,16 +341,13 @@ public class FromJSON
 	{ "unchecked", "unused" })
 	private static void emiteJSONData(Object obj, String key) throws JSONException
 	{
-
 		if (obj instanceof JSONArray)
 		{
-
 			JSONArray msg = (JSONArray) obj;
 			Iterator<Object> it = msg.iterator();
 			System.err.println(key + "  :  " + msg.size());
 			while (it.hasNext())
 				emiteJSONData(it.next(), null);
-
 		}
 		else if (obj instanceof JSONObject)
 		{
@@ -370,49 +364,29 @@ public class FromJSON
 			}
 		}
 		else
-		{
-
 			System.out.println(key + "  :  " + obj);
-
-			//			try
-			//			{				
-			//				System.out.print(" float   :   "+Float.parseFloat(obj.toString())+"\n");						
-			//			}
-			//			catch (Exception e)
-			//			{
-			//				System.out.print(" String :   "+obj.toString()+"\n");		
-			//			}
-		}
 	}
 
 	@SuppressWarnings("deprecation")
-	private static String createCell(int col, int colend, short halign, CellType type, String data)
+	private static String createCell(int col, int colend, short halign, String data)
 	{
 		data = data.trim().equals("-") ? "0" : data.trim();
 		Cell cell = tempRow.createCell(col);
-		if (type == CellType.FORMULA)
+		cell.setCellType(CellType.NUMERIC);
+		try
 		{
-			cell.setCellType(CellType.FORMULA);
-			cell.setCellFormula(data);
+			cell.setCellValue(Float.parseFloat(data));
 		}
-		else
+		catch (Exception e)
 		{
-			cell.setCellType(CellType.NUMERIC);
 			try
 			{
-				cell.setCellValue(Float.parseFloat(data));
+				cell.setCellValue(Integer.parseInt(data));
 			}
-			catch (Exception e)
+			catch (Exception e1)
 			{
-				try
-				{
-					cell.setCellValue(Integer.parseInt(data));
-				}
-				catch (Exception e1)
-				{
-					cell.setCellType(CellType.STRING);
-					cell.setCellValue(data);
-				}
+				cell.setCellType(CellType.STRING);
+				cell.setCellValue(data);
 			}
 		}
 		CellStyle cellStyle = wb.createCellStyle();
@@ -429,7 +403,3 @@ public class FromJSON
 		return data + "," + cell.getAddress() + "," + (tempRow.getRowNum());
 	}
 }
-
-
-
-
