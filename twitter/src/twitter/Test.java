@@ -9,15 +9,16 @@ import twitter4j.auth.AccessToken;
 /**
  * @author BALA
  *
- *refer this for the examples - https://github.com/yusuke/twitter4j/tree/master/twitter4j-examples/src/main/java/twitter4j/examples
+ *         refer this for the examples -
+ *         https://github.com/yusuke/twitter4j/tree/master/twitter4j-examples/src/main/java/twitter4j/examples
  *
- *main page - https://github.com/yusuke/twitter4j
+ *         main page - https://github.com/yusuke/twitter4j
  *
- *download twitter4j and include the twitter4j-core jar in the library
+ *         download twitter4j and include the twitter4j-core jar in the library
  *
- *replace the auth key & its secret key and consumer key and its secret key with yours
+ *         replace the auth key & its secret key and consumer key and its secret key with yours
  *
- *i have included some basic functionality of the api for further details refer the above git repo
+ *         i have included some basic functionality of the api for further details refer the above git repo
  *
  *
  */
@@ -43,51 +44,110 @@ public class Test
 
 		try
 		{
+
+
+
 			//users statues
-//			 List<Status> statuses;
-//          String user="abinayaj5";
-//          
-//          //to get the programmers name
-//          //user = twitter.verifyCredentials().getScreenName();
-//      
-//              statuses = twitter.getUserTimeline(user);
-//         
-//          System.out.println("Showing @" + user + "'s user timeline.");
-//          for (Status status : statuses) {
-//              System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-//}
-          
-//			home timeline (programmers)
-//			  User user = twitter.verifyCredentials();
-//           List<Status> statuses = twitter.getHomeTimeline();
-//           System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
-//           for (Status status : statuses) {
-//               System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-//}
-			
+//			List<Status> statuses;
+//			String user = "abinayaj5";
+//
+//			//to get the programmers name
+//			//user = twitter.verifyCredentials().getScreenName();
+//
+//			statuses = twitter.getUserTimeline(user);
+//
+//			System.out.println("Showing @" + user + "'s user timeline.");
+//			for (Status status : statuses)
+//			{
+//				System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+//			}
+
+
+
+			//			home timeline (programmers)
+//			User user = twitter.verifyCredentials();
+//			List<Status> statuses = twitter.getHomeTimeline();
+//			System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
+//			for (Status status : statuses)
+//			{
+//				System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+//			}
+
+
+
 			//get all the users with same name   
-			int page = 1;
-			ResponseList<User> users;
+//			int page = 1;
+//			ResponseList<User> users;
+//			do
+//			{
+//				users = twitter.searchUsers("spyrus", page);
+//				for (User user : users)
+//				{
+//					if (user.getStatus() != null)
+//					{
+//						System.out.println("username  :  @" + user.getScreenName() + "\nstatus    :  " + user.getStatus().getText()
+//								+ "\nlocation  :  " + user.getLocation() + "\nname      :  " + user.getName() + "\nfriends   :  "
+//								+ user.getFriendsCount() + "\nPic URL   :  " + user.getOriginalProfileImageURL() + "\n");
+//					}
+//					else
+//					{
+//						// the user is protected
+//						System.out.println("username  :  @" + user.getScreenName() + "\n");
+//					}
+//				}
+//				page++;
+//			}
+//			while (users.size() != 0 && page < 50);
+//			System.out.println("done.");
+
+
+
+			//get all the friends id of the user
+//			long cursor = -1;
+//			IDs ids;
+//			System.out.println("Listing following ids.");
+//			do
+//			{
+//
+//				ids = twitter.getFriendsIDs(twitter.getId(), cursor);
+//
+//				for (long id : ids.getIDs())
+//				{
+//					System.out.println(id);
+//				}
+//			}
+//			while ((cursor = ids.getNextCursor()) != 0);
+//			System.exit(0);
+
+
+
+
+			//get all the friends of the respective id of the users   
+			long cursor = -1;
+			PagableResponseList<User> friends;
+			System.out.println("Listing friends.");
 			do
 			{
-				users = twitter.searchUsers("abinaya", page);
-				for (User user : users)
-				{
+
+				friends = twitter.getFriendsList(twitter.getId(), cursor);
+				for (User user : friends)
 					if (user.getStatus() != null)
 					{
-						System.out.println("username  :  @" + user.getScreenName() + "\nstatus    :  " + user.getStatus().getText() + "\nlocation  :  " + user.getLocation()
-								+ "\nname      :  " + user.getName() + "\nfriends   :  " + user.getFriendsCount() + "\nPic URL   :  " + user.getOriginalProfileImageURL()+"\n");
+						System.out.println("username  :  @" + user.getScreenName() + "\nstatus    :  " + user.getStatus().getText()
+								+ "\nlocation  :  " + user.getLocation() + "\nname      :  " + user.getName() + "\nfriends   :  "
+								+ user.getFriendsCount() + "\nPic URL   :  " + user.getOriginalProfileImageURL() + "\n");
 					}
 					else
 					{
 						// the user is protected
-						System.out.println("username  :  @"  + user.getScreenName()+"\n");
+						System.out.println("username  :  @" + user.getScreenName() + "\n");
 					}
-				}
-				page++;
+
 			}
-			while (users.size() != 1 && page < 50);
-			System.out.println("done.");
+			while ((cursor = friends.getNextCursor()) != 0);
+			System.exit(0);
+
+
 
 			// to find a particular user
 //			User user = twitter.showUser("abinayaj5");
@@ -100,6 +160,9 @@ public class Test
 //				// the user is protected
 //				System.out.println("@" + user.getScreenName());
 //			}
+
+
+
 
 			// code to find the status having the string
 //			Query query = new Query("#NEETKilledAnitha");
@@ -115,6 +178,8 @@ public class Test
 //			}
 //			while ((query = result.nextQuery()) != null);
 //			System.exit(0);
+
+
 		}
 		catch (Exception e)
 		{
