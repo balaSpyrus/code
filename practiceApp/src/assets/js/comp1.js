@@ -6,11 +6,12 @@ import IconButton from 'material-ui/IconButton';
 import { AccountCircle } from 'material-ui-icons';
 import {Container, Row,Col} from 'react-grid-system';
 import axios from 'axios';
+import { CSSTransitionGroup } from 'react-transition-group'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 const cardStyle={
-  cardBody:{maxHeight:500,minHeight:500,overflowY:'auto'},
+  cardBody:{maxHeight:410,minHeight:410,overflowY:'auto'},
   cardTitleText:{paddingRight:0,maxHeight:50,minHeight:50,overflowY:'auto'},
   media:{    marginLeft: 'auto',
   marginRight: 'auto',
@@ -38,7 +39,6 @@ class MenuAppBar extends Component{
 
   toggleCard= (index)=>{
 
-    console.log('toggling card'+index)
     this.setState({cardIndex:index})
 
   }
@@ -91,7 +91,7 @@ class MenuAppBar extends Component{
       />
       <Row style={rowStyle}>
       {
-        this.state.login === true ? this.state.movies.map((movie,index)=>
+        this.state.login === false ? this.state.movies.map((movie,index)=>
 
           <Col lg={2.4} md ={4} key={index} style={{paddingBottom:20}}>
           <Card style={cardStyle.edge}>
@@ -121,8 +121,20 @@ class MenuAppBar extends Component{
             </CardMedia>
             
             <CardActions>
-            <FlatButton label="Get Torrent" />
-            <FlatButton label="Details" />
+            <Row>
+            {
+              movie.torrents.map((torrent,index)=>{
+
+                return (<Col key={index} lg={12/movie.torrents.length} sm={12/movie.torrents.length} md={12/movie.torrents.length}>
+                <a href={torrent.url} style={{textDecoration:'none',color:'grey'}}>
+                <FlatButton style={{fontSize:'12pt',minWidth:movie.torrents.length === 3 ? 60 :88}}>
+                {torrent.quality}
+                </FlatButton>
+                </a>
+                </Col>)
+                })
+            } 
+            </Row>           
             </CardActions>
             </div>
           }            
