@@ -10,6 +10,8 @@ import { CSSTransitionGroup } from 'react-transition-group'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+const serverUrl= `http://localhost:3001`
+
 const cardStyle={
   cardBody:{maxHeight:410,minHeight:410,overflowY:'auto'},
   cardTitleText:{paddingRight:0,maxHeight:50,minHeight:50,overflowY:'auto'},
@@ -46,17 +48,42 @@ class MenuAppBar extends Component{
   componentDidMount(){
 
     let self = this
-    axios.get('https://yts.am/api/v2/list_movies.json?genre=animation&sort_by=rating')
-    .then(function (response) {
-      console.log(response.data.data.movies[0])
+    axios.get(serverUrl+'/api/data').then((data)=>{
+      if(data.data.length === 0)
+      {
+        let page = 1
+        while(page<=50){
+          axios.get('https://yts.am/api/v2/list_movies.json?genre=animation&sort_by=rating&limit=50&page='+(page++))
+          .then(function (response) {
+            let movieData = response.data.data.movies
 
-      self.setState({
-        movies:response.data.data.movies === undefined ? [] : response.data.data.movies
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+            if(movieData !== undefined){
+
+              movieData.map((eachMovie,index)=>{
+                axios.post(serverUrl+'/api/setData',eachMovie)
+                .then(function (response) {
+                  console.log("successfully inserted record : " + (index+1)+" from page : "+page);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+              })              
+            } 
+            self.setState({
+              movies:movieData === undefined ? [] : movieData
+            });           
+          })
+          .catch(function (error) {
+            console.log(error);           
+          });
+        }
+      }
+      else
+        self.setState({
+          movies:data.data
+        });
+    }).catch(error=>console.log(error))
+    
   }
 
   render(){
@@ -126,13 +153,13 @@ class MenuAppBar extends Component{
               movie.torrents.map((torrent,index)=>{
 
                 return (<Col key={index} lg={12/movie.torrents.length} sm={12/movie.torrents.length} md={12/movie.torrents.length}>
-                <a href={torrent.url} style={{textDecoration:'none',color:'grey'}}>
-                <FlatButton style={{fontSize:'12pt',minWidth:movie.torrents.length === 3 ? 60 :88}}>
-                {torrent.quality}
-                </FlatButton>
-                </a>
-                </Col>)
-                })
+                  <a href={torrent.url} style={{textDecoration:'none',color:'grey'}}>
+                  <FlatButton style={{fontSize:'12pt',minWidth:movie.torrents.length === 3 ? 60 :88}}>
+                  {torrent.quality}
+                  </FlatButton>
+                  </a>
+                  </Col>)
+              })
             } 
             </Row>           
             </CardActions>

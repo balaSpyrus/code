@@ -11,7 +11,8 @@
     "dev": "./node_modules/.bin/webpack-dev-server",
     "lint": "eslint --ext .js,.jsx src",
     "lint-fix": "eslint --fix --ext .js,.jsx src",
-    "start": "./node_modules/.bin/webpack-dev-server --inline --hot --open"
+    "start": "./node_modules/.bin/webpack-dev-server --inline --hot --open",
+    "startServer": "node ../app.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "url": "https://github.com/balaSpyrus/code/issues"
   },
   "homepage": "https://github.com/balaSpyrus/code#readme",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
@@ -35,7 +37,6 @@
     "marked": "^0.3.17",
     "material-ui": "^0.20.0",
     "material-ui-icons": "^1.0.0-beta.35",
-    "mongoose": "^5.0.8",
     "nodemon": "^1.17.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -68,6 +69,7 @@
     "less": "^3.0.1",
     "less-loader": "^4.0.5",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.17.1",
     "prop-types": "^15.6.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2"
