@@ -13,12 +13,12 @@ import FlatButton from 'material-ui/FlatButton';
 const serverUrl= `http://localhost:3001`
 
 const cardStyle={
-  cardBody:{maxHeight:410,minHeight:410,overflowY:'auto'},
+  cardBody:{maxHeight:380,minHeight:380,overflowY:'auto'},
   cardTitleText:{paddingRight:0,maxHeight:50,minHeight:50,overflowY:'auto'},
   media:{    marginLeft: 'auto',
   marginRight: 'auto',
-  maxWidth:'75%',minWidth:'75%',
-  width: '75%'},
+  maxWidth:'100%',minWidth:'100%',
+  width: '100%'},
   edge:{borderRadius:20}
 }
 const rowStyle={paddingTop:30}
@@ -45,37 +45,40 @@ class MenuAppBar extends Component{
 
   }
 
+  getMovieData=(movieData,page)=>{
+    movieData.map((eachMovie,index)=>{
+      axios.post(serverUrl+'/api/setData',eachMovie)
+      .then(function (response) {
+        console.log("successfully inserted record : " + (index+1)+" from page : "+page);
+
+      })
+      .catch(function (error) {
+        console.log(error);
+        
+      });
+    })   
+  }
   componentDidMount(){
 
     let self = this
     axios.get(serverUrl+'/api/data').then((data)=>{
       if(data.data.length === 0)
       {
-        let page = 1
-        while(page<=50){
-          axios.get('https://yts.am/api/v2/list_movies.json?genre=animation&sort_by=rating&limit=50&page='+(page++))
+        let firstPage = 1,lastPage = 2
+        let wholeData=[]
+        while(firstPage<=lastPage){
+          axios.get('https://yts.am/api/v2/list_movies.json?genre=animation&sort_by=rating&limit=50&page='+(firstPage++))
           .then(function (response) {
             let movieData = response.data.data.movies
-
             if(movieData !== undefined){
-
-              movieData.map((eachMovie,index)=>{
-                axios.post(serverUrl+'/api/setData',eachMovie)
-                .then(function (response) {
-                  console.log("successfully inserted record : " + (index+1)+" from page : "+page);
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-              })              
-            } 
-            self.setState({
-              movies:movieData === undefined ? [] : movieData
-            });           
-          })
-          .catch(function (error) {
-            console.log(error);           
-          });
+              self.getMovieData(movieData,response.data.data.page_number)
+              wholeData.push(...movieData)  
+              console.log(wholeData.length)
+              self.setState({
+                movies:wholeData
+              })
+            }
+          }).catch(error=> console.log(error));
         }
       }
       else
@@ -144,7 +147,7 @@ class MenuAppBar extends Component{
             overlay={this.state.cardIndex === index ?'':<CardTitle title={'Rating : '+movie.rating} subtitleStyle={{wordWrap: 'break-word'}}
             subtitle={movie.genres.length === 0 ?'N/A':movie.genres.toString()} />}
             >
-            <img src={movie.medium_cover_image} alt="cover_image" />
+            <img src={movie.medium_cover_image} alt="cover_image" height='250'/>
             </CardMedia>
             
             <CardActions>
