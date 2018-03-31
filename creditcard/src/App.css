@@ -1,0 +1,49 @@
+.App {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  background: #efe4e4;
+}
+
+
+.container {
+  padding: 20px;
+  background: #a3d7e0;
+  }
+
+label {
+  text-transform: capitalize;
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 13pt;
+}
+.pay{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
