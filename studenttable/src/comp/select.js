@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 
 export default class SelectComp extends Component{
 
-	componentWillMount(){
-		console.log(this.props)
 
-	}
-
-	selectedOp=(e)=>{
-
-		this.props.filterData(e.target.options.selectedIndex,this.props.filterby)
+	selectedOp=(e)=>{		
+		
+		this.props.filterData(e.target.value)
 	}
 
 	render(){
@@ -17,7 +13,7 @@ export default class SelectComp extends Component{
 		
 			this.props.data.length!==0?
 			<select onChange={this.selectedOp} defaultValue="all">			
-			{this.props.data.map((sub,i)=><option key={i} value={sub}>{sub}</option>)}
+			{this.props.data.map((eachData,i)=><option key={i} value={eachData}>{eachData}</option>)}
 			<option value="all">all</option>
 			</select>
 			:null

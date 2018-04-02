@@ -1,26 +1,36 @@
+
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import {connect} from 'react-redux';
 import axios from "axios";
 import './App.css';
 import TabComp from './comp/table';
 import SelectComp from './comp/select';
+import setData from './actions/dataAction';
+import clone from 'clone';
 class App extends Component {
-
+  
   state={
     studentData:[],
     subjects:[],
     filterData:[],
     genders:[],
-    selected:-1
+    subFill:'all',
+    genFill:'all'
   }
-
+  
   componentDidMount(){
-
+    
     let self= this;
-
+    
     axios.get('/data.json').then(res=>{
-
+      
       let data = res.data;
+      
+      if(this.props.data[0] === 'defaultStateMsg')
+      this.props.setData(data)
+      
+      
       let genders = []
       let subjects =[]
       let studentData = data.map(det=>{
@@ -32,75 +42,94 @@ class App extends Component {
         genders.includes(det.sex)!==true ? genders.push(det.sex):null
         det.total = tot;
         return det
-
+        
       })
-
+      
       self.setState({
-        studentData:studentData,
+        studentData,
         filterData:studentData,
-        genders:genders,
-        subjects:subjects
+        genders,
+        subjects
       })
     })
-
+    
   }
   
-  filSub=(i)=>{
-
-    let data = this.state.studentData
-    let sub = this.state.subjects[i];
-
-    let filterData = []
-
-    data.map((data,i)=>{
-
-      let fillSub =[]
-
-      data.subjects.map(eachSub=>{
-        if(eachSub.subject === sub)
-          fillSub.push(Object.assign({},eachSub))
+  filterData=()=>{
+    
+    let data = clone(this.state.studentData);    
+    
+    if(this.state.subFill!== 'all'){
+      data.map(eachrec=>{
+        eachrec.subjects = eachrec.subjects.filter(eachSub=>{      
+          return eachSub.subject===this.state.subFill 
+        })
       })
-
-      filterData.push(Object.assign({},data))
-      filterData[i].subjects = fillSub
-
-    })
+    }
+    
+    if(this.state.genFill !== 'all'){
+      data = data.filter(eachrec=>{     
+        return eachrec.sex===this.state.genFill
+      })
+    }
+    console.log(data);
+    
     this.setState({
-      filterData:filterData,
-      selected:i
+      filterData: data
     })
+    
+    
   }
-
-  filterData=(i,filter)=>{   
-
-    if(filter === 'subjects')
-   i === this.state.subjects.length?
-      this.setState((prevState)=>({filterData:prevState.studentData,selected:-1})):this.filSub(i)
-
-
- }
-
- render() {
-  const {studentData,subjects,filterData,genders, selected} = this.state
-  return (
-    <div className="App">
-    <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <h1 className="App-title">Welcome to React</h1>
-    </header>
-    <p className="App-intro">
-    To get started, edit <code>src/App.js</code> and save to reload.
-    </p>
-    <TabComp studentData={studentData} subjects={subjects} showtotal={true}/>
-    <SelectComp filterby="subjects" data={subjects} filterData={this.filterData}/>
-    <SelectComp filterby="genders" data={genders} filterData={this.filterData}/>
-    <TabComp studentData={filterData} subjects={selected === -1 ? subjects : new Array(subjects[selected])} 
-    showtotal={false}/>
-
-    </div>
-
+  
+  filterSub=(sub)=>{
+    
+    this.setState({
+      subFill:sub
+    },function(){
+      this.filterData()   
+    })
+    
+  }
+  
+  filterGen=(gen)=>{
+    this.setState({
+      genFill:gen
+    },function(){
+    this.filterData()      
+    })
+    
+  }
+  
+  
+  
+  render() {
+    const {studentData,subjects,filterData,genders} = this.state
+    return (
+      <div className="App">
+      <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <h1 className="App-title">Welcome to React</h1>
+      </header>
+      <p className="App-intro">
+      To get started, edit <code>src/App.js</code> and save to reload.
+      </p>
+      <TabComp studentData={studentData} showtotal={true}/>
+      <SelectComp data={subjects} filterData={this.filterSub}/>
+      <SelectComp data={genders} filterData={this.filterGen}/>
+      <TabComp studentData={filterData} showtotal={false}/>
+      
+      </div>
+      
     );
-}
+  }
 }
 
-export default App;
+const mapStateToProps = (state)=>({
+  data:state.data
+})
+
+const mapActionToProps = {
+  setData
+}
+
+export default connect(mapStateToProps,mapActionToProps)(App);
