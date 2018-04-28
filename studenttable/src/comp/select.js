@@ -5,7 +5,7 @@ export default class SelectComp extends Component{
 
 	selectedOp=(e)=>{		
 		
-		this.props.filterData(e.target.value)
+		this.props.filterData(e.target.value,this.props.filterBy)
 	}
 
 	render(){

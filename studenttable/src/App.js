@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import {connect} from 'react-redux';
 import axios from "axios";
 import './App.css';
@@ -9,26 +8,28 @@ import SelectComp from './comp/select';
 import setData from './actions/dataAction';
 import clone from 'clone';
 class App extends Component {
-  
+
   state={
     studentData:[],
     subjects:[],
     filterData:[],
     genders:[],
+    shows:['highest','lowest'],
     subFill:'all',
-    genFill:'all'
+    genFill:'all',
+    show :'all'
   }
   
   componentDidMount(){
-    
+
     let self= this;
     
     axios.get('/data.json').then(res=>{
-      
+
       let data = res.data;
       
       if(this.props.data[0] === 'defaultStateMsg')
-      this.props.setData(data)
+        this.props.setData(data)
       
       
       let genders = []
@@ -56,7 +57,7 @@ class App extends Component {
   }
   
   filterData=()=>{
-    
+
     let data = clone(this.state.studentData);    
     
     if(this.state.subFill!== 'all'){
@@ -72,8 +73,26 @@ class App extends Component {
         return eachrec.sex===this.state.genFill
       })
     }
-    console.log(data);
-    
+
+    if(this.state.subFill!== 'all' && this.state.show!= 'all'){
+
+      let mark = this.state.show === 'highest' ? Number.MIN_VALUE: Number.MAX_VALUE;
+      data.map(eachrec=>{
+       eachrec.subjects.map(eachSub=>{               
+         if(this.state.show === 'highest'? eachSub.mark > mark : eachSub.mark < mark)
+          mark = eachSub.mark
+      })
+     })
+
+      data = data.filter(eachData=>{
+        eachData.subjects = eachData.subjects.filter(eachSub=>{
+          return eachSub.mark === mark
+        })
+        if(eachData.subjects && eachData.subjects.length > 0 )
+          return data
+      })
+    }
+
     this.setState({
       filterData: data
     })
@@ -81,21 +100,11 @@ class App extends Component {
     
   }
   
-  filterSub=(sub)=>{
-    
+  filterBy=(data,field)=>{
     this.setState({
-      subFill:sub
+      [field]:data
     },function(){
-      this.filterData()   
-    })
-    
-  }
-  
-  filterGen=(gen)=>{
-    this.setState({
-      genFill:gen
-    },function(){
-    this.filterData()      
+      this.filterData()      
     })
     
   }
@@ -103,24 +112,22 @@ class App extends Component {
   
   
   render() {
-    const {studentData,subjects,filterData,genders} = this.state
+    const {studentData,subjects,filterData,genders,shows} = this.state
     return (
       <div className="App">
-      <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h1 className="App-title">Welcome to React</h1>
-      </header>
-      <p className="App-intro">
-      To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
+      
       <TabComp studentData={studentData} showtotal={true}/>
-      <SelectComp data={subjects} filterData={this.filterSub}/>
-      <SelectComp data={genders} filterData={this.filterGen}/>
+      <SelectComp data={subjects} filterBy ='subFill' filterData={this.filterBy}/>
+      <SelectComp data={genders} filterBy = 'genFill' filterData={this.filterBy}/>
+      {
+        this.state.subFill !== 'all' ?
+        <SelectComp data={shows} filterBy = 'show' filterData={this.filterBy}/>:null
+      }
       <TabComp studentData={filterData} showtotal={false}/>
       
       </div>
       
-    );
+      );
   }
 }
 
