@@ -1,0 +1,88 @@
+.App {
+  text-align: center;
+}
+
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	background: #eaedf1;
+	font-family: 'Lato', sans-serif;
+}
+.header {
+	background: white;
+	padding: 30px;
+	text-align: center;
+}
+.header h1 {
+	font-weight: 300;
+	display: inline;
+}
+h2 {
+	color: #89867e;
+	text-align: center;
+	font-weight: 300;
+}
+
+
+ .container {
+	border-radius: 4px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+.container h2 {
+	padding-top: 30px;
+	font-weight: 300;
+}
+.btn {
+	margin: 9px;
+}
+a[class*="btn"] {text-decoration: none;}
+input[class*="btn"], 
+button[class*="btn"] {border: 0;}
+
+/* Here you can change the button sizes */
+.btn.large{
+  padding: 20px 40px; 
+  font-size: 22px;
+}
+.btn.small {
+  padding: 8px 18px;  
+  font-size: 14px;
+}
+.btn.mini {
+  padding: 4px 12px;  
+  font-size: 12px;
+}
+.btn.block {
+  display: block;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+/* Colors for .btn and .btn-two */
+.btn.cyan, .btn-two.cyan     {background-color: #7fccde;}
+
+
+
+/* default button style */
+.btn {
+	position: relative;
+	border: 0;
+	padding: 15px 25px;
+	display: inline-block;
+	text-align: center;
+	color: white;
+}
+.btn:active {
+	top: 4px;	
+}
+
+
+.btn.cyan {box-shadow:0px 4px 0px #73B9C9;}
+.btn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
+
