@@ -1,0 +1,88 @@
+.edit-modal-title {
+    position: relative;
+    margin-top: 0px;
+    min-height: 32px;
+    background: #3081b0;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+.edit-modal-title h2 {
+    margin: 0;
+    display: inline-block;
+}
+
+.on-edit-modal-title {
+    height: 30px;
+    width: calc(100% - 55px);
+    border-radius: 4px;
+    border: none;
+    padding: 3px 10px;
+    font-size: 20px;
+    color: #616161;
+}
+
+.edit-text-area {
+    margin: 0px;
+    width: 474px;
+    height: 100px;
+    max-width: 474px;
+    max-height: 100px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #484848;
+}
+
+.card-desc {
+    position: relative;
+    min-height: 25px;
+    max-height: 150px;
+    overflow: auto;
+    background: #bdbaba;
+    padding: 10px;
+    border-radius: 5px;
+    color: #454545;
+}
+
+.status-list {
+    width: 100%;
+    background: #bdbaba;
+    color: #474747;
+}
+
+.card-comment-container {
+    padding: 10px 0px 10px 10px;
+    font-weight: 700;
+    background: #a8d3c5;
+    border-radius: 5px;
+}
+
+.card-comment-container .comment {
+    position: relative;
+    display: block;
+    padding: 5px 10px;
+    background: #759d90;
+    margin-bottom: 10px;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 19px;
+    margin-right: 10px;
+}
+
+.add-comment {
+    width: calc(100% - 34px);
+    height: 25px;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 12px;
+    background: #737373;
+    color: white;
+    font-size: 15px;
+}
+
+.add-comment::placeholder {
+    color: white;
+}

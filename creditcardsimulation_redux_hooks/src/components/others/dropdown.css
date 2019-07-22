@@ -1,0 +1,6 @@
+.box  div:nth-child(2){
+    display: none;
+}
+.box div:nth-child(2).show-items{
+    display: initial;
+}

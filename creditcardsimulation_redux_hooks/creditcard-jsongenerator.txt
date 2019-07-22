@@ -1,0 +1,29 @@
+[
+  '{{repeat(100)}}',
+  {
+   
+    month: '{{integer(1, 12)}}',
+    year: '{{integer(2019, 2050)}}',
+    cvv: '{{integer(100, 999)}}',
+    name: '{{firstName()}} {{surname()}}',
+    number:'{{integer(3000, 9999)}}-{{integer(3000, 9999)}}-{{integer(3000, 9999)}}-{{integer(3000, 9999)}}',
+    type: function (tags) {
+      var card = [
+  "American Express",
+  "China UnionPay",
+  "Diners ClubCarte Blanche",
+  "Diners Club International",
+  "Diners Club US & Canada",
+  "Discover Card",
+  "JCB",
+  "Laser",
+  "Maestro",
+  "Dankort",
+  "MasterCard",
+  "Visa",
+  "Visa Electron"
+];
+      return card[tags.integer(0, card.length - 1)];
+    }
+  }
+]

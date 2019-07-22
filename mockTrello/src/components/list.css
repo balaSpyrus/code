@@ -1,0 +1,76 @@
+.list-section {
+  margin-top: 50px;
+  height: calc(100% - 15px);
+  width: calc(100% - 30px);
+  padding: 15px 15px 0px 15px;
+}
+
+.list-container {
+  display: flex;
+  align-items: flex-start;
+  height: calc(100% - 15px);
+}
+
+.list-container>.add-one-mini, .list-container>.add-one-element {
+  background: #dfdfdf;
+  border: 1px solid #b3b3b3;
+  padding: 10px;
+  min-width: 190px;
+  width: 190px;
+  border-radius: 7px;
+}
+
+.list-container>.add-one-element:hover {
+  background: #c6c6c6;
+}
+
+.list {
+  min-width: 215px;
+  max-width: 215px;
+  display: inline-block;
+  background: #dfdfdf;
+  border: 1px solid #b3b3b3;
+  box-shadow: 1px 1px 10px 0px #cfc8c8;
+  color: #3b3b3b;
+  border-radius: 2px;
+  margin-right: 25px;
+  margin-bottom: 15px;
+}
+
+.list:last-child {
+  margin-right: 30px;
+}
+
+.btn-container {
+  padding: 7px 12px;
+}
+
+a.add-one-element {
+  text-decoration: none;
+  color: #444242;
+}
+
+.tite-container {
+  min-height: 25px;
+  padding: 10px 12px;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+.add-one-mini {
+  padding: 7px 0px;
+  height: 60px;
+}
+
+.add-one-mini>input {
+  width: calc(100% - 5px);
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+  padding: 3px 0px 3px 5px;
+}
+
+.add-one-mini>button {
+  margin: 8px 0px 10px 10px;
+  float: right;
+}

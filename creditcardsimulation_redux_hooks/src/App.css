@@ -1,0 +1,39 @@
+/* counter */
+.counter-class{
+  background-color: #313236;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+min-height: 200px;
+}
+/* nav */
+.App .header {
+  background-color: #c4c4c4;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  box-shadow: 1px -1px 20px 0 #000000;
+}
+.header * {
+  display: inline;
+}
+
+.header ul{
+  padding: 0px;
+}
+.header li {
+  padding: 20px;
+}
+
+.header li:hover {
+  background-color: #a39e9e;
+  transition: 0.5s all;
+}
+
+.header li a {
+  color: #2c2c2c;
+  font-size: larger;
+  font-weight: 500;
+  text-decoration: none;
+}

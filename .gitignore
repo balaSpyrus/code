@@ -5,4 +5,8 @@
 /billManager/node_modules
 /billManagerAng/node_modules
 /onlineBot/node_modules
+/mockTrello/node_modules
+/creditcardsimulation_redux_hooks/node_modules
+/creditcardsimulation_redux_hooks/server/node_modules
 /onlineBot/flask-env
+

@@ -1,0 +1,162 @@
+.card-ae {
+ background-image: linear-gradient(to right, #051937, #004d7a, #008793);
+}
+.card-ae:after {
+ background-image: linear-gradient(to right, #008793, #004d7a, #051937);
+}
+
+.card-cup{
+  background-image: linear-gradient(to right, #c80000, #c7003b, #b40062,
+   #93257e, #683c8c, #4d4c97, #2d589b, #006299, #00739f, #008297, #008f84, #109969);
+}
+.card-cup:after{
+  background-image: linear-gradient(to right, #109969, #008f84, #008297,
+   #00739f, #006299, #2d589b, #4d4c97, #683c8c, #93257e, #b40062, #c7003b, #c80000);
+}
+
+.card-dnkrt{
+  background-image: linear-gradient(to right, #b00000, #bf3b2d, #cb5e53, #d17f78,
+   #d39f9c, #c19d9c, #ae9b9b, #9b9999, #787677, #565556, #373637, #1a1a1a);
+}
+.card-dnkrt:after{
+  background-image: linear-gradient(to right, #1a1a1a, #373637, #565556, #787677,
+   #9b9999, #ae9b9b, #c19d9c, #d39f9c, #d17f78, #cb5e53, #bf3b2d, #b00000);
+}
+.card-jcb{
+  background-image: linear-gradient(to right, #f9bd14, #fcac46, #f39f64,
+   #e0977b, #c4948b, #aa8b81, #91817a, #7a7775, #656360, #50514c, #3b3f3b, #272e2b);
+}
+
+.card-jcb:after{
+  background-image: linear-gradient(to right, #272e2b, #3b3f3b, #50514c, #656360, #7a7775, #91817a,
+   #aa8b81, #c4948b, #e0977b, #f39f64, #fcac46, #f9bd14);
+}
+
+.card-dci{
+  background-image: linear-gradient(to right, #0066d5, #1177dd, #2887e3, #3f97e9,
+   #56a7ed, #71aeeb, #87b5ea, #9abce8, #acbde0, #b9bfd7, #c2c2ce, #c6c6c6);
+}
+
+.card-dci:after{
+  background-image: linear-gradient(to right, #c6c6c6, #c2c2ce, #b9bfd7, #acbde0, #9abce8,
+   #87b5ea, #71aeeb, #56a7ed, #3f97e9, #2887e3, #1177dd, #0066d5);
+}
+
+.card-laser{
+  background-image: linear-gradient(to right, #9d007b, #951a95, #852eaf, #6641c9, #1452e1);
+}
+
+.card-laser:after{
+  background-image: linear-gradient(to right, #1452e1, #6641c9, #852eaf, #951a95, #9d007b);
+}
+
+.card-dcb{
+  background-image: linear-gradient(to right, #a13f00, #b24600, #c34d00, #d55400,
+   #e75b00, #f45b35, #fc5f56, #ff6873, #f07fa3, #d798c0, #c1adc7, #bcbcbc);
+}
+
+.card-dcb:after{
+  background-image: linear-gradient(to right, #bcbcbc, #c1adc7, #d798c0, #f07fa3, #ff6873,
+   #fc5f56, #f45b35, #e75b00, #d55400, #c34d00, #b24600, #a13f00);
+}
+
+.card-ve{
+  background-image: linear-gradient(to right, #0b3481, #993289, #ea4469, #ff8936, #ebd812);
+}
+
+.card-ve:after{
+  background-image: linear-gradient(to right, #ebd812, #ff8936, #ea4469, #993289, #0b3481);
+}
+
+.card-dc{
+  background-image: linear-gradient(to right, #f6ab00, #ff9b60, #dcbad9, #dcbad9, #ff9b60, #f6ab00);
+}
+.card-dc:after{
+  background-image: linear-gradient(to right, #c8c8c9, #cebed2, #ff9876, #ff9876, #cebed2, #c8c8c9);
+}
+  .card-mc{
+    background-image: linear-gradient(to right, #c62821, #d8580f, #e38100, #e6a900, #e3d10f);
+  }
+  .card-mc:after{
+    background-image: linear-gradient(to right, #c62821, #d8580f, #e38100, #e6a900, #e3d10f);
+  }
+  .card-visa{
+    background-image: linear-gradient(to right, #0aabcd, #4777a1, #4a4966);
+  }
+  .card-visa:after{
+    background-image: linear-gradient(to right, #4a4966, #4777a1, #0aabcd);
+  }
+  .card-others{
+    background-image: linear-gradient(to right, #d6d6d6, #9c9c9c, #656565, #333333, #000000);
+  }
+  .card-others:after{
+    background-image: linear-gradient(to right, #000000, #333333, #656565, #9c9c9c, #d6d6d6);
+  }
+  .card-diners-us-can{
+    background-image: linear-gradient(to right, #0f0f0f, #20202f, #2d3252, #344678,
+     #335ca1, #335ca1, #335ca1, #335ca1, #344678, #2d3252, #20202f, #0f0f0f);
+  }
+  .card-diners-us-can:after{
+    background-image: linear-gradient(to right, #007bda, #2f63ae, #354d85, #30395e, #25263a,
+     #25263a, #25263a, #25263a, #30395e, #354d85, #2f63ae, #007bda);
+  }
+
+  .card-mastro{
+    background-image: linear-gradient(to right, #cb2323, #d5246e, #b951af, #7d77d6, #1a91de);
+  }
+
+  .card-mastro:after{
+    background-image: linear-gradient(to right, #1a91de, #7d77d6, #b951af, #d5246e, #cb2323);
+  }
+
+  .card{
+    font-family: 'Inconsolata', monospace;
+    min-height: 165px;
+    max-height: 165px;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: inset 0px 1px 20px 0px #919191, 4px 3px 6px 0 #e7e7e7;
+    color: white;
+    z-index: 1;
+}
+.card:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: inset 0px 1px 20px 0px #919191, 4px 3px 6px 0 #e7e7e7;
+ transition: all 1.5s ease-in-out;
+    z-index: 2;
+ opacity: 0;
+
+}
+.card:hover:after{
+    opacity: 1;
+}
+  .card>* {
+    position: relative;
+    z-index: 3;
+  }
+
+  .card-delete{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.1s ease-in-out;
+    z-index: 4;
+  }
+
+  .card-delete:hover{
+    font-size: 25px;
+    right: 7px;
+    top: 0px;
+    color: white;
+    transform: rotate(90deg);
+    transition: all 0.3s ease-in-out;
+  }
+ 
