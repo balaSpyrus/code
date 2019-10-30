@@ -24,7 +24,7 @@
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "formsy-react": "^0.19.2",
-    "mongoose": "^4.8.3",
+    "mongoose": "^5.7.7",
     "mongoose-double": "0.0.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.31.0",
