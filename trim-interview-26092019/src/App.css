@@ -1,0 +1,47 @@
+.side-bar {
+  width: 20%;
+  height: calc(100vh - 50px);
+  background: grey;
+  float: left;
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.side-bar .menu-list>a{
+  color:white
+}
+
+.navbar {
+  background-color: #ebea85 !important;
+  max-height: 50px;
+}
+
+.main-view {
+  float: right;
+  width: 80%;
+  height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0px;
+}
+
+.create-user {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eb8b8b;
+  width: 80%;
+  height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.breadcrumb {
+  margin: 0;
+  background: greenyellow;
+  font-weight: 600;
+}

@@ -1,0 +1,37 @@
+
+
+.spinner-box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+} 
+
+/* PULSE BUBBLES */
+
+.pulse-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@keyframes pulse {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: .25;
+    transform: scale(.75);
+  }
+}
+
+
+/* classic spinner */
+
+@keyframes spinner2 {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
