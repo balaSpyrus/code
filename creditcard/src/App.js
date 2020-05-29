@@ -1,34 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import SavedCards from "./components/savedCards"
 import FlatButton from 'material-ui/FlatButton';
-import NewCard from "./components/newCard"
+import React, { Component } from 'react';
 import './App.css';
+import NewCard from "./components/newCard";
+import SavedCards from "./components/savedCards";
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
+  },
+}));
+
+const classes = useStyles();
 
 class App extends Component {
 
   state={
-    toggle:false
+    toggle:true
   }
-  showSaved=(e)=>{
+  
 
-    this.setState({
-      toggle:false
-    })
-  }
-
- getNew=(e)=>{
-
-    this.setState({
-      toggle:true
-    })
-  }
-  render() {
+ toggle=(bool)=>this.setState({ toggle:bool })
+ render() {
+  
     return (
       <div className="App">
-      <FlatButton label = "New Card" onClick={this.getNew} />
-      <FlatButton label="Show Saved Cards" primary={true} onClick={this.showSaved} />
+      <Button  className={classes.button} onClick={()=>this.toggle(true)}>New Card</Button>
+      <Button  className={classes.button}color="primary"  onClick={()=>this.toggle(false)}>Show Saved Cards</Button>
       <div style={{marginTop:10}}>
       {
         this.state.toggle?
