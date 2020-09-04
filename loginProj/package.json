@@ -26,7 +26,7 @@
     "formsy-material-ui": "^0.5.5",
     "formsy-react": "^0.19.2",
     "material-ui": "^0.17.0",
-    "mongodb": "^2.2.24",
+    "mongodb": "^3.6.1",
     "mongoose": "^5.9.16",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
