@@ -29,7 +29,7 @@
     "formsy-react": "^0.19.2",
     "jquery": "^3.2.1",
     "material-ui": "^0.17.0",
-    "mongodb": "^2.2.24",
+    "mongodb": "^3.6.1",
     "mongoose": "^4.8.3",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
