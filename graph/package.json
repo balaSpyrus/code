@@ -9,7 +9,7 @@
     "react-d3-components": "^0.9.1",
     "react-dom": "^16.2.0",
     "react-heatmap-grid": "^0.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
