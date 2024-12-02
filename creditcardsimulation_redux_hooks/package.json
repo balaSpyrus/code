@@ -9,7 +9,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "express": "^4.16.4",
-    "mongoose": "^5.5.8",
+    "mongoose": "^5.7.5",
     "react": "^16.8.4",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.8.4",
